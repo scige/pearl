@@ -1,0 +1,31 @@
+!!! 5
+%html
+  %head
+    %title= "#{yield(:title)}"
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+  %body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container
+          .nav-collapse.collapse
+            .row
+              .span8
+                %ul.nav
+                  %li{:class => (controller_name=="home"?"active":nil)}= link_to "首页", root_path
+                  %li{:class => (controller_name=="users"?"active":nil)}= link_to "用户管理", root_path
+
+              .offset3.span1
+                %ul.nav
+                  %li= link_to "登录", root_path
+
+    .container
+      = render "layouts/flash_messages"
+      = yield
+
+    .footer
+      .container
+        %p © Jilinmei 2014
+
