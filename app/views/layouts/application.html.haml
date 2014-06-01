@@ -17,9 +17,16 @@
                   %li{:class => (controller_name=="home"?"active":nil)}= link_to "首页", root_path
                   %li{:class => (controller_name=="users"?"active":nil)}= link_to "用户管理", root_path
 
-              .offset3.span1
-                %ul.nav
-                  %li= link_to "登录", root_path
+              - if user_signed_in?
+                .offset1.span3
+                  %ul.nav
+                    %li= link_to "欢迎您，#{current_user.email}", "#"
+                    %li= link_to "退出", destroy_user_session_path, :method => :delete
+              - else
+                .offset2.span2
+                  %ul.nav
+                    %li= link_to "注册", new_user_registration_path
+                    %li= link_to "登录", new_user_session_path
 
     .container
       = render "layouts/flash_messages"
