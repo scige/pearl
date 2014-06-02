@@ -1,2 +1,7 @@
-%h1 Home#index
-%p Find me in app/views/home/index.html.haml
+- if user_signed_in?
+  %h2= link_to "欢迎您，#{current_user.email}", "#"
+  - if current_user.group
+    = "您的团队: "
+    = link_to current_user.group.name, current_user.group
+  - else
+    = link_to "创建团队", new_group_path, :class=>"btn"
