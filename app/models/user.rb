@@ -19,6 +19,7 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :papers
   has_many :dailies
   belongs_to :group
 

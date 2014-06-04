@@ -4,7 +4,7 @@
   %li= link_to "计划", "#"
 %ul.nav.nav-sidebar
   %li= link_to "项目", "#"
-  %li= link_to "论文", "#"
+  %li{:class => (controller_name=="papers"?"active":nil)}= link_to "论文", papers_path
   %li= link_to "专利", "#"
 %ul.nav.nav-sidebar
   %li= link_to "成员", "#"

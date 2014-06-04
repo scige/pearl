@@ -1,9 +1,11 @@
 # == Schema Information
 #
-# Table name: dailies
+# Table name: papers
 #
 #  id         :integer          not null, primary key
-#  content    :text
+#  title      :string(255)
+#  magazine   :string(255)
+#  status     :integer
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -11,6 +13,6 @@
 
 require 'spec_helper'
 
-describe Daily do
+describe Paper do
   pending "add some examples to (or delete) #{__FILE__}"
 end
