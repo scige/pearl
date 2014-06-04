@@ -1,0 +1,18 @@
+%h1.page-header 课题组成员
+
+%table.table.table-striped
+  %tr
+    %th 姓名
+    %th 身份
+    %th 邮箱
+    %th 电话
+    %th 操作
+
+  - @users.each do |user|
+    %tr
+      %td= user.name
+      %td= user.identity
+      %td= user.email
+      %td= user.phone
+      %td
+
