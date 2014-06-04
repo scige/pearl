@@ -1,0 +1,12 @@
+= form_for @daily do |f|
+  - if @daily.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@daily.errors.count, "error")} prohibited this daily from being saved:"
+      %ul
+        - @daily.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.text_area :content, :rows=>5, :cols=>100
+  .actions
+    = f.submit 'Save'

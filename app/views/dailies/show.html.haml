@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Content:
+  = @daily.content
+%p
+  %b User:
+  = @daily.user
+
+= link_to 'Edit', edit_daily_path(@daily)
+\|
+= link_to 'Back', dailies_path

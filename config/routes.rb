@@ -1,4 +1,7 @@
 Pearl::Application.routes.draw do
+  resources :dailies
+
+
   resources :groups
 
 

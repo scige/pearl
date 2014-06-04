@@ -1,16 +1,13 @@
 %ul.nav.nav-sidebar
-  %li.active= link_to "Overview", "#"
-  %li= link_to "Reports", "#"
-  %li= link_to "Analytics", "#"
-  %li= link_to "Export", "#"
+  %li= link_to "动态", "#"
+  %li{:class => (controller_name=="dailies"?"active":nil)}= link_to "日报", dailies_path
+  %li= link_to "计划", "#"
 %ul.nav.nav-sidebar
-  %li= link_to "Nav item", "#"
-  %li= link_to "Nav item again", "#"
-  %li= link_to "One more nav", "#"
-  %li= link_to "Another nav item", "#"
-  %li= link_to "More navigation", "#"
+  %li= link_to "项目", "#"
+  %li= link_to "论文", "#"
+  %li= link_to "专利", "#"
 %ul.nav.nav-sidebar
-  %li= link_to "Nav item again", "#"
-  %li= link_to "One more nav", "#"
-  %li= link_to "Another nav item", "#"
+  %li= link_to "成员", "#"
+  %li= link_to "团队", "#"
+  %li= link_to "资源", "#"
 

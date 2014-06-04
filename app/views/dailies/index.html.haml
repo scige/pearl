@@ -1,0 +1,21 @@
+%h1 Listing dailies
+
+%table
+  %tr
+    %th Content
+    %th User
+    %th
+    %th
+    %th
+
+  - @dailies.each do |daily|
+    %tr
+      %td= daily.content
+      %td= daily.user
+      %td= link_to 'Show', daily
+      %td= link_to 'Edit', edit_daily_path(daily)
+      %td= link_to 'Destroy', daily, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= render 'form'
