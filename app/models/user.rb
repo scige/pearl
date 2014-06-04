@@ -16,6 +16,9 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  group_id               :integer
+#  name                   :string(255)
+#  identity               :integer
+#  phone                  :string(255)
 #
 
 class User < ActiveRecord::Base
