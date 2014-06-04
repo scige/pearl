@@ -1,38 +1,30 @@
 !!! 5
-%html
+%html{:lang=>"zh-cn"}
   %head
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     %title= "#{yield(:title)}"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
 
   %body
-    .navbar.navbar-inverse.navbar-fixed-top
-      .navbar-inner
-        .container
-          .nav-collapse.collapse
-            .row
-              .span8
-                %ul.nav
-                  %li{:class => (controller_name=="home"?"active":nil)}= link_to "首页", root_path
-                  %li{:class => (controller_name=="users"?"active":nil)}= link_to "用户管理", root_path
 
-              - if user_signed_in?
-                .offset1.span3
-                  %ul.nav
-                    %li= link_to "欢迎您，#{current_user.email}", "#"
-                    %li= link_to "退出", destroy_user_session_path, :method => :delete
-              - else
-                .offset2.span2
-                  %ul.nav
-                    %li= link_to "注册", new_user_registration_path
-                    %li= link_to "登录", new_user_session_path
+    .navbar.navbar-inverse.navbar-fixed-top{:role=>"navigation"}
+      .container-fluid
+        = render "layouts/navbar_top"
 
-    .container
-      = render "layouts/flash_messages"
-      = yield
+    .container-fluid
+      .row
+        .col-md-2.sidebar
+          = render "layouts/navbar_left"
+
+        .col-md-10.col-md-offset-2.main
+          = render "layouts/flash_messages"
+          = yield
 
     .footer
       .container
-        %p © Jilinmei 2014
+        %p.text-center © Jilinmei 2014
 
