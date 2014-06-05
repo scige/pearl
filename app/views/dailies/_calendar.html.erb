@@ -1,0 +1,13 @@
+<script type="text/javascript">
+  var str = <%= "'#{@query_date}'".html_safe %>;
+  var queryDate = new Date(str.replace(/-/g, "/")); 
+  $('#calendar-container').datepicker({
+    weekStart: 1,
+    language: "zh-CN",
+    todayHighlight: true
+  }).datepicker('setDate', queryDate).on('changeDate', function(e){
+    var clickDate = e.format("yyyy-mm-dd");
+    window.location.href="/dailies/someday/" + clickDate; 
+  });
+</script>
+

@@ -11,6 +11,17 @@ class DailiesController < ApplicationController
     end
   end
 
+  def someday
+    @query_date = params[:date]
+    @dailies = Daily.where("created_at like ?", "#{@query_date}%").order("id DESC")
+    @daily = Daily.new
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @dailies }
+    end
+  end
+
   # GET /dailies/1
   # GET /dailies/1.json
   def show

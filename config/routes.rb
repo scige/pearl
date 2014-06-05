@@ -5,6 +5,7 @@ Pearl::Application.routes.draw do
 
   resources :papers
 
+  match '/dailies/someday/:date' => 'dailies#someday'
   resources :dailies do
     get :group, :on => :collection
   end
