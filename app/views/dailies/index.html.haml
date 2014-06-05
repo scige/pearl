@@ -30,6 +30,10 @@
     weekStart: 1,
     language: "zh-CN",
     todayHighlight: true
+    }).on('changeDate',function(ev){
+    var startTime = ev.format("yyyy-mm-dd");
+    //var startTime = ev.date.valueOf();
+    alert(startTime);
     });
     </script>
 
