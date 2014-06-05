@@ -7,6 +7,24 @@
 
 %br
 
+.row
+  .col-md-9
+    statistics
+
+  .col-md-2
+    #calendar-container
+
+    <script type="text/javascript">
+    $('#calendar-container').datepicker({
+    weekStart: 1,
+    language: "zh-CN",
+    todayHighlight: true
+    });
+    </script>
+
+%br
+%br
+
 %table.table.table-striped
   %tr
     %th 姓名

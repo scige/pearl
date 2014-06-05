@@ -7,19 +7,34 @@
 
 %br
 
-%table.table.table-striped
-  %tr
-    %th 内容
-    %th 操作
+.row
+  .col-md-9
+    %table.table.table-striped
+      %tr
+        %th 内容
+        %th 操作
+    
+      - @dailies.each do |daily|
+        %tr
+          %td= daily.content
+          %td
+            = link_to 'Show', daily
+            = link_to 'Edit', edit_daily_path(daily)
+            = link_to 'Destroy', daily, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-  - @dailies.each do |daily|
-    %tr
-      %td= daily.content
-      %td
-        = link_to 'Show', daily
-        = link_to 'Edit', edit_daily_path(daily)
-        = link_to 'Destroy', daily, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  .col-md-2
+    #calendar-container
 
+    <script type="text/javascript">
+    $('#calendar-container').datepicker({
+    weekStart: 1,
+    language: "zh-CN",
+    todayHighlight: true
+    });
+    </script>
+
+%br
 %br
 
 = render 'form'
+

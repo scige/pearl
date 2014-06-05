@@ -55,3 +55,5 @@ gem 'settingslogic'
 
 gem 'awesome_nested_set'
 
+gem 'bootstrap-datepicker-rails'
+
