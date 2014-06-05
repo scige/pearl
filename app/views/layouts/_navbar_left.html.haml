@@ -1,5 +1,5 @@
 %ul.nav.nav-sidebar
-  %li= link_to "动态", "#"
+  %li{:class => (controller_name=="home"?"active":nil)}= link_to "动态", root_path
   %li{:class => (controller_name=="dailies"?"active":nil)}= link_to "日报", dailies_path
   %li= link_to "计划", "#"
 %ul.nav.nav-sidebar

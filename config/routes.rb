@@ -5,7 +5,9 @@ Pearl::Application.routes.draw do
 
   resources :papers
 
-  resources :dailies
+  resources :dailies do
+    get :group, :on => :collection
+  end
 
   resources :groups
 

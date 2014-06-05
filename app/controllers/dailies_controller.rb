@@ -82,4 +82,8 @@ class DailiesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def group
+    @users = User.all
+  end
 end

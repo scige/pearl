@@ -1,4 +1,4 @@
-%h1.page-header 我的日报
+%h1.page-header 课题组日报
 
 %ul.nav.nav-tabs
   %li{:class => (action_name=="index"?"active":nil)}= link_to "我的日报", dailies_path
@@ -9,17 +9,17 @@
 
 %table.table.table-striped
   %tr
-    %th 内容
+    %th 姓名
+    %th 身份
+    %th 邮箱
+    %th 电话
     %th 操作
 
-  - @dailies.each do |daily|
+  - @users.each do |user|
     %tr
-      %td= daily.content
+      %td= link_to user.name, user_path(user)
+      %td= user.identity
+      %td= user.email
+      %td= user.phone
       %td
-        = link_to 'Show', daily
-        = link_to 'Edit', edit_daily_path(daily)
-        = link_to 'Destroy', daily, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
-= render 'form'
