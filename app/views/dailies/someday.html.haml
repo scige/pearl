@@ -1,28 +1,28 @@
 %h1.page-header 我的日报
 
 %ul.nav.nav-tabs
-  %li{:class => (action_name=="someday"?"active":nil)}= link_to "我的日报", dailies_path
+  %li{:class => (action_name=="someday"?"active":nil)}= link_to "我的日报", "/dailies/someday/#{Time.now.strftime("%Y-%m-%d")}"
   %li= link_to "小组日报", "#"
-  %li{:class => (action_name=="group"?"active":nil)}= link_to "课题组日报", group_dailies_path
+  %li{:class => (action_name=="group"?"active":nil)}= link_to "课题组日报", "/dailies/group/#{Time.now.strftime("%Y-%m-%d")}"
 
 %br
 
 .row
   .col-md-8
     %br
-    %p 个人当天日报提交情况
+    %p 个人当天日报提交情况：
     .well
-      - if @dailies.size > 0
-        - if @dailies.first.date.strftime("%Y-%m-%d") < @dailies.first.created_at.strftime("%Y-%m-%d")
+      - if @cur_daily
+        - if @cur_daily.date.strftime("%Y-%m-%d") < @cur_daily.created_at.strftime("%Y-%m-%d")
           %h3
             %span.glyphicon.glyphicon-ok
             逾期提交
-            = @dailies.first.created_at.strftime("%Y年%m月%d日 %H:%M")
+            = @cur_daily.created_at.strftime("%Y年%m月%d日 %H:%M")
         - else
           %h3
             %span.glyphicon.glyphicon-ok
             按时提交
-            = @dailies.first.created_at.strftime("%Y年%m月%d日 %H:%M")
+            = @cur_daily.created_at.strftime("%Y年%m月%d日 %H:%M")
       - else
         %h3
           %span.glyphicon.glyphicon-remove
@@ -32,14 +32,17 @@
     #calendar-container
     = render "calendar"
 
-- if @dailies.size > 0
+- if @cur_daily
   %br
   %hr
-  %h3= "#{@dailies.first.created_at.strftime("%Y年%m月%d日")}日报"
-  %p= "提交时间: #{@dailies.first.created_at.strftime("%Y-%m-%d %H:%M")}"
-  %p= "提交人: #{@dailies.first.user.name}"
+  %h3= "#{@cur_daily.created_at.strftime("%Y年%m月%d日")}日报"
+  %p= "提交时间: #{@cur_daily.created_at.strftime("%Y-%m-%d %H:%M")}"
+  - if @cur_daily.user
+    %p= "提交人: #{@cur_daily.user.name}"
+  - else
+    %p= "提交人: "
   %p 日报内容:
-  %p= @dailies.first.content
+  %p= @cur_daily.content
 - else
   %br
   %br

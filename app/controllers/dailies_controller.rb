@@ -14,13 +14,39 @@ class DailiesController < ApplicationController
 
   def someday
     @query_date = params[:date]
-    @dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
-    @dailies = @dailies.select {|daily| daily.user == current_user}
+    @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
+    dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
+    dailies = dailies.select {|daily| current_user and daily.user == current_user}
+    @cur_daily = dailies.first if dailies and dailies.size > 0
     @daily = Daily.new
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @dailies }
+    end
+  end
+
+  def group
+    @query_date = params[:date]
+    @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
+    dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
+    users = User.all
+    @users_dailies = []
+    users.each do |user|
+      is_find = false
+      dailies.each do |daily|
+        if daily.user == user
+          if daily.date.strftime("%Y-%m-%d") < daily.created_at.strftime("%Y-%m-%d")
+            @users_dailies << {:user=>user, :status=>Setting.dailies.send_overdate, :daily=>daily}
+          else
+            @users_dailies << {:user=>user, :status=>Setting.dailies.send_ontime, :daily=>daily}
+          end
+          is_find = true
+          break
+        end
+      end
+      
+      @users_dailies << {:user=>user, :status=>Setting.dailies.send_not, :daily=>nil} unless is_find
     end
   end
 
@@ -94,9 +120,5 @@ class DailiesController < ApplicationController
       format.html { redirect_to dailies_url }
       format.json { head :no_content }
     end
-  end
-
-  def group
-    @users = User.all
   end
 end

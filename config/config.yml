@@ -1,0 +1,14 @@
+defaults: &defaults
+  dailies:
+    send_not: 0
+    send_ontime: 1
+    send_overdate: 2
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -1,9 +1,9 @@
 %h1.page-header 我的日报
 
 %ul.nav.nav-tabs
-  %li{:class => (action_name=="index"?"active":nil)}= link_to "我的日报", dailies_path
+  %li{:class => (action_name=="someday"?"active":nil)}= link_to "我的日报", "/dailies/someday/#{Time.now.strftime("%Y-%m-%d")}"
   %li= link_to "小组日报", "#"
-  %li{:class => (action_name=="group"?"active":nil)}= link_to "课题组日报", group_dailies_path
+  %li{:class => (action_name=="group"?"active":nil)}= link_to "课题组日报", "/dailies/group/#{Time.now.strftime("%Y-%m-%d")}"
 
 %br
 
@@ -12,6 +12,7 @@
     %table.table.table-striped
       %tr
         %th 内容
+        %th 用户
         %th 日期
         %th 创建
         %th 操作
@@ -19,6 +20,7 @@
       - @dailies.each do |daily|
         %tr
           %td= daily.content
+          %td= daily.user
           %td= daily.date
           %td= daily.created_at
           %td

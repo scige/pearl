@@ -1,43 +1,41 @@
 %h1.page-header 课题组日报
 
 %ul.nav.nav-tabs
-  %li{:class => (action_name=="index"?"active":nil)}= link_to "我的日报", dailies_path
+  %li{:class => (action_name=="someday"?"active":nil)}= link_to "我的日报", "/dailies/someday/#{Time.now.strftime("%Y-%m-%d")}"
   %li= link_to "小组日报", "#"
-  %li{:class => (action_name=="group"?"active":nil)}= link_to "课题组日报", group_dailies_path
+  %li{:class => (action_name=="group"?"active":nil)}= link_to "课题组日报", "/dailies/group/#{Time.now.strftime("%Y-%m-%d")}"
 
 %br
 
 .row
-  .col-md-9
-    statistics
+  .col-md-8
+    %br
+    %p 课题组当天日报提交情况：
+    .well
+      %h3 统计图
 
-  .col-md-2
+  .col-md-2.col-md-offset-1
     #calendar-container
+    = render "calendar_group"
 
-    <script type="text/javascript">
-    $('#calendar-container').datepicker({
-    weekStart: 1,
-    language: "zh-CN",
-    todayHighlight: true
-    });
-    </script>
-
-%br
-%br
-
+%h3 当天日报提交情况和评价
 %table.table.table-striped
-  %tr
-    %th 姓名
-    %th 身份
-    %th 邮箱
-    %th 电话
-    %th 操作
-
-  - @users.each do |user|
+  - @users_dailies.each do |item|
     %tr
-      %td= link_to user.name, user_path(user)
-      %td= user.identity
-      %td= user.email
-      %td= user.phone
-      %td
+      - if item[:daily]
+        %td= link_to item[:user].name, daily_path(item[:daily])
+      - else
+        %td= item[:user].name
+      - if item[:status] == Setting.dailies.send_not
+        %td
+          %span.glyphicon.glyphicon-remove
+      - else
+        %td
+          %span.glyphicon.glyphicon-ok
+      - if item[:status] == Setting.dailies.send_not
+        %td 未提交
+      - elsif item[:status] == Setting.dailies.send_overdate
+        %td 逾期提交
+      - else
+        %td 按时提交
 
