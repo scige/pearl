@@ -1,15 +1,10 @@
+# coding: utf-8
+
 class DailiesController < ApplicationController
-  # GET /dailies
-  # GET /dailies.json
   def index
     @dailies = Daily.all
     @daily = Daily.new
     @query_date = Time.now.strftime("%Y-%m-%d")
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @dailies }
-    end
   end
 
   def someday
@@ -19,18 +14,15 @@ class DailiesController < ApplicationController
     dailies = dailies.select {|daily| current_user and daily.user == current_user}
     @cur_daily = dailies.first if dailies and dailies.size > 0
     @daily = Daily.new
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @dailies }
-    end
   end
 
   def group
     @query_date = params[:date]
     @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
     dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
+    # TODO: 需要修改为团队内users
     users = User.all
+    group_dailies_count = 0
     @users_dailies = []
     users.each do |user|
       is_find = false
@@ -42,83 +34,61 @@ class DailiesController < ApplicationController
             @users_dailies << {:user=>user, :status=>Setting.dailies.send_ontime, :daily=>daily}
           end
           is_find = true
+          group_dailies_count += 1
           break
         end
       end
       
       @users_dailies << {:user=>user, :status=>Setting.dailies.send_not, :daily=>nil} unless is_find
     end
+
+    @send_percent = group_dailies_count * 1.0 / users.size * 100
   end
 
-  # GET /dailies/1
-  # GET /dailies/1.json
   def show
     @daily = Daily.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @daily }
-    end
   end
 
-  # GET /dailies/new
-  # GET /dailies/new.json
   def new
     @daily = Daily.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @daily }
-    end
   end
 
-  # GET /dailies/1/edit
   def edit
     @daily = Daily.find(params[:id])
+    @query_date = @daily.date.strftime("%Y-%m-%d") if @daily
   end
 
-  # POST /dailies
-  # POST /dailies.json
   def create
     @daily = Daily.new(params[:daily])
     @daily.user = current_user
 
-    respond_to do |format|
-      if @daily.save
-        format.html { redirect_to @daily, notice: 'Daily was successfully created.' }
-        format.json { render json: @daily, status: :created, location: @daily }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @daily.errors, status: :unprocessable_entity }
-      end
+    # 不允许提前写以后日期的日报
+    if @daily.date.strftime("%Y-%m-%d") > Time.now.strftime("%Y-%m-%d")
+      redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+      return
+    end
+
+    if @daily.save
+      redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+    else
+      render action: "new"
     end
   end
 
-  # PUT /dailies/1
-  # PUT /dailies/1.json
   def update
     @daily = Daily.find(params[:id])
 
-    respond_to do |format|
-      if @daily.update_attributes(params[:daily])
-        format.html { redirect_to @daily, notice: 'Daily was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @daily.errors, status: :unprocessable_entity }
-      end
+    if @daily.update_attributes(params[:daily])
+      redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+    else
+      render action: "edit"
     end
   end
 
-  # DELETE /dailies/1
-  # DELETE /dailies/1.json
   def destroy
     @daily = Daily.find(params[:id])
     @daily.destroy
 
-    respond_to do |format|
-      format.html { redirect_to dailies_url }
-      format.json { head :no_content }
-    end
+    redirect_to dailies_url
   end
 end

@@ -1,7 +1,9 @@
-%h1 Editing daily
+%h3.page-header= "#{@daily.date.strftime("%Y年%m月%d日")}日报修改中"
+%p= "提交时间: #{@daily.created_at.strftime("%Y-%m-%d %H:%M")}"
+- if @daily.user
+  %p= "提交人: #{@daily.user.name}"
+- else
+  %p= "提交人: "
 
 = render 'form'
 
-= link_to 'Show', @daily
-\|
-= link_to 'Back', dailies_path

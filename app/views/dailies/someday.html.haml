@@ -35,7 +35,7 @@
 - if @cur_daily
   %br
   %hr
-  %h3= "#{@cur_daily.created_at.strftime("%Y年%m月%d日")}日报"
+  %h3= "#{@cur_daily.date.strftime("%Y年%m月%d日")}日报"
   %p= "提交时间: #{@cur_daily.created_at.strftime("%Y-%m-%d %H:%M")}"
   - if @cur_daily.user
     %p= "提交人: #{@cur_daily.user.name}"
@@ -43,6 +43,7 @@
     %p= "提交人: "
   %p 日报内容:
   %p= @cur_daily.content
+  = link_to "修改", edit_daily_path(@cur_daily), :class=>"btn btn-primary"
 - else
   %br
   %br

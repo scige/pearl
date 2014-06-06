@@ -12,7 +12,8 @@
     %br
     %p 课题组当天日报提交情况：
     .well
-      %h3 统计图
+      %h5= "已提交: #{@send_percent}%"
+      %h5= "未提交: #{100 - @send_percent}%"
 
   .col-md-2.col-md-offset-1
     #calendar-container
