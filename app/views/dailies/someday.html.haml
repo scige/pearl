@@ -1,37 +1,47 @@
 %h1.page-header 我的日报
 
 %ul.nav.nav-tabs
-  %li{:class => (action_name=="index"?"active":nil)}= link_to "我的日报", dailies_path
+  %li{:class => (action_name=="someday"?"active":nil)}= link_to "我的日报", dailies_path
   %li= link_to "小组日报", "#"
   %li{:class => (action_name=="group"?"active":nil)}= link_to "课题组日报", group_dailies_path
 
 %br
 
 .row
-  .col-md-9
-    %table.table.table-striped
-      %tr
-        %th 内容
-        %th 日期
-        %th 创建
-        %th 操作
-    
-      - @dailies.each do |daily|
-        %tr
-          %td= daily.content
-          %td= daily.date
-          %td= daily.created_at
-          %td
-            = link_to 'Show', daily
-            = link_to 'Edit', edit_daily_path(daily)
-            = link_to 'Destroy', daily, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  .col-md-8
+    %br
+    %p 个人当天日报提交情况
+    .well
+      - if @dailies.size > 0
+        - if @dailies.first.date.strftime("%Y-%m-%d") < @dailies.first.created_at.strftime("%Y-%m-%d")
+          %h3
+            %span.glyphicon.glyphicon-ok
+            逾期提交
+            = @dailies.first.created_at.strftime("%Y年%m月%d日 %H:%M")
+        - else
+          %h3
+            %span.glyphicon.glyphicon-ok
+            按时提交
+            = @dailies.first.created_at.strftime("%Y年%m月%d日 %H:%M")
+      - else
+        %h3
+          %span.glyphicon.glyphicon-remove
+          未提交
 
-  .col-md-2
+  .col-md-2.col-md-offset-1
     #calendar-container
     = render "calendar"
 
-%br
-%br
-
-= render 'form'
+- if @dailies.size > 0
+  %br
+  %hr
+  %h3= "#{@dailies.first.created_at.strftime("%Y年%m月%d日")}日报"
+  %p= "提交时间: #{@dailies.first.created_at.strftime("%Y-%m-%d %H:%M")}"
+  %p= "提交人: #{@dailies.first.user.name}"
+  %p 日报内容:
+  %p= @dailies.first.content
+- else
+  %br
+  %br
+  = render 'form'
 
