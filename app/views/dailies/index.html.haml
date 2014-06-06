@@ -13,11 +13,13 @@
       %tr
         %th 内容
         %th 日期
+        %th 创建
         %th 操作
     
       - @dailies.each do |daily|
         %tr
           %td= daily.content
+          %td= daily.date
           %td= daily.created_at
           %td
             = link_to 'Show', daily

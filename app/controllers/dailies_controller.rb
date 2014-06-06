@@ -4,6 +4,7 @@ class DailiesController < ApplicationController
   def index
     @dailies = Daily.all
     @daily = Daily.new
+    @query_date = Time.now.strftime("%Y-%m-%d")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +14,8 @@ class DailiesController < ApplicationController
 
   def someday
     @query_date = params[:date]
-    @dailies = Daily.where("created_at like ?", "#{@query_date}%").order("id DESC")
+    @dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
+    @dailies = @dailies.select {|daily| daily.user == current_user}
     @daily = Daily.new
 
     respond_to do |format|
