@@ -9,8 +9,17 @@
 .navbar-collapse.collapse
   %ul.nav.navbar-nav.navbar-right
     - if user_signed_in?
-      %li= link_to "欢迎您，#{current_user.email}", "#"
-      %li= link_to "退出", destroy_user_session_path, :method => :delete
+      %li.dropdown
+        %a{"data-toggle"=>"dropdown", :href=>"#"}
+          = "欢迎您，#{current_user.name}"
+          %b.caret
+        %ul.dropdown-menu{:role=>"menu", "aria-labelledby"=>"label"}
+          %li{:role=>"presentation"}
+            %a{:role=>"menuitem", :tabindex=>"-1", :href=>user_path(current_user)} 个人主页
+          %li{:role=>"presentation"}
+            %a{:role=>"menuitem", :tabindex=>"-1", :href=>edit_user_registration_path(current_user)} 编辑资料
+          %li{:role=>"presentation"}
+            %a{:role=>"menuitem", :tabindex=>"-1", :href=>destroy_user_session_path, "data-method"=>"delete"} 退出登录
     - else
       %li= link_to "注册", new_user_registration_path
       %li= link_to "登录", new_user_session_path

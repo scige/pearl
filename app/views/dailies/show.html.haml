@@ -1,12 +1,8 @@
-%p#notice= notice
-
-%p
-  %b Content:
-  = @daily.content
-%p
-  %b User:
-  = @daily.user
-
-= link_to 'Edit', edit_daily_path(@daily)
-\|
-= link_to 'Back', dailies_path
+%h3.page-header= "#{@daily.date.strftime("%Y年%m月%d日")}日报"
+%p= "提交时间: #{@daily.created_at.strftime("%Y-%m-%d %H:%M")}"
+- if @daily.user
+  %p= "提交人: #{@daily.user.name}"
+- else
+  %p= "提交人: "
+%p 日报内容:
+%p= @daily.content
