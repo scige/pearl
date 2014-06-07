@@ -1,6 +1,8 @@
 # coding: utf-8
 
 class DailiesController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @dailies = Daily.all
     @daily = Daily.new
@@ -20,7 +22,7 @@ class DailiesController < ApplicationController
     @query_date = params[:date]
     @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
     dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
-    # TODO: 需要修改为团队内users
+    #TODO: 需要修改为团队内users
     users = User.all
     group_dailies_count = 0
     @users_dailies = []
@@ -62,7 +64,16 @@ class DailiesController < ApplicationController
     @daily = Daily.new(params[:daily])
     @daily.user = current_user
 
-    # 不允许提前写以后日期的日报
+    #每天只允许写一篇日报
+    dailies = current_user.dailies
+    dailies.each do |daily|
+      if daily.date.strftime("%Y-%m-%d") == @daily.date.strftime("%Y-%m-%d")
+        redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+        return
+      end
+    end
+
+    #不允许提前写以后日期的日报
     if @daily.date.strftime("%Y-%m-%d") > Time.now.strftime("%Y-%m-%d")
       redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
       return

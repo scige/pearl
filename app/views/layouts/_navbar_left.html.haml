@@ -8,6 +8,6 @@
   %li= link_to "专利", "#"
 %ul.nav.nav-sidebar
   %li{:class => (controller_name=="users"?"active":nil)}= link_to "成员", users_path
-  %li= link_to "团队", "#"
+  %li{:class => (controller_name=="groups"?"active":nil)}= link_to "团队", groups_path
   %li= link_to "资源", "#"
 
