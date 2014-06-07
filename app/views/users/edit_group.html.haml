@@ -1,0 +1,10 @@
+%h1.page-header 团队动态
+
+%h4 请先加入您的团队
+= form_for current_user, :url=>update_group_users_path, :method=>:put do |f|
+  .field
+    = f.label "团队"
+    = f.select :group_id, @groups.map{|g| [g.name, g.id]}, :selected=>nil
+  .actions
+    = f.submit 'Save'
+

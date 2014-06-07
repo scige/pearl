@@ -2,11 +2,15 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @users = current_user.group.users
+    @users = get_my_group_users
   end
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def edit_group
+    @groups = get_my_group_groups
   end
 
   def update_group

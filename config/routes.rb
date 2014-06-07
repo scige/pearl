@@ -2,6 +2,7 @@ Pearl::Application.routes.draw do
   devise_for :users
 
   resources :users, :only => [:index, :show] do
+    get :edit_group, :on => :collection
     put :update_group, :on => :collection
   end
 

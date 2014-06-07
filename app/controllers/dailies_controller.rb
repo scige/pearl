@@ -22,8 +22,7 @@ class DailiesController < ApplicationController
     @query_date = params[:date]
     @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
     dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
-    #TODO: 需要修改为团队内users
-    users = User.all
+    users = get_my_group_users
     group_dailies_count = 0
     @users_dailies = []
     users.each do |user|
