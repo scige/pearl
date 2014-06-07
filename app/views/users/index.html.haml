@@ -1,9 +1,10 @@
-%h1.page-header 课题组成员
+%h1.page-header 团队成员
 
 %table.table.table-striped
   %tr
     %th 姓名
     %th 身份
+    %th 团队
     %th 邮箱
     %th 电话
     %th 操作
@@ -12,6 +13,7 @@
     %tr
       %td= link_to user.name, user_path(user)
       %td= user.identity
+      %td= user.group.name
       %td= user.email
       %td= user.phone
       %td

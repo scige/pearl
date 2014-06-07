@@ -1,23 +1,20 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
   def index
-    @users = User.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @users }
-    end
+    @users = current_user.group.users
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     @user = User.find(params[:id])
+  end
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
+  def update_group
+    group = Group.find(params[:user][:group_id])
+    current_user.group = group
+
+    if current_user.save
+      redirect_to groups_url
+    else
+      render action: "edit"
     end
   end
 end

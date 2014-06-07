@@ -1,10 +1,35 @@
-%h1.page-header 课题组动态
+%h1.page-header 团队动态
 
 - if user_signed_in?
-  %h2= link_to "欢迎您，#{current_user.email}", "#"
+  %h4
+    您的身份:
+    - if current_user.identity == Setting.users.identity_admin
+      = Setting.users.identity_admin_string
+    - elsif current_user.identity == Setting.users.identity_teacher
+      = Setting.users.identity_teacher_string
+    - elsif current_user.identity == Setting.users.identity_student
+      = Setting.users.identity_student_string
+
   - if current_user.group
-    = "您的团队: "
-    = link_to current_user.group.name, current_user.group
+    %h4
+      您的团队:
+      = link_to current_user.group.name, current_user.group
   - else
-    = link_to "创建团队", new_group_path, :class=>"btn"
+    %h4 您还没有团队
+
+  - if current_user.group
+    - if current_user.identity == Setting.users.identity_admin
+      %h4 您可以新增团队成员帐号，或者通知团队成员自行注册，并加入您的团队。
+  - else
+    - if current_user.identity == Setting.users.identity_admin
+      %h4 请先创建您的团队
+      = link_to "创建团队", new_group_path, :class=>"btn btn-success"
+    - else
+      %h4 请先加入您的团队
+      = form_for current_user, :url=>update_group_users_path, :method=>:put do |f|
+        .field
+          = f.label "团队"
+          = f.select :group_id, @groups.map{|g| [g.name, g.id]}, :selected=>nil
+        .actions
+          = f.submit 'Save'
 

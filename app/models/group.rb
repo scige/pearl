@@ -8,10 +8,16 @@
 #  school     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  parent_id  :integer
+#  lft        :integer
+#  rgt        :integer
+#  depth      :integer
 #
 
 class Group < ActiveRecord::Base
   has_many :users
+
+  acts_as_nested_set
 
   attr_accessible :name, :school, :university
 end

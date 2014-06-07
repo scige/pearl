@@ -8,6 +8,10 @@
 #  school     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  parent_id  :integer
+#  lft        :integer
+#  rgt        :integer
+#  depth      :integer
 #
 
 require 'spec_helper'

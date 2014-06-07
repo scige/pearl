@@ -4,6 +4,14 @@ defaults: &defaults
     send_ontime: 1
     send_overdate: 2
 
+  users:
+    identity_admin: 10
+    identity_teacher: 1
+    identity_student: 2
+    identity_admin_string: 管理员
+    identity_teacher_string: 教师
+    identity_student_string: 学生
+
 development:
   <<: *defaults
 
