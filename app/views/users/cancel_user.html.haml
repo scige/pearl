@@ -1,0 +1,12 @@
+%h2.page-header 注销帐号
+
+.row
+  .col-md-4.col-md-offset-2
+    %h4 用着不爽，我想注销帐号
+    = button_to "注销", registration_path(current_user), data: { confirm: "注销帐号将无法登录，确认注销？" }, method: :delete, :class=>"btn btn-danger"
+    
+    %br
+    %br
+    
+    %h4 反悔了，再用一段时间看看
+    = link_to "反悔", :back, :class=>"btn btn-success"

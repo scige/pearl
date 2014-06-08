@@ -1,0 +1,51 @@
+%h2.page-header 编辑资料
+
+= form_for resource, :as=>resource_name, :url=>registration_path(resource_name), :html=>{:method=>:put, :class=>"form-horizontal"} do |f|
+  = devise_error_messages!
+
+  .form-group
+    = f.label :email, "* 邮箱", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.email_field :email, autofocus: true, :class=>"form-control"
+
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    %div
+      Currently waiting confirmation for:
+      = resource.unconfirmed_email
+
+  .form-group
+    = f.label :password, "新密码", :class=>"col-md-2 control-label"
+    %i (如果不想修改密码请保留空白)
+    .col-md-3
+      = f.password_field :password, autocomplete: "off", :class=>"form-control"
+
+  .form-group
+    = f.label :password_confirmation, "确认新密码", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.password_field :password_confirmation, autocomplete: "off", :class=>"form-control"
+
+  .form-group
+    = f.label :current_password, "* 当前密码", :class=>"col-md-2 control-label"
+    %i (请输入当前密码确认修改)
+    .col-md-3
+      = f.password_field :current_password, autocomplete: "off", :class=>"form-control"
+
+  .form-group
+    = f.label :name, "* 姓名", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.text_field :name, :class=>"form-control"
+
+  .form-group
+    = f.label :identity, "* 身份", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :identity, generate_all_identity, {:selected=>Setting.users.identity_student}, {:class=>"form-control"}
+
+  .form-group
+    = f.label :phone, "* 电话", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.text_field :phone, :class=>"form-control"
+
+  .form-group
+    .col-md-3.col-md-offset-2
+      = f.submit "更新", :class=>"btn btn-default"
+

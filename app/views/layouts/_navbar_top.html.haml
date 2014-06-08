@@ -4,7 +4,7 @@
     %span.icon-bar
     %span.icon-bar
     %span.icon-bar
-  = link_to "Pearl", root_path, :class=>"navbar-brand"
+  = link_to "知蛛网", root_path, :class=>"navbar-brand"
 
 .navbar-collapse.collapse
   %ul.nav.navbar-nav.navbar-right
@@ -18,6 +18,8 @@
             %a{:role=>"menuitem", :tabindex=>"-1", :href=>user_path(current_user)} 个人主页
           %li{:role=>"presentation"}
             %a{:role=>"menuitem", :tabindex=>"-1", :href=>edit_user_registration_path(current_user)} 编辑资料
+          %li{:role=>"presentation"}
+            %a{:role=>"menuitem", :tabindex=>"-1", :href=>cancel_user_users_path(current_user)} 注销帐号
           %li{:role=>"presentation"}
             %a{:role=>"menuitem", :tabindex=>"-1", :href=>destroy_user_session_path, "data-method"=>"delete"} 退出登录
     - else

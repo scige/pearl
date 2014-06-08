@@ -23,4 +23,7 @@ class UsersController < ApplicationController
       render action: "edit"
     end
   end
+
+  def cancel_user
+  end
 end
