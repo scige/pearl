@@ -1,8 +1,15 @@
 %h3.page-header= "#{@daily.date.strftime("%Y年%m月%d日")}日报"
-%p= "提交时间: #{@daily.created_at.strftime("%Y-%m-%d %H:%M")}"
-- if @daily.user
-  %p= "提交人: #{@daily.user.name}"
-- else
-  %p= "提交人: "
-%p 日报内容:
-%p= @daily.content
+
+= form_for @daily, :html=>{:class=>"form-horizontal"} do |f|
+  .form-group
+    = f.label :name, "提交时间: ", :class=>"col-md-1 control-label"
+    .col-md-2
+      %p.form-control-static= @daily.created_at.strftime("%Y-%m-%d %H:%M")
+    = f.label :name, "提交人: ", :class=>"col-md-1 control-label"
+    .col-md-1
+      %p.form-control-static= @daily.user.name
+
+  .form-group
+    .col-md-8
+      = f.text_area :content, :value=>@daily.content, :rows=>10, :class=>"form-control"
+
