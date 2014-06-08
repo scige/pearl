@@ -1,4 +1,24 @@
-%h1.page-header 团队组成
+%h1.page-header 我的团队
+
+= form_for @root_group, :html=>{:class=>"form-horizontal"} do |f|
+  .form-group
+    = f.label :name, "名称: ", :class=>"col-md-1 control-label"
+    .col-md-3
+      %p.form-control-static= @root_group.name
+
+  .form-group
+    = f.label :university, "学校: ", :class=>"col-md-1 control-label"
+    .col-md-3
+      %p.form-control-static= @root_group.university
+
+  .form-group
+    = f.label :school, "院系: ", :class=>"col-md-1 control-label"
+    .col-md-3
+      %p.form-control-static= @root_group.school
+
+  .form-group
+    .col-md-3.col-md-offset-1
+      = link_to '编辑', edit_group_path(@root_group), :class=>"btn btn-default"
 
 %table.table.table-striped
   %tr
@@ -17,7 +37,5 @@
         = link_to 'Edit', edit_group_path(group)
         = link_to 'Destroy', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
-= link_to '创建小组', new_group_path
+= link_to '创建小组', new_group_path, :class=>"btn btn-default"
 

@@ -4,13 +4,11 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    @root_group = nil
     @groups = []
     if current_user.group
-      if current_user.group.root?
-        @groups = current_user.group.children
-      else
-        @groups = current_user.group.root.children
-      end
+      @root_group = get_root_group(current_user)
+      @groups = @root_group.children
     end
   end
 
@@ -32,18 +30,13 @@ class GroupsController < ApplicationController
     #有团队就创建小组, 没有团队就创建团队
     if @group.save
       if current_user.group
-        root_group = nil
-        if current_user.group.root?
-          root_group = current_user.group
-        else
-          root_group = current_user.group.root
-        end
+        root_group = get_root_group(current_user)
         @group.move_to_child_of(root_group)
       else
         current_user.group = @group
         current_user.save
       end
-      redirect_to @group
+      redirect_to groups_url
     else
       render action: "new"
     end
@@ -53,7 +46,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     if @group.update_attributes(params[:group])
-      redirect_to @group, notice: 'Group was successfully updated.'
+      redirect_to groups_url
     else
       render action: "edit"
     end
@@ -64,5 +57,16 @@ class GroupsController < ApplicationController
     @group.destroy
 
     redirect_to groups_url
+  end
+
+  private
+
+  def get_root_group(user)
+    #前提是user.group不是nil
+    if user.group.root?
+      user.group
+    else
+      user.group.root
+    end
   end
 end
