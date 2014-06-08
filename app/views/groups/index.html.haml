@@ -20,6 +20,20 @@
     .col-md-3.col-md-offset-1
       = link_to '编辑', edit_group_path(@root_group), :class=>"btn btn-default"
 
+%br
+%br
+
+%h2.page-header 团队组织架构
+
+.row
+  .col-md-10.col-md-offset-2
+    #group-chart
+
+%br
+%br
+
+%h2.page-header 小组详细信息
+
 %table.table.table-striped
   %tr
     %th 名词
@@ -33,15 +47,11 @@
       %td= group.university
       %td= group.school
       %td
-        = link_to 'Show', group
-        = link_to 'Edit', edit_group_path(group)
-        = link_to 'Destroy', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        = link_to '查看', group
+        = link_to '编辑', edit_group_path(group)
+        = link_to '删除', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 = link_to '创建小组', new_group_path, :class=>"btn btn-default"
-
-.row
-  .col-md-10.col-md-offset-2
-    #group-chart
 
 %ul#org{:style=>"display:none"}
   %li
