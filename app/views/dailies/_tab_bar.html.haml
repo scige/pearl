@@ -1,0 +1,5 @@
+%ul.nav.nav-tabs
+  %li{:class => (action_name=="my"?"active":nil)}= link_to "我的日报", "/dailies/my/#{Time.now.strftime("%Y-%m-%d")}"
+  %li{:class => (action_name=="subgroup"?"active":nil)}= link_to "小组日报", "/dailies/subgroup/#{Time.now.strftime("%Y-%m-%d")}"
+  %li{:class => (action_name=="group"?"active":nil)}= link_to "团队日报", "/dailies/group/#{Time.now.strftime("%Y-%m-%d")}"
+

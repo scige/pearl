@@ -1,6 +1,6 @@
 %ul.nav.nav-sidebar
   %li{:class => (controller_name=="home"?"active":nil)}= link_to "动态", root_path
-  %li{:class => (controller_name=="dailies"?"active":nil)}= link_to "日报", "/dailies/someday/#{Time.now.strftime("%Y-%m-%d")}"
+  %li{:class => (controller_name=="dailies"?"active":nil)}= link_to "日报", "/dailies/my/#{Time.now.strftime("%Y-%m-%d")}"
   %li= link_to "计划", "#"
 %ul.nav.nav-sidebar
   %li= link_to "项目", "#"

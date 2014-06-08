@@ -9,8 +9,9 @@ Pearl::Application.routes.draw do
 
   resources :papers
 
-  match '/dailies/someday(/:date)' => 'dailies#someday'
+  match '/dailies/my(/:date)' => 'dailies#my'
   match '/dailies/group(/:date)' => 'dailies#group'
+  match '/dailies/subgroup(/:date)' => 'dailies#subgroup'
   resources :dailies, :only => [:index, :show, :edit, :create, :update]
 
   resources :groups

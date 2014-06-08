@@ -9,7 +9,7 @@ class DailiesController < ApplicationController
     @query_date = Time.now.strftime("%Y-%m-%d")
   end
 
-  def someday
+  def my
     @query_date = params[:date]
     @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
     dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
@@ -19,31 +19,11 @@ class DailiesController < ApplicationController
   end
 
   def group
-    @query_date = params[:date]
-    @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
-    dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
-    users = get_my_group_users
-    group_dailies_count = 0
-    @users_dailies = []
-    users.each do |user|
-      is_find = false
-      dailies.each do |daily|
-        if daily.user == user
-          if daily.date.strftime("%Y-%m-%d") < daily.created_at.strftime("%Y-%m-%d")
-            @users_dailies << {:user=>user, :status=>Setting.dailies.send_overdate, :daily=>daily}
-          else
-            @users_dailies << {:user=>user, :status=>Setting.dailies.send_ontime, :daily=>daily}
-          end
-          is_find = true
-          group_dailies_count += 1
-          break
-        end
-      end
-      
-      @users_dailies << {:user=>user, :status=>Setting.dailies.send_not, :daily=>nil} unless is_find
-    end
+    group_implement(false)
+  end
 
-    @send_percent = group_dailies_count * 1.0 / users.size * 100
+  def subgroup
+    group_implement(true)
   end
 
   def show
@@ -67,19 +47,19 @@ class DailiesController < ApplicationController
     dailies = current_user.dailies
     dailies.each do |daily|
       if daily.date.strftime("%Y-%m-%d") == @daily.date.strftime("%Y-%m-%d")
-        redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+        redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
         return
       end
     end
 
     #不允许提前写以后日期的日报
     if @daily.date.strftime("%Y-%m-%d") > Time.now.strftime("%Y-%m-%d")
-      redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+      redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
       return
     end
 
     if @daily.save
-      redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+      redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     else
       render action: "new"
     end
@@ -89,7 +69,7 @@ class DailiesController < ApplicationController
     @daily = Daily.find(params[:id])
 
     if @daily.update_attributes(params[:daily])
-      redirect_to "/dailies/someday/#{@daily.date.strftime("%Y-%m-%d")}"
+      redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     else
       render action: "edit"
     end
@@ -100,5 +80,42 @@ class DailiesController < ApplicationController
     @daily.destroy
 
     redirect_to dailies_url
+  end
+
+  private
+
+  def group_implement(is_subgroup)
+    @query_date = params[:date]
+    @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
+    dailies = Daily.where("date like ?", "#{@query_date}%").order("id DESC")
+    users = []
+    if is_subgroup
+      unless current_user.group.root?
+        users = current_user.group.users
+      end
+    else
+      users = get_my_group_users
+    end
+    group_dailies_count = 0
+    @users_dailies = []
+    users.each do |user|
+      is_find = false
+      dailies.each do |daily|
+        if daily.user == user
+          if daily.date.strftime("%Y-%m-%d") < daily.created_at.strftime("%Y-%m-%d")
+            @users_dailies << {:user=>user, :status=>Setting.dailies.send_overdate, :daily=>daily}
+          else
+            @users_dailies << {:user=>user, :status=>Setting.dailies.send_ontime, :daily=>daily}
+          end
+          is_find = true
+          group_dailies_count += 1
+          break
+        end
+      end
+      
+      @users_dailies << {:user=>user, :status=>Setting.dailies.send_not, :daily=>nil} unless is_find
+    end
+
+    @send_percent = group_dailies_count * 1.0 / users.size * 100
   end
 end

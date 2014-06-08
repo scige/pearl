@@ -7,14 +7,14 @@
 .row
   .col-md-8
     %br
-    %p 团队当天日报提交情况：
+    %p 小组当天日报提交情况：
     .well
       %h5= "已提交: #{@send_percent}%"
       %h5= "未提交: #{100 - @send_percent}%"
 
   .col-md-2.col-md-offset-1
     #calendar-container
-    = render "calendar_group"
+    = render "calendar_subgroup"
 
 %h3 当天日报提交情况和评价
 %table.table.table-striped
