@@ -12,7 +12,13 @@
   - @users.each do |user|
     %tr
       %td= link_to user.name, user_path(user)
-      %td= user.identity
+      %td
+        - if user.identity == Setting.users.identity_admin
+          = Setting.users.identity_admin_string
+        - elsif user.identity == Setting.users.identity_teacher
+          = Setting.users.identity_teacher_string
+        - elsif user.identity == Setting.users.identity_student
+          = Setting.users.identity_student_string
       %td= user.group.name
       %td= user.email
       %td= user.phone
