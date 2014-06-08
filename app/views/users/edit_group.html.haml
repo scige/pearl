@@ -1,10 +1,12 @@
-%h1.page-header 团队动态
+%h1.page-header 修改小组
 
-%h4 请先加入您的团队
-= form_for current_user, :url=>update_group_users_path, :method=>:put do |f|
-  .field
-    = f.label "团队"
-    = f.select :group_id, @groups.map{|g| [g.name, g.id]}, :selected=>nil
-  .actions
-    = f.submit 'Save'
+= form_for current_user, :url=>update_group_users_path, :method=>:put, :html=>{:class=>"form-horizontal"} do |f|
+  .form-group
+    = f.label "选择小组", :class=>"col-md-4 control-label"
+    .col-md-3
+      = f.select :group_id, @groups.map{|g| [g.name, g.id]}, {:selected=>nil}, {:class=>"form-control"}
+
+  .form-group
+    .col-md-3.col-md-offset-4
+      = f.submit '确定', :class=>"btn btn-default"
 
