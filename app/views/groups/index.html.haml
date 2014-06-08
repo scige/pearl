@@ -27,7 +27,7 @@
     %th 院系
     %th 操作
 
-  - @groups.each do |group|
+  - @child_groups.each do |group|
     %tr
       %td= group.name
       %td= group.university
@@ -39,3 +39,21 @@
 
 = link_to '创建小组', new_group_path, :class=>"btn btn-default"
 
+.row
+  .col-md-10.col-md-offset-2
+    #group-chart
+
+%ul#org{:style=>"display:none"}
+  %li
+    = @root_group.name
+    %ul
+      - @child_groups.each do |group|
+        %li= group.name
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+$("#org").jOrgChart({
+chartElement : '#group-chart'
+});
+});
+</script>

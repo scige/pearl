@@ -5,10 +5,10 @@ class GroupsController < ApplicationController
 
   def index
     @root_group = nil
-    @groups = []
+    @child_groups = []
     if current_user.group
       @root_group = get_root_group(current_user)
-      @groups = @root_group.children
+      @child_groups = @root_group.children
     end
   end
 
