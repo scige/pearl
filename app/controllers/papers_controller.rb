@@ -1,86 +1,55 @@
 class PapersController < ApplicationController
   before_filter :authenticate_user!
 
-  # GET /papers
-  # GET /papers.json
   def index
     @papers = Paper.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @papers }
-    end
   end
 
-  # GET /papers/1
-  # GET /papers/1.json
   def show
     @paper = Paper.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @paper }
-    end
+    @users = get_my_group_users
   end
 
-  # GET /papers/new
-  # GET /papers/new.json
   def new
     @paper = Paper.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @paper }
-    end
+    @users = get_my_group_users
   end
 
-  # GET /papers/1/edit
   def edit
     @paper = Paper.find(params[:id])
+    @users = get_my_group_users
   end
 
-  # POST /papers
-  # POST /papers.json
   def create
+    user_id = params[:paper].delete(:user_id)
+    user = User.find(user_id)
     @paper = Paper.new(params[:paper])
-    @paper.user = current_user
+    @paper.user = user
 
-    respond_to do |format|
-      if @paper.save
-        format.html { redirect_to @paper, notice: 'Paper was successfully created.' }
-        format.json { render json: @paper, status: :created, location: @paper }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @paper.errors, status: :unprocessable_entity }
-      end
+    if @paper.save
+      redirect_to @paper
+    else
+      render action: "new"
     end
   end
 
-  # PUT /papers/1
-  # PUT /papers/1.json
   def update
+    user_id = params[:paper].delete(:user_id)
+    user = User.find(user_id)
     @paper = Paper.find(params[:id])
+    @paper.user = user
 
-    respond_to do |format|
-      if @paper.update_attributes(params[:paper])
-        format.html { redirect_to @paper, notice: 'Paper was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @paper.errors, status: :unprocessable_entity }
-      end
+    if @paper.update_attributes(params[:paper])
+      redirect_to @paper
+    else
+      render action: "edit"
     end
   end
 
-  # DELETE /papers/1
-  # DELETE /papers/1.json
   def destroy
     @paper = Paper.find(params[:id])
     @paper.destroy
 
-    respond_to do |format|
-      format.html { redirect_to papers_url }
-      format.json { head :no_content }
-    end
+    redirect_to papers_url
   end
 end

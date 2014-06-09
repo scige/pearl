@@ -2,17 +2,17 @@
 
 = form_for @group, :html=>{:class=>"form-horizontal"} do |f|
   .form-group
-    = f.label :name, "名称: ", :class=>"col-md-1 control-label"
+    = f.label "名称: ", :class=>"col-md-1 control-label"
     .col-md-3
       %p.form-control-static= @group.name
 
   .form-group
-    = f.label :university, "学校: ", :class=>"col-md-1 control-label"
+    = f.label "学校: ", :class=>"col-md-1 control-label"
     .col-md-3
       %p.form-control-static= @group.university
 
   .form-group
-    = f.label :school, "院系: ", :class=>"col-md-1 control-label"
+    = f.label "院系: ", :class=>"col-md-1 control-label"
     .col-md-3
       %p.form-control-static= @group.school
 

@@ -1,24 +1,28 @@
-%h1.page-header 论文列表
+%h1.page-header 论文管理
 
 %table.table.table-striped
   %tr
     %th 题目
+    %th 作者
     %th 期刊
     %th 状态
-    %th 负责人
     %th 操作
 
   - @papers.each do |paper|
     %tr
       %td= paper.title
-      %td= paper.magazine
-      %td= paper.status
       %td= paper.user && paper.user.name
+      %td= paper.magazine
       %td
-        = link_to 'Show', paper
-        = link_to 'Edit', edit_paper_path(paper)
-        = link_to 'Destroy', paper, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - if paper.status == Setting.papers.status_submit
+          = Setting.papers.status_submit_string
+        - elsif paper.status == Setting.papers.status_accept
+          = Setting.papers.status_accept_string
+        - elsif paper.status == Setting.papers.status_publish
+          = Setting.papers.status_publish_string
+      %td
+        = link_to '查看', paper
+        = link_to '编辑', edit_paper_path(paper)
+        = link_to '删除', paper, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
-= link_to 'New Paper', new_paper_path
+= link_to '新建论文', new_paper_path, :class=>"btn btn-default"

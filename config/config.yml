@@ -12,6 +12,14 @@ defaults: &defaults
     identity_teacher_string: 教师
     identity_student_string: 学生
 
+  papers:
+    status_submit: 1
+    status_accept: 2
+    status_publish: 3
+    status_submit_string: 已投稿
+    status_accept_string: 已录用
+    status_publish_string: 已发表
+
 development:
   <<: *defaults
 

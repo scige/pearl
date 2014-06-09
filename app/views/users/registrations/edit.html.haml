@@ -38,7 +38,7 @@
   .form-group
     = f.label :identity, "* 身份", :class=>"col-md-2 control-label"
     .col-md-3
-      = f.select :identity, generate_all_identity, {:selected=>Setting.users.identity_student}, {:class=>"form-control"}
+      = f.select :identity, generate_all_identity, {:selected=>resource.identity}, {:class=>"form-control"}
 
   .form-group
     = f.label :phone, "* 电话", :class=>"col-md-2 control-label"

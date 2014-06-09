@@ -2,11 +2,11 @@
 
 = form_for current_user, :url=>update_group_users_path, :method=>:put, :html=>{:class=>"form-horizontal"} do |f|
   .form-group
-    = f.label "选择小组", :class=>"col-md-4 control-label"
+    = f.label "选择小组", :class=>"col-md-2 control-label"
     .col-md-3
-      = f.select :group_id, @groups.map{|g| [g.name, g.id]}, {:selected=>nil}, {:class=>"form-control"}
+      = f.select :group_id, @groups.map{|g| [g.name, g.id]}, {:selected=>current_user.group.id}, {:class=>"form-control"}
 
   .form-group
-    .col-md-3.col-md-offset-4
+    .col-md-3.col-md-offset-2
       = f.submit '确定', :class=>"btn btn-default"
 

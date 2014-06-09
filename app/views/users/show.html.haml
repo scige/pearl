@@ -2,22 +2,27 @@
 
 = form_for @user, :html=>{:class=>"form-horizontal"} do |f|
   .form-group
-    = f.label :name, "姓名", :class=>"col-md-2 control-label"
+    = f.label "姓名: ", :class=>"col-md-2 control-label"
     .col-md-3
-      = f.text_field :name, :disabled=>"disabled", :class=>"form-control"
+      %p.form-control-static= @user.name
 
   .form-group
-    = f.label :identity, "身份", :class=>"col-md-2 control-label"
+    = f.label "电话: ", :class=>"col-md-2 control-label"
     .col-md-3
-      = f.select :identity, generate_all_identity, {:selected=>Setting.users.identity_student}, {:disabled=>"disabled", :class=>"form-control"}
+      %p.form-control-static= @user.phone
 
   .form-group
-    = f.label :email, "邮箱", :class=>"col-md-2 control-label"
+    = f.label "邮箱: ", :class=>"col-md-2 control-label"
     .col-md-3
-      = f.text_field :email, autofocus: true, :disabled=>"disabled", :class=>"form-control"
+      %p.form-control-static= @user.email
 
   .form-group
-    = f.label :phone, "电话", :class=>"col-md-2 control-label"
+    = f.label "团队: ", :class=>"col-md-2 control-label"
     .col-md-3
-      = f.text_field :phone, :disabled=>"disabled", :class=>"form-control"
+      %p.form-control-static= @user.group.name
+
+  .form-group
+    = f.label "身份: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :identity, generate_all_identity, {:selected=>@user.identity}, {:disabled=>"disabled", :class=>"form-control"}
 

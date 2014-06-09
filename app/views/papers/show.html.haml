@@ -1,18 +1,23 @@
-%p#notice= notice
+%h1.page-header 查看论文
 
-%p
-  %b Title:
-  = @paper.title
-%p
-  %b Magazine:
-  = @paper.magazine
-%p
-  %b Status:
-  = @paper.status
-%p
-  %b User:
-  = @paper.user
+= form_for @paper, :html=>{:class=>"form-horizontal"} do |f|
+  .form-group
+    = f.label "题目: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @paper.title
 
-= link_to 'Edit', edit_paper_path(@paper)
-\|
-= link_to 'Back', papers_path
+  .form-group
+    = f.label "作者: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @paper.user ? @paper.user.name : nil
+
+  .form-group
+    = f.label "期刊: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @paper.magazine
+
+  .form-group
+    = f.label "状态: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :status, generate_all_paper_status, {:selected=>@paper.magazine}, {:disabled=>"disabled", :class=>"form-control"}
+
