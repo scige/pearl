@@ -11,6 +11,8 @@ Pearl::Application.routes.draw do
 
   resources :papers
 
+  resources :patents
+
   match '/dailies/my(/:date)' => 'dailies#my'
   match '/dailies/group(/:date)' => 'dailies#group'
   match '/dailies/subgroup(/:date)' => 'dailies#subgroup'

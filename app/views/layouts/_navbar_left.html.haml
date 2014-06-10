@@ -5,7 +5,7 @@
 %ul.nav.nav-sidebar
   %li{:class => (controller_name=="projects"?"active":nil)}= link_to "项目", projects_path
   %li{:class => (controller_name=="papers"?"active":nil)}= link_to "论文", papers_path
-  %li= link_to "专利", "#"
+  %li{:class => (controller_name=="patents"?"active":nil)}= link_to "专利", patents_path
 %ul.nav.nav-sidebar
   %li{:class => (controller_name=="users"?"active":nil)}= link_to "成员", users_path
   %li{:class => (controller_name=="groups"?"active":nil)}= link_to "团队", groups_path

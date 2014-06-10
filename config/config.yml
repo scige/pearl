@@ -40,6 +40,20 @@ defaults: &defaults
     status_acceptance_string: 验收中
     status_finish_string: 已结束
 
+  patents:
+    status_plan: 1
+    status_writing: 2
+    status_processing: 3
+    status_publication: 4
+    status_reality: 5
+    status_authorization: 6
+    status_plan_string: 有想法
+    status_writing_string: 撰写中
+    status_processing_string: 受理中
+    status_publication_string: 公开中
+    status_reality_string: 实审中
+    status_authorization_string: 已授权
+
 development:
   <<: *defaults
 

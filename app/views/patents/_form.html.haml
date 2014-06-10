@@ -1,0 +1,32 @@
+= form_for @patent, :html=>{:class=>"form-horizontal"} do |f|
+  - if @patent.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@patent.errors.count, "error")} prohibited this patent from being saved:"
+      %ul
+        - @patent.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label "名称", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.text_field :title, :class=>"form-control"
+
+  .form-group
+    = f.label "负责人", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :user_id, @users.map{|u| [u.name, u.id]}, {:selected=>(@patent.user ? @patent.user.id : nil)}, {:class=>"form-control"}
+
+  .form-group
+    = f.label "代理公司", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.text_field :agency, :class=>"form-control"
+
+  .form-group
+    = f.label "状态", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :status, generate_all_patent_status, {:selected=>@patent.status}, {:class=>"form-control"}
+
+  .form-group
+    .col-md-3.col-md-offset-2
+      = f.submit '保存', :class=>"btn btn-default"
+

@@ -1,0 +1,23 @@
+%h1.page-header 查看专利
+
+= form_for @patent, :html=>{:class=>"form-horizontal"} do |f|
+  .form-group
+    = f.label "名词: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @patent.title
+
+  .form-group
+    = f.label "负责人: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @patent.user ? @patent.user.name : nil
+
+  .form-group
+    = f.label "代理公司: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @patent.agency
+
+  .form-group
+    = f.label "状态: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :status, generate_all_patent_status, {:selected=>@patent.status}, {:disabled=>"disabled", :class=>"form-control"}
+

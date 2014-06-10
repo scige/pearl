@@ -1,0 +1,36 @@
+- provide(:title, "专利管理")
+
+%h1.page-header 专利管理
+
+%table.table.table-striped
+  %tr
+    %th 名称
+    %th 负责人
+    %th 代理公司
+    %th 状态
+    %th 操作
+
+  - @patents.each do |patent|
+    %tr
+      %td= patent.title
+      %td= patent.user && patent.user.name
+      %td= patent.agency
+      %td
+        - if patent.status == Setting.patents.status_plan
+          = Setting.patents.status_plan_string
+        - elsif patent.status == Setting.patents.status_writing
+          = Setting.patents.status_writing_string
+        - elsif patent.status == Setting.patents.status_processing
+          = Setting.patents.status_processing_string
+        - elsif patent.status == Setting.patents.status_publication
+          = Setting.patents.status_publication_string
+        - elsif patent.status == Setting.patents.status_reality
+          = Setting.patents.status_reality_string
+        - elsif patent.status == Setting.patents.status_authorization
+          = Setting.patents.status_authorization_string
+      %td
+        = link_to '查看', patent
+        = link_to '编辑', edit_patent_path(patent)
+        = link_to '删除', patent, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+= link_to '新建专利', new_patent_path, :class=>"btn btn-default"
