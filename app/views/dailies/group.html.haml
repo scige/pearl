@@ -1,3 +1,5 @@
+- provide(:title, "团队日报")
+
 %h1.page-header 团队日报
 
 = render "tab_bar"
@@ -10,7 +12,7 @@
     %p 团队当天日报提交情况：
     .well
       %h5= "已提交: #{@send_percent}%"
-      %h5= "未提交: #{100 - @send_percent}%"
+      %h5= "未提交: #{@send_percent == 0 ? 0 : 100 - @send_percent}%"
 
   .col-md-2.col-md-offset-1
     #calendar-container

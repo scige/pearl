@@ -116,6 +116,7 @@ class DailiesController < ApplicationController
       @users_dailies << {:user=>user, :status=>Setting.dailies.send_not, :daily=>nil} unless is_find
     end
 
-    @send_percent = group_dailies_count * 1.0 / users.size * 100
+    @send_percent = 0
+    @send_percent = (group_dailies_count * 1.0 / users.size * 100 ).to_i if users.size > 0
   end
 end
