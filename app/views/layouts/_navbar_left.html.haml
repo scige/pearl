@@ -3,7 +3,7 @@
   %li{:class => (controller_name=="dailies"?"active":nil)}= link_to "日报", "/dailies/my/#{Time.now.strftime("%Y-%m-%d")}"
   %li= link_to "计划", "#"
 %ul.nav.nav-sidebar
-  %li= link_to "项目", "#"
+  %li{:class => (controller_name=="projects"?"active":nil)}= link_to "项目", projects_path
   %li{:class => (controller_name=="papers"?"active":nil)}= link_to "论文", papers_path
   %li= link_to "专利", "#"
 %ul.nav.nav-sidebar

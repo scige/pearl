@@ -19,5 +19,5 @@
   .form-group
     = f.label "状态: ", :class=>"col-md-2 control-label"
     .col-md-3
-      = f.select :status, generate_all_paper_status, {:selected=>@paper.magazine}, {:disabled=>"disabled", :class=>"form-control"}
+      = f.select :status, generate_all_paper_status, {:selected=>@paper.status}, {:disabled=>"disabled", :class=>"form-control"}
 

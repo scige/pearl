@@ -20,6 +20,26 @@ defaults: &defaults
     status_accept_string: 已录用
     status_publish_string: 已发表
 
+  projects:
+    category_vertical: 1
+    category_horizontal: 2
+    category_vertical_string: 纵向
+    category_horizontal_string: 横向
+    status_plan: 1
+    status_writing: 2
+    status_applying: 3
+    status_reviewing: 4
+    status_proceeding: 5
+    status_acceptance: 6
+    status_finish: 7
+    status_plan_string: 规划中
+    status_writing_string: 撰写中
+    status_applying_string: 申报中
+    status_reviewing_string: 评审中
+    status_proceeding_string: 进行中
+    status_acceptance_string: 验收中
+    status_finish_string: 已结束
+
 development:
   <<: *defaults
 

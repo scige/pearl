@@ -1,0 +1,38 @@
+%h1.page-header 查看项目
+
+= form_for @project, :html=>{:class=>"form-horizontal"} do |f|
+  .form-group
+    = f.label "名称: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @project.title
+
+  .form-group
+    = f.label "负责人: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @project.user ? @project.user.name : nil
+
+  .form-group
+    = f.label "类别", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :category, generate_all_project_categories, {:selected=>@project.category}, {:disabled=>"disabled", :class=>"form-control"}
+
+  .form-group
+    = f.label "来源", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @project.source
+
+  .form-group
+    = f.label "开始时间", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @project.begin_at.strftime("%Y年%m月%d日")
+
+  .form-group
+    = f.label "结束时间", :class=>"col-md-2 control-label"
+    .col-md-3
+      %p.form-control-static= @project.end_at.strftime("%Y年%m月%d日")
+
+  .form-group
+    = f.label "状态: ", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :status, generate_all_project_status, {:selected=>@project.status}, {:disabled=>"disabled", :class=>"form-control"}
+

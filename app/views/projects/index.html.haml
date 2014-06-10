@@ -1,0 +1,49 @@
+- provide(:title, "项目管理")
+
+%h1.page-header 项目管理
+
+%table.table.table-striped
+  %tr
+    %th 名称
+    %th 负责人
+    %th 类别
+    %th 来源
+    %th 开始时间
+    %th 结束时间
+    %th 状态
+    %th 操作
+
+  - @projects.each do |project|
+    %tr
+      %td= project.title
+      %td= project.user && project.user.name
+      %td
+        - if project.category == Setting.projects.category_vertical
+          = Setting.projects.category_vertical_string
+        - elsif project.category == Setting.projects.category_horizontal
+          = Setting.projects.category_horizontal_string
+      %td= project.source
+      %td= project.begin_at.strftime("%Y年%m月%d日")
+      %td= project.end_at.strftime("%Y年%m月%d日")
+      %td
+        - if project.status == Setting.projects.status_plan
+          = Setting.projects.status_plan_string
+        - elsif project.status == Setting.projects.status_writing
+          = Setting.projects.status_writing_string
+        - elsif project.status == Setting.projects.status_applying
+          = Setting.projects.status_applying_string
+        - elsif project.status == Setting.projects.status_reviewing
+          = Setting.projects.status_reviewing_string
+        - elsif project.status == Setting.projects.status_proceeding
+          = Setting.projects.status_proceeding_string
+        - elsif project.status == Setting.projects.status_acceptance
+          = Setting.projects.status_acceptance_string
+        - elsif project.status == Setting.projects.status_finish
+          = Setting.projects.status_finish_string
+      %td
+        = link_to '查看', project
+        = link_to '编辑', edit_project_path(project)
+        = link_to '删除', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+= link_to '新建论文', new_project_path, :class=>"btn btn-default"
+
