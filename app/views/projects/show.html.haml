@@ -24,12 +24,12 @@
   .form-group
     = f.label "开始时间", :class=>"col-md-2 control-label"
     .col-md-3
-      %p.form-control-static= @project.begin_at.strftime("%Y年%m月%d日")
+      %p.form-control-static= @project.begin_at and @project.begin_at.strftime("%Y年%m月%d日")
 
   .form-group
     = f.label "结束时间", :class=>"col-md-2 control-label"
     .col-md-3
-      %p.form-control-static= @project.end_at.strftime("%Y年%m月%d日")
+      %p.form-control-static= @project.end_at and @project.end_at.strftime("%Y年%m月%d日")
 
   .form-group
     = f.label "状态: ", :class=>"col-md-2 control-label"

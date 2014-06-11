@@ -23,8 +23,8 @@
         - elsif project.category == Setting.projects.category_horizontal
           = Setting.projects.category_horizontal_string
       %td= project.source
-      %td= project.begin_at.strftime("%Y年%m月%d日")
-      %td= project.end_at.strftime("%Y年%m月%d日")
+      %td= project.begin_at and project.begin_at.strftime("%Y年%m月%d日")
+      %td= project.end_at and project.end_at.strftime("%Y年%m月%d日")
       %td
         - if project.status == Setting.projects.status_plan
           = Setting.projects.status_plan_string
