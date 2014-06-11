@@ -108,6 +108,8 @@ class DailiesController < ApplicationController
     else
       users = get_my_group_users
     end
+    #只显示学生的日报
+    users = users.select {|u| u.identity == Setting.users.identity_student}
     group_dailies_count = 0
     @users_dailies = []
     users.each do |user|
