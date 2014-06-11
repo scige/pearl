@@ -23,7 +23,7 @@
   - @users_dailies.each do |item|
     %tr
       - if item[:daily]
-        %td= link_to item[:user].name, daily_path(item[:daily])
+        %td= link_to item[:user].name, daily_path(item[:daily]), :target=>"_blank"
       - else
         %td= item[:user].name
       - if item[:status] == Setting.dailies.send_not

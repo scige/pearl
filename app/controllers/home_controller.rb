@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class HomeController < ApplicationController
   def index
     @groups = Group.roots
@@ -10,6 +12,7 @@ class HomeController < ApplicationController
     @projects = []
     @papers = []
     @patents = []
+    @dailies = []
     @histories.each do |history|
       if history.category == Setting.histories.category_project
         object = Project.find(history.detail_id)
@@ -20,6 +23,9 @@ class HomeController < ApplicationController
       elsif history.category == Setting.histories.category_patent
         object = Patent.find(history.detail_id)
         @patents << {:title=>object.title, :operator=>history.user, :action=>get_action_string(history.action), :object=>object}
+      elsif history.category == Setting.histories.category_daily
+        object = Daily.find(history.detail_id)
+        @dailies << {:title=>"#{object.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_action_string(history.action), :object=>object}
       end
     end
   end

@@ -45,11 +45,10 @@
 
   - @child_groups.each do |group|
     %tr
-      %td= group.name
+      %td= link_to group.name, group, :target=>"_blank"
       %td= group.university
       %td= group.school
       %td
-        = link_to '查看', group
         = link_to '编辑', edit_group_path(group)
         = link_to '删除', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

@@ -31,25 +31,34 @@
             .panel-heading
               %h3.panel-title 项目动态
             .panel-body
-              = link_to item[:operator].name, item[:operator] if item[:operator]
+              = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
               = item[:action]
-              = link_to item[:title], item[:object]
+              = link_to item[:title], item[:object], :target=>"_blank"
 
         - @papers.each do |item|
           .panel.panel-success
             .panel-heading
               %h3.panel-title 论文动态
             .panel-body
-              = link_to item[:operator].name, item[:operator] if item[:operator]
+              = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
               = item[:action]
-              = link_to item[:title], item[:object]
+              = link_to item[:title], item[:object], :target=>"_blank"
           
         - @patents.each do |item|
-          .panel.panel-danger
+          .panel.panel-warning
             .panel-heading
               %h3.panel-title 专利动态
             .panel-body
-              = link_to item[:operator].name, item[:operator] if item[:operator]
+              = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
               = item[:action]
-              = link_to item[:title], item[:object]
+              = link_to item[:title], item[:object], :target=>"_blank"
+
+        - @dailies.each do |item|
+          .panel.panel-danger
+            .panel-heading
+              %h3.panel-title 日报动态
+            .panel-body
+              = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
+              = item[:action]
+              = link_to item[:title], item[:object], :target=>"_blank"
 

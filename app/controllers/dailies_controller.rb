@@ -59,6 +59,10 @@ class DailiesController < ApplicationController
     end
 
     if @daily.save
+      history = History.new(:category=>Setting.histories.category_daily, :detail_id=>@daily.id, :action=>Setting.histories.action_create)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     else
       render action: "new"
@@ -69,6 +73,10 @@ class DailiesController < ApplicationController
     @daily = Daily.find(params[:id])
 
     if @daily.update_attributes(params[:daily])
+      history = History.new(:category=>Setting.histories.category_daily, :detail_id=>@daily.id, :action=>Setting.histories.action_update)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     else
       render action: "edit"
@@ -77,6 +85,10 @@ class DailiesController < ApplicationController
 
   def destroy
     @daily = Daily.find(params[:id])
+    history = History.new(:category=>Setting.histories.category_daily, :detail_id=>@daily.id, :action=>Setting.histories.action_destroy)
+    history.user = current_user    #当前正在操作的user，而不是负责人
+    history.group = get_root_group(current_user)
+    history.save
     @daily.destroy
 
     redirect_to dailies_url

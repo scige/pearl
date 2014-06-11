@@ -12,7 +12,7 @@
 
   - @patents.each do |patent|
     %tr
-      %td= patent.title
+      %td= link_to patent.title, patent, :target=>"_blank"
       %td= patent.user && patent.user.name
       %td= patent.agency
       %td
@@ -29,7 +29,6 @@
         - elsif patent.status == Setting.patents.status_authorization
           = Setting.patents.status_authorization_string
       %td
-        = link_to '查看', patent
         = link_to '编辑', edit_patent_path(patent)
         = link_to '删除', patent, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

@@ -12,7 +12,7 @@
 
   - @papers.each do |paper|
     %tr
-      %td= paper.title
+      %td= link_to paper.title, paper, :target=>"_blank"
       %td= paper.user && paper.user.name
       %td= paper.magazine
       %td
@@ -23,7 +23,6 @@
         - elsif paper.status == Setting.papers.status_publish
           = Setting.papers.status_publish_string
       %td
-        = link_to '查看', paper
         = link_to '编辑', edit_paper_path(paper)
         = link_to '删除', paper, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

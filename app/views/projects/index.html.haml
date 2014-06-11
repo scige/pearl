@@ -15,7 +15,7 @@
 
   - @projects.each do |project|
     %tr
-      %td= project.title
+      %td= link_to project.title, project, :target=>"_blank"
       %td= project.user && project.user.name
       %td
         - if project.category == Setting.projects.category_vertical
@@ -41,7 +41,6 @@
         - elsif project.status == Setting.projects.status_finish
           = Setting.projects.status_finish_string
       %td
-        = link_to '查看', project
         = link_to '编辑', edit_project_path(project)
         = link_to '删除', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
