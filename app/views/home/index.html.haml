@@ -3,40 +3,53 @@
 %h1.page-header 团队动态
 
 - if user_signed_in?
-  %h4
-    您的身份:
+  - if !current_user.group
     - if current_user.identity == Setting.users.identity_admin
-      = Setting.users.identity_admin_string
-    - elsif current_user.identity == Setting.users.identity_teacher
-      = Setting.users.identity_teacher_string
-    - elsif current_user.identity == Setting.users.identity_student
-      = Setting.users.identity_student_string
-
-  - if current_user.group
-    %h4
-      您的团队:
-      = link_to current_user.group.name, current_user.group
-  - else
-    %h4 您还没有团队
-
-  - if current_user.group
-    - if current_user.identity == Setting.users.identity_admin
-      %hr
-      %h4 您可以新增团队成员帐号，或者通知团队成员自行注册，并加入您的团队。
-  - else
-    - if current_user.identity == Setting.users.identity_admin
-      %h4 请先创建您的团队
-      = link_to "创建团队", new_group_path, :class=>"btn btn-success"
+      %p 您还没有团队，请先创建您的团队
+      .well
+        .row
+          .col-md-2.col-md-offset-4
+            = link_to "创建团队", new_group_path, :class=>"btn btn-success btn-lg"
     - else
-      %hr
-      %h4 请先加入您的团队
-      = form_for current_user, :url=>update_group_users_path, :method=>:put, :html=>{:class=>"form-horizontal"} do |f|
-        .form-group
-          = f.label "选择团队", :class=>"col-md-4 control-label"
-          .col-md-3
-            = f.select :group_id, @groups.map{|g| [g.name, g.id]}, {:selected=>nil}, {:class=>"form-control"}
+      %p 您还没有团队，请先加入您的团队
+      .well
+        = form_for current_user, :url=>update_group_users_path, :method=>:put, :html=>{:class=>"form-horizontal"} do |f|
+          .form-group
+            = f.label "选择团队", :class=>"col-md-4 control-label"
+            .col-md-3
+              = f.select :group_id, @groups.map{|g| [g.name, g.id]}, {:selected=>nil}, {:class=>"form-control"}
 
-        .form-group
-          .col-md-3.col-md-offset-4
-            = f.submit '确定', :class=>"btn btn-default"
+          .form-group
+            .col-md-3.col-md-offset-4
+              = f.submit '确定', :class=>"btn btn-default"
+
+  - if current_user.group
+    .row
+      .col-md-9
+        - @projects.each do |item|
+          .panel.panel-info
+            .panel-heading
+              %h3.panel-title 项目动态
+            .panel-body
+              = link_to item[:operator].name, item[:operator] if item[:operator]
+              = item[:action]
+              = link_to item[:title], item[:object]
+
+        - @papers.each do |item|
+          .panel.panel-success
+            .panel-heading
+              %h3.panel-title 论文动态
+            .panel-body
+              = link_to item[:operator].name, item[:operator] if item[:operator]
+              = item[:action]
+              = link_to item[:title], item[:object]
+          
+        - @patents.each do |item|
+          .panel.panel-danger
+            .panel-heading
+              %h3.panel-title 专利动态
+            .panel-body
+              = link_to item[:operator].name, item[:operator] if item[:operator]
+              = item[:action]
+              = link_to item[:title], item[:object]
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140610065116) do
+ActiveRecord::Schema.define(:version => 20140611014558) do
 
   create_table "dailies", :force => true do |t|
     t.text     "content"
@@ -34,6 +34,18 @@ ActiveRecord::Schema.define(:version => 20140610065116) do
     t.integer  "rgt"
     t.integer  "depth"
   end
+
+  create_table "histories", :force => true do |t|
+    t.integer  "category"
+    t.integer  "detail_id"
+    t.integer  "action"
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "histories", ["user_id"], :name => "index_histories_on_user_id"
 
   create_table "papers", :force => true do |t|
     t.string   "title"

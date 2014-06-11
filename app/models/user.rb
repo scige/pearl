@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :patents
   has_many :projects
   has_many :dailies
+  has_many :histories
   belongs_to :group
 
   # Include default devise modules. Others available are:

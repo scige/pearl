@@ -24,4 +24,13 @@ class ApplicationController < ActionController::Base
 
     return users
   end
+
+  def get_root_group(user)
+    #前提是user.group不是nil
+    if user.group.root?
+      user.group
+    else
+      user.group.root
+    end
+  end
 end

@@ -2,7 +2,16 @@ class ProjectsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @projects = Project.all
+    @projects = []
+    if current_user.group
+      root_group = get_root_group(current_user)
+      all_projects = Project.all
+      all_projects.each do |project|
+        if get_root_group(project.user) == root_group
+          @projects << project
+        end
+      end
+    end
   end
 
   def show
@@ -27,6 +36,10 @@ class ProjectsController < ApplicationController
     @project.user = user
 
     if @project.save
+      history = History.new(:category=>Setting.histories.category_project, :detail_id=>@project.id, :action=>Setting.histories.action_create)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to @project
     else
       render action: "new"
@@ -40,6 +53,10 @@ class ProjectsController < ApplicationController
     @project.user = user
 
     if @project.update_attributes(params[:project])
+      history = History.new(:category=>Setting.histories.category_project, :detail_id=>@project.id, :action=>Setting.histories.action_update)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to @project
     else
       render action: "edit"
@@ -48,6 +65,10 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project = Project.find(params[:id])
+    history = History.new(:category=>Setting.histories.category_project, :detail_id=>@project.id, :action=>Setting.histories.action_destroy)
+    history.user = current_user    #当前正在操作的user，而不是负责人
+    history.group = get_root_group(current_user)
+    history.save
     @project.destroy
 
     redirect_to projects_url

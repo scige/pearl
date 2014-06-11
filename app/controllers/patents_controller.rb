@@ -2,7 +2,16 @@ class PatentsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @patents = Patent.all
+    @patents = []
+    if current_user.group
+      root_group = get_root_group(current_user)
+      all_patents = Patent.all
+      all_patents.each do |patent|
+        if get_root_group(patent.user) == root_group
+          @patents << patent
+        end
+      end
+    end
   end
 
   def show
@@ -27,6 +36,10 @@ class PatentsController < ApplicationController
     @patent.user = user
 
     if @patent.save
+      history = History.new(:category=>Setting.histories.category_patent, :detail_id=>@patent.id, :action=>Setting.histories.action_create)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to @patent
     else
       render action: "new"
@@ -40,6 +53,10 @@ class PatentsController < ApplicationController
     @patent.user = user
 
     if @patent.update_attributes(params[:patent])
+      history = History.new(:category=>Setting.histories.category_patent, :detail_id=>@patent.id, :action=>Setting.histories.action_update)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to @patent
     else
       render action: "edit"
@@ -48,6 +65,10 @@ class PatentsController < ApplicationController
 
   def destroy
     @patent = Patent.find(params[:id])
+    history = History.new(:category=>Setting.histories.category_patent, :detail_id=>@patent.id, :action=>Setting.histories.action_destroy)
+    history.user = current_user    #当前正在操作的user，而不是负责人
+    history.group = get_root_group(current_user)
+    history.save
     @patent.destroy
 
     redirect_to patents_url

@@ -16,6 +16,7 @@
 
 class Group < ActiveRecord::Base
   has_many :users
+  has_many :histories
 
   acts_as_nested_set
 

@@ -2,7 +2,16 @@ class PapersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @papers = Paper.all
+    @papers = []
+    if current_user.group
+      root_group = get_root_group(current_user)
+      all_papers = Paper.all
+      all_papers.each do |paper|
+        if get_root_group(paper.user) == root_group
+          @papers << paper
+        end
+      end
+    end
   end
 
   def show
@@ -27,6 +36,10 @@ class PapersController < ApplicationController
     @paper.user = user
 
     if @paper.save
+      history = History.new(:category=>Setting.histories.category_paper, :detail_id=>@paper.id, :action=>Setting.histories.action_create)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to @paper
     else
       render action: "new"
@@ -40,6 +53,10 @@ class PapersController < ApplicationController
     @paper.user = user
 
     if @paper.update_attributes(params[:paper])
+      history = History.new(:category=>Setting.histories.category_paper, :detail_id=>@paper.id, :action=>Setting.histories.action_update)
+      history.user = current_user    #当前正在操作的user，而不是负责人
+      history.group = get_root_group(current_user)
+      history.save
       redirect_to @paper
     else
       render action: "edit"
@@ -48,6 +65,10 @@ class PapersController < ApplicationController
 
   def destroy
     @paper = Paper.find(params[:id])
+    history = History.new(:category=>Setting.histories.category_paper, :detail_id=>@paper.id, :action=>Setting.histories.action_destroy)
+    history.user = current_user    #当前正在操作的user，而不是负责人
+    history.group = get_root_group(current_user)
+    history.save
     @paper.destroy
 
     redirect_to papers_url
