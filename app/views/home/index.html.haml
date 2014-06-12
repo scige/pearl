@@ -26,6 +26,17 @@
   - if current_user.group
     .row
       .col-md-9
+        - @all_histories.each do |item|
+          .panel
+            %div{:class=>item[:panel_style]}
+              .panel-heading
+                %h3.panel-title= item[:panel_head_title]
+              .panel-body
+                = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
+                = item[:action]
+                = link_to item[:title], item[:object], :target=>"_blank"
+
+      -#
         - @projects.each do |item|
           .panel.panel-info
             .panel-heading
@@ -69,5 +80,5 @@
             .panel-body
               = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
               = item[:action]
-              = link_to item[:title], item[:object].daily, :target=>"_blank"
+              = link_to item[:title], item[:object], :target=>"_blank"
 
