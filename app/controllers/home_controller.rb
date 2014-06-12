@@ -7,7 +7,10 @@ class HomeController < ApplicationController
     if current_user and current_user.group
       @histories = get_root_group(current_user).histories
     end
-    @histories = @histories.select {|h| h.created_at.strftime('%Y年%m月%d日') == Time.now.strftime('%Y年%m月%d日')}
+
+    unless params[:all]
+      @histories = @histories.select {|h| h.created_at.strftime('%Y年%m月%d日') == Time.now.strftime('%Y年%m月%d日')}
+    end
     @histories.sort! {|l,r| r.id<=>l.id}
 
     @all_histories = []
@@ -19,27 +22,27 @@ class HomeController < ApplicationController
     @histories.each do |history|
       if history.category == Setting.histories.category_project
         object = Project.find(history.detail_id)
-        temp_hash = {:title=>object.title, :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-info", :panel_head_title=>"项目动态", :is_show_author=>true}
+        temp_hash = {:history=>history, :title=>object.title, :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-info", :panel_head_title=>"项目动态", :is_show_author=>true}
         @projects << temp_hash
         @all_histories << temp_hash
       elsif history.category == Setting.histories.category_paper
         object = Paper.find(history.detail_id)
-        temp_hash = {:title=>object.title, :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-success", :panel_head_title=>"论文动态", :is_show_author=>true}
+        temp_hash = {:history=>history, :title=>object.title, :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-success", :panel_head_title=>"论文动态", :is_show_author=>true}
         @papers << temp_hash
         @all_histories << temp_hash
       elsif history.category == Setting.histories.category_patent
         object = Patent.find(history.detail_id)
-        temp_hash = {:title=>object.title, :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-warning", :panel_head_title=>"专利动态", :is_show_author=>true}
+        temp_hash = {:history=>history, :title=>object.title, :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-warning", :panel_head_title=>"专利动态", :is_show_author=>true}
         @patents << temp_hash
         @all_histories << temp_hash
       elsif history.category == Setting.histories.category_daily
         object = Daily.find(history.detail_id)
-        temp_hash = {:title=>"#{object.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>false}
+        temp_hash = {:history=>history, :title=>"#{object.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>false}
         @dailies << temp_hash
         @all_histories << temp_hash
       elsif history.category == Setting.histories.category_daily_comment
         object = Comment.find(history.detail_id)
-        temp_hash = {:title=>"#{object.daily.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_comment_action_string(history.action), :object=>object.daily, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>true}
+        temp_hash = {:history=>history, :title=>"#{object.daily.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_comment_action_string(history.action), :object=>object.daily, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>true}
         @comments << temp_hash
         @all_histories << temp_hash
       end

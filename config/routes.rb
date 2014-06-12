@@ -22,6 +22,8 @@ Pearl::Application.routes.draw do
 
   resources :groups
 
+  match '/home/index/(/:all)' => 'home#index'
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

@@ -1,6 +1,10 @@
 - provide(:title, "知蛛网 - 科研工作管理平台")
 
-%h1.page-header 团队动态
+%ul.nav.nav-tabs
+  %li{:class => (params[:all] ? nil : "active")}= link_to "今日动态", root_path
+  %li{:class => (params[:all] ? "active" : nil)}= link_to "近期动态", "/home/index/all"
+
+%br
 
 - if user_signed_in?
   - if !current_user.group
@@ -33,6 +37,10 @@
                 %h3.panel-title= item[:panel_head_title]
               .panel-body
                 = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
+                - if params[:all]
+                  = "在#{item[:history].created_at.strftime("%Y-%m-%d %H:%M")}"
+                - else
+                  = "在#{item[:history].created_at.strftime("%H:%M")}"
                 = item[:action]
                 = "#{item[:object].user.name}的" if item[:is_show_author]
                 = link_to item[:title], item[:object], :target=>"_blank"
