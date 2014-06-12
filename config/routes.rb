@@ -18,6 +18,8 @@ Pearl::Application.routes.draw do
   match '/dailies/subgroup(/:date)' => 'dailies#subgroup'
   resources :dailies, :only => [:index, :show, :edit, :create, :update]
 
+  resources :comments, :only => [:create, :destory]
+
   resources :groups
 
   root :to => 'home#index'

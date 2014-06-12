@@ -1,18 +1,18 @@
 # == Schema Information
 #
-# Table name: dailies
+# Table name: comments
 #
 #  id         :integer          not null, primary key
-#  content    :text
+#  content    :string(255)
+#  daily_id   :integer
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  date       :datetime
 #
 
-class Daily < ActiveRecord::Base
+class Comment < ActiveRecord::Base
+  belongs_to :daily
   belongs_to :user
-  has_many :comments
 
-  attr_accessible :content, :date
+  attr_accessible :content
 end

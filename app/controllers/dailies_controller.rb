@@ -28,6 +28,9 @@ class DailiesController < ApplicationController
 
   def show
     @daily = Daily.find(params[:id])
+    @comments = @daily.comments
+    @comment = Comment.new
+    @floor = 0
   end
 
   def new

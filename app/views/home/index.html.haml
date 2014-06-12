@@ -62,3 +62,12 @@
               = item[:action]
               = link_to item[:title], item[:object], :target=>"_blank"
 
+        - @comments.each do |item|
+          .panel.panel-danger
+            .panel-heading
+              %h3.panel-title 评论动态
+            .panel-body
+              = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
+              = item[:action]
+              = link_to item[:title], item[:object].daily, :target=>"_blank"
+

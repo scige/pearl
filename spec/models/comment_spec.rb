@@ -1,18 +1,17 @@
 # == Schema Information
 #
-# Table name: dailies
+# Table name: comments
 #
 #  id         :integer          not null, primary key
-#  content    :text
+#  content    :string(255)
+#  daily_id   :integer
 #  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  date       :datetime
 #
 
-class Daily < ActiveRecord::Base
-  belongs_to :user
-  has_many :comments
+require 'spec_helper'
 
-  attr_accessible :content, :date
+describe Comment do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

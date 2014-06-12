@@ -34,7 +34,7 @@
 - if @cur_daily
   %br
   %hr
-  %h3= "#{@cur_daily.date.strftime("%Y年%m月%d日")}日报"
+  %h3= link_to "#{@cur_daily.date.strftime("%Y年%m月%d日")}日报", @cur_daily
   = form_for @cur_daily, :method=>:put, :html=>{:class=>"form-horizontal"} do |f|
     .form-group
       = f.label "提交时间: ", :class=>"col-md-1 control-label"

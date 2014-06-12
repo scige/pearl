@@ -59,6 +59,7 @@ defaults: &defaults
     category_paper: 2
     category_patent: 3
     category_daily: 4
+    category_daily_comment: 5
     action_create: 1
     action_update: 2
     action_destroy: 3
