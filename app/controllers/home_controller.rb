@@ -9,9 +9,21 @@ class HomeController < ApplicationController
     end
 
     unless params[:all]
-      @histories = @histories.select {|h| h.created_at.strftime('%Y年%m月%d日') == Time.now.strftime('%Y年%m月%d日')}
+      @histories = @histories.select {|h| h.created_at.strftime('%Y年%m月%d日') == Time.now.strftime('%Y年%m月%d日') or h.created_at.strftime('%Y年%m月%d日') == (Time.now-1.day).strftime('%Y年%m月%d日')}
     end
     @histories.sort! {|l,r| r.id<=>l.id}
+
+    #去除连续的重复动态, 以后再说
+    #last_history = @histories[0] if @histories.size > 0
+    #temp_histories = []
+    #@histories.each do |history|
+    #  if history.category != last_history.category or history.detail_id != last_history.detail_id
+    #    temp_histories << last_history
+    #  end
+    #  last_history = history
+    #end
+    #temp_histories << last_history
+    #@histories = temp_histories
 
     @all_histories = []
     @projects = []

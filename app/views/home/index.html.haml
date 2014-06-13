@@ -40,8 +40,24 @@
                 - if params[:all]
                   = "在#{item[:history].created_at.strftime("%Y-%m-%d %H:%M")}"
                 - else
-                  = "在#{item[:history].created_at.strftime("%H:%M")}"
+                  - if item[:history].created_at.strftime('%Y年%m月%d日') == Time.now.strftime('%Y年%m月%d日')
+                    = "在#{item[:history].created_at.strftime("%H:%M")}"
+                  - else
+                    = "在昨天#{item[:history].created_at.strftime("%H:%M")}"
                 = item[:action]
                 = "#{item[:object].user.name}的" if item[:is_show_author]
                 = link_to item[:title], item[:object], :target=>"_blank"
+      .col-md-3
+        .panel
+          %div.panel-primary
+            .panel-heading
+              %h3.panel-title 公告
+            .panel-body
+              %p   2014年6月13日
+              %p   1.新增计划功能
+              %p   2.修正分组Bug
+              %br
+              %p   2014年6月12日
+              %p   1.新增日报评论功能
+              %p
 
