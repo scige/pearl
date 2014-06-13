@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many :dailies
   has_many :histories
   has_many :comments
+  has_many :plans
   belongs_to :group
 
   # Include default devise modules. Others available are:

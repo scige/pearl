@@ -67,6 +67,18 @@ defaults: &defaults
     action_update_string: 修改了
     action_destroy_string: 删除了
 
+  plans:
+    status_none: 1
+    status_active: 2
+    status_finish: 3
+    status_canceled: 4
+    status_postponed: 5
+    status_none_string: 未完成
+    status_active_string: 进行中
+    status_finish_string: 已完成
+    status_canceled_string: 已取消
+    status_postponed_string: 已延迟
+
 development:
   <<: *defaults
 

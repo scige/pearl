@@ -1,0 +1,36 @@
+- provide(:title, "我的计划")
+
+%h1.page-header 我的计划
+
+.row
+  .col-md-9
+    = form_for @plan, :html=>{:class=>"form-horizontal"} do |f|
+      .form-group
+        .col-md-7
+          = f.text_field :title, :placeholder=>"输入计划事项", :class=>"form-control"
+        .col-md-2
+          = f.text_field :begin_at, :placeholder=>"开始时间", :class=>"form-control"
+        .col-md-2
+          = f.text_field :end_at, :placeholder=>"结束时间", :class=>"form-control"
+        .col-md-1
+          = f.submit '发布', :class=>"btn btn-default"
+
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      收件箱
+    = render "plan_items", :plans=>@none_plans
+
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      进行中
+    = render "plan_items", :plans=>@active_plans
+
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      已完成
+    = render "plan_items", :plans=>@finish_plans
+
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      其他计划
+    = render "plan_items", :plans=>@other_plans

@@ -3,7 +3,7 @@ Pearl::Application.routes.draw do
 
   resources :users, :only => [:index, :show] do
     get :edit_group, :on => :collection
-    put :update_group, :on => :collection
+    post :update_group, :on => :collection
     get :cancel_user, :on => :collection
   end
 
@@ -19,6 +19,10 @@ Pearl::Application.routes.draw do
   resources :dailies, :only => [:index, :show, :edit, :create, :update]
 
   resources :comments, :only => [:create, :destory]
+
+  resources :plans do
+    get :update_status, :on => :collection
+  end
 
   resources :groups
 

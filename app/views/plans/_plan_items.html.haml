@@ -1,0 +1,37 @@
+%table.table.table-hover
+  - plans.each do |plan|
+    %tr
+      %td
+        .row
+          .col-md-9
+            .btn-group
+              %button.btn.btn-default.btn-xs.dropdown-toggle{:type=>"button", "data-toggle"=>"dropdown"}
+                %span.glyphicon{:class=>get_plan_status_style(plan.status)}
+              %ul.dropdown-menu{:role=>"menu"}
+                %li
+                  %a{:href=>"/plans/update_status?id=#{plan.id}&status=#{Setting.plans.status_none}"}
+                    %span.glyphicon.glyphicon-tag
+                    = Setting.plans.status_none_string
+                %li
+                  %a{:href=>"/plans/update_status?id=#{plan.id}&status=#{Setting.plans.status_active}"}
+                    %span.glyphicon.glyphicon-play
+                    = Setting.plans.status_active_string
+                %li
+                  %a{:href=>"/plans/update_status?id=#{plan.id}&status=#{Setting.plans.status_finish}"}
+                    %span.glyphicon.glyphicon-ok
+                    = Setting.plans.status_finish_string
+                %li
+                  %a{:href=>"/plans/update_status?id=#{plan.id}&status=#{Setting.plans.status_canceled}"}
+                    %span.glyphicon.glyphicon-remove
+                    = Setting.plans.status_canceled_string
+                %li
+                  %a{:href=>"/plans/update_status?id=#{plan.id}&status=#{Setting.plans.status_postponed}"}
+                    %span.glyphicon.glyphicon-time
+                    = Setting.plans.status_postponed_string
+            = plan.title
+          .col-md-2
+            = "#{plan.begin_at.strftime('%m/%d')} - #{plan.end_at.strftime('%m/%d')}" if plan.begin_at and plan.end_at
+          .col-md-1
+            /= link_to '编辑', edit_plan_path(plan), :class=>"btn btn-xs btn-default"
+            = link_to '删除', plan, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-xs btn-default"
+
