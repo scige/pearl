@@ -10,14 +10,16 @@ class UsersController < ApplicationController
   end
 
   def edit_group
+    @user = User.find(params[:format])
     @groups = get_my_group_groups
   end
 
   def update_group
     group = Group.find(params[:user][:group_id])
-    current_user.group = group
+    user = User.find(params[:user][:user_id])
+    user.group = group
 
-    if current_user.save
+    if user.save
       redirect_to root_url
     else
       render action: "edit"
