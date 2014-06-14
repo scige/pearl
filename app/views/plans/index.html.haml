@@ -39,3 +39,20 @@
       %span.glyphicon.glyphicon-th-list
       其他计划
     = render "plan_items", :plans=>@other_plans
+
+<script type="text/javascript">
+$('#plan_begin_at').datepicker({
+format: "yyyy-mm-dd",
+weekStart: 1,
+todayBtn: "linked",
+language: "zh-CN"
+});
+
+$('#plan_end_at').datepicker({
+format: "yyyy-mm-dd",
+weekStart: 1,
+todayBtn: "linked",
+language: "zh-CN"
+});
+</script>
+
