@@ -1,0 +1,42 @@
+- provide(:title, "我的计划")
+
+%h1.page-header= @user ? "#{@user.name}的计划" : "团队计划"
+
+- if current_user.identity == Setting.users.identity_admin or current_user.identity == Setting.users.identity_teacher
+  = render "tab_bar"
+
+%br
+
+.row
+  .col-md-9
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      收件箱
+    = render "static_plan_items", :plans=>@none_plans
+
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      进行中
+    = render "static_plan_items", :plans=>@active_plans
+
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      已完成
+    = render "static_plan_items", :plans=>@finish_plans
+
+    %h4
+      %span.glyphicon.glyphicon-th-list
+      其他计划
+    = render "static_plan_items", :plans=>@other_plans
+  .col-md-3
+    #plan-user-title 团队成员
+    %table.table.table-hover
+      - @users.each do |user|
+        %tr
+          - if user.plans.size > 0
+            %td= link_to user.name, "/plans/user/#{user.id}"
+            %td= user.plans.size
+          - else
+            %td= user.name
+            %td= user.plans.size
+

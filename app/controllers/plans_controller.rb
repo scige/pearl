@@ -78,4 +78,30 @@ class PlansController < ApplicationController
 
     redirect_to plans_url
   end
+
+  def user
+    @users = get_my_group_users
+    @user = User.find(params[:id]) if params[:id]
+    @plans = []
+    @plans = @user.plans if @user
+
+    @none_plans = []
+    @active_plans = []
+    @finish_plans = []
+    @other_plans = []
+
+    @plans.each do |plan|
+      if plan.status == Setting.plans.status_none
+        @none_plans << plan
+      elsif plan.status == Setting.plans.status_active
+        @active_plans << plan
+      elsif plan.status == Setting.plans.status_finish
+        @finish_plans << plan
+      elsif plan.status == Setting.plans.status_canceled
+        @other_plans << plan
+      elsif plan.status == Setting.plans.status_postponed
+        @other_plans << plan
+      end
+    end
+  end
 end

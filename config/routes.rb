@@ -21,6 +21,7 @@ Pearl::Application.routes.draw do
 
   resources :comments, :only => [:create, :destory]
 
+  match '/plans/user(/:id)' => 'plans#user'
   resources :plans do
     get :update_status, :on => :collection
   end

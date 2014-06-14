@@ -2,18 +2,23 @@
 
 %h1.page-header 我的计划
 
+- if current_user.identity == Setting.users.identity_admin or current_user.identity == Setting.users.identity_teacher
+  = render "tab_bar"
+
+%br
+
 .row
   .col-md-9
     = form_for @plan, :html=>{:class=>"form-horizontal"} do |f|
       .form-group
         .col-md-7
-          = f.text_field :title, :placeholder=>"输入计划事项", :class=>"form-control"
+          = f.text_field :title, :placeholder=>"输入新的计划事项", :class=>"form-control"
         .col-md-2
           = f.text_field :begin_at, :placeholder=>"开始时间", :class=>"form-control"
         .col-md-2
           = f.text_field :end_at, :placeholder=>"结束时间", :class=>"form-control"
         .col-md-1
-          = f.submit '发布', :class=>"btn btn-default"
+          = f.submit '添加', :class=>"btn btn-default"
 
     %h4
       %span.glyphicon.glyphicon-th-list

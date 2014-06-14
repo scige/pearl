@@ -1,0 +1,4 @@
+%ul.nav.nav-tabs
+  %li{:class => (action_name=="index"?"active":nil)}= link_to "我的计划", "/plans"
+  %li{:class => (action_name=="user"?"active":nil)}= link_to "团队计划", "/plans/user"
+
