@@ -17,7 +17,7 @@
     - else
       %p 您还没有团队，请先加入您的团队
       .well
-        = form_for current_user, :url=>update_group_users_path, :method=>:put, :html=>{:class=>"form-horizontal"} do |f|
+        = form_for current_user, :url=>select_group_users_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
           .form-group
             = f.label "选择团队", :class=>"col-md-4 control-label"
             .col-md-3

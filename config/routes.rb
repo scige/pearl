@@ -3,6 +3,7 @@ Pearl::Application.routes.draw do
 
   resources :users, :only => [:index, :show] do
     get :edit_group, :on => :collection
+    post :select_group, :on => :collection
     post :update_group, :on => :collection
     get :cancel_user, :on => :collection
   end
