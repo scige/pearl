@@ -1,6 +1,15 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :user_access_log
+
+  def user_access_log
+    session_id = session[:session_id] || ""
+    user_id = (current_user && current_user.id) || ""
+    user_name = (current_user && current_user.name) || ""
+    STAT_LOGGER.info "[access]\t#{request.request_method}\t#{request.url}\t#{request.referer}\t#{request.remote_ip}\t#{request.user_agent}\t#{session_id}\t#{user_id}\t#{user_name}"
+  end
+
   def get_my_group_groups
     groups = []
     if current_user.group.root?
