@@ -1,0 +1,50 @@
+%h1.page-header 编辑计划
+
+= form_for @plan, :html=>{:class=>"form-horizontal"} do |f|
+  - if @plan.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@plan.errors.count, "error")} prohibited this plan from being saved:"
+      %ul
+        - @plan.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label "名称", :class=>"col-md-2 control-label"
+    .col-md-8
+      = f.text_field :title, :class=>"form-control"
+
+  .form-group
+    = f.label "状态", :class=>"col-md-2 control-label"
+    .col-md-2
+      = f.select :status, generate_all_plan_status, {:selected=>@plan.status}, {:class=>"form-control"}
+    = f.label "开始时间", :class=>"col-md-1 control-label"
+    .col-md-2
+      = f.text_field :begin_at, :class=>"form-control"
+    = f.label "结束时间", :class=>"col-md-1 control-label"
+    .col-md-2
+      = f.text_field :end_at, :class=>"form-control"
+
+  .form-group
+    = f.label "笔记", :class=>"col-md-2 control-label"
+    .col-md-8
+      = f.text_area :note, :value=>@plan.note, :rows=>8, :class=>"form-control"
+
+  .form-group
+    .col-md-3.col-md-offset-2
+      = f.submit '保存', :class=>"btn btn-default"
+
+<script type="text/javascript">
+$('#plan_begin_at').datepicker({
+format: "yyyy-mm-dd",
+weekStart: 1,
+todayBtn: "linked",
+language: "zh-CN"
+});
+
+$('#plan_end_at').datepicker({
+format: "yyyy-mm-dd",
+weekStart: 1,
+todayBtn: "linked",
+language: "zh-CN"
+});
+</script>

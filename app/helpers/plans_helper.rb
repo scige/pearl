@@ -12,4 +12,14 @@ module PlansHelper
       "glyphicon-time"
     end
   end
+
+  def generate_all_plan_status
+    [
+      [Setting.plans.status_none_string, Setting.plans.status_none],
+      [Setting.plans.status_active_string, Setting.plans.status_active],
+      [Setting.plans.status_finish_string, Setting.plans.status_finish],
+      [Setting.plans.status_canceled_string, Setting.plans.status_canceled],
+      [Setting.plans.status_postponed_string, Setting.plans.status_postponed]
+    ]
+  end
 end

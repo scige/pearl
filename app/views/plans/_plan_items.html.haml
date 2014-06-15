@@ -3,7 +3,7 @@
     %tr
       %td
         .row
-          .col-md-9
+          .col-md-8
             .btn-group
               %button.btn.btn-default.btn-xs.dropdown-toggle{:type=>"button", "data-toggle"=>"dropdown"}
                 %span.glyphicon{:class=>get_plan_status_style(plan.status)}
@@ -31,7 +31,7 @@
             = plan.title
           .col-md-2
             = "#{plan.begin_at.strftime('%m/%d')} - #{plan.end_at.strftime('%m/%d')}" if plan.begin_at and plan.end_at
-          .col-md-1
-            /= link_to '编辑', edit_plan_path(plan), :class=>"btn btn-xs btn-default"
+          .col-md-2
+            = link_to '编辑', edit_plan_path(plan), :class=>"btn btn-xs btn-default"
             = link_to '删除', plan, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-xs btn-default"
 

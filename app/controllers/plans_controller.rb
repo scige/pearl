@@ -57,7 +57,7 @@ class PlansController < ApplicationController
     @plan.user = current_user
 
     if @plan.update_attributes(params[:plan])
-      redirect_to @plan
+      redirect_to plans_url
     else
       flash[:error] = "输入内容缺失或存在错误，编辑计划失败！"
       redirect_to edit_plan_path(@plan)
