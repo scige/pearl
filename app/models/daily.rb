@@ -15,4 +15,9 @@ class Daily < ActiveRecord::Base
   has_many :comments
 
   attr_accessible :content, :date
+
+  validates :content,   :presence => true
+  validates :date,      :presence => true
+
+  validates :user_id,   :presence => true
 end

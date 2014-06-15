@@ -21,4 +21,7 @@ class Group < ActiveRecord::Base
   acts_as_nested_set
 
   attr_accessible :name, :school, :university
+
+  validates :name,      :presence => true,
+                        :uniqueness => {:case_sensitive => false}
 end

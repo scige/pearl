@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     current_user.group = group
 
     if current_user.save
-      redirect_to users_url
+      redirect_to root_url
     else
       render action: "edit"
     end

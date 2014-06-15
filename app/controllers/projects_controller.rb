@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
 
@@ -42,7 +44,8 @@ class ProjectsController < ApplicationController
       history.save
       redirect_to @project
     else
-      render action: "new"
+      flash[:error] = "输入内容缺失或存在错误，新建项目失败！"
+      redirect_to new_project_url
     end
   end
 
@@ -59,7 +62,8 @@ class ProjectsController < ApplicationController
       history.save
       redirect_to @project
     else
-      render action: "edit"
+      flash[:error] = "输入内容缺失或存在错误，编辑项目失败！"
+      redirect_to edit_project_path(@project)
     end
   end
 

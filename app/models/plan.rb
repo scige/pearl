@@ -17,4 +17,10 @@ class Plan < ActiveRecord::Base
   belongs_to :user
 
   attr_accessible :title, :note, :begin_at, :end_at, :status
+
+  validates :title,     :presence => true
+  validates :status,    :presence => true,
+                        :numericality => {:only_integer => true}
+
+  validates :user_id,   :presence => true
 end

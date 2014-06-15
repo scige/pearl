@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class PatentsController < ApplicationController
   before_filter :authenticate_user!
 
@@ -42,7 +44,8 @@ class PatentsController < ApplicationController
       history.save
       redirect_to @patent
     else
-      render action: "new"
+      flash[:error] = "输入内容缺失或存在错误，新建专利失败！"
+      redirect_to new_patent_url
     end
   end
 
@@ -59,7 +62,8 @@ class PatentsController < ApplicationController
       history.save
       redirect_to @patent
     else
-      render action: "edit"
+      flash[:error] = "输入内容缺失或存在错误，编辑专利失败！"
+      redirect_to edit_patent_path(@patent)
     end
   end
 

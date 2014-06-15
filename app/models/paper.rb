@@ -14,5 +14,11 @@
 class Paper < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessible :magazine, :status, :title
+  attr_accessible :title, :magazine, :status
+
+  validates :title,     :presence => true
+  validates :status,    :presence => true,
+                        :numericality => {:only_integer => true}
+
+  validates :user_id,   :presence => true
 end

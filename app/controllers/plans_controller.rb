@@ -1,3 +1,5 @@
+# coding: utf-8
+
 class PlansController < ApplicationController
   before_filter :authenticate_user!
 
@@ -45,7 +47,8 @@ class PlansController < ApplicationController
     if @plan.save
       redirect_to plans_url
     else
-      render action: "new"
+      flash[:error] = "新建计划事项的内容不能为空！"
+      redirect_to plans_url
     end
   end
 
@@ -56,7 +59,8 @@ class PlansController < ApplicationController
     if @plan.update_attributes(params[:plan])
       redirect_to @plan
     else
-      render action: "edit"
+      flash[:error] = "输入内容缺失或存在错误，编辑计划失败！"
+      redirect_to edit_plan_path(@plan)
     end
   end
 

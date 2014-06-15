@@ -14,5 +14,11 @@
 class Patent < ActiveRecord::Base
   belongs_to :user
 
-  attr_accessible :agency, :status, :title
+  attr_accessible :title, :agency, :status
+
+  validates :title,     :presence => true
+  validates :status,    :presence => true,
+                        :numericality => {:only_integer => true}
+
+  validates :user_id,   :presence => true
 end

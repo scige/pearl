@@ -17,4 +17,14 @@ class History < ActiveRecord::Base
   belongs_to :group
 
   attr_accessible :category, :detail_id, :action
+
+  validates :category,  :presence => true,
+                        :numericality => {:only_integer => true}
+  validates :detail_id, :presence => true,
+                        :numericality => {:only_integer => true}
+  validates :action,    :presence => true,
+                        :numericality => {:only_integer => true}
+
+  validates :user_id,   :presence => true
+  validates :group_id,  :presence => true
 end
