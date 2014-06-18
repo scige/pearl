@@ -2,47 +2,25 @@
 
 %h1.page-header 项目管理
 
-%table.table.table-striped
-  %tr
-    %th 名称
-    %th 负责人
-    %th 类别
-    %th 来源
-    %th 开始时间
-    %th 结束时间
-    %th 状态
-    %th 操作
+.row
+  .col-md-9
+    .well
+      .row
+        .col-md-3.col-md-offset-5
+          = link_to '新建项目', new_project_path, :class=>"btn btn-lg btn-success"
 
-  - @projects.each do |project|
-    %tr
-      %td= link_to project.title, project, :target=>"_blank"
-      %td= project.user && project.user.name
-      %td
-        - if project.category == Setting.projects.category_vertical
-          = Setting.projects.category_vertical_string
-        - elsif project.category == Setting.projects.category_horizontal
-          = Setting.projects.category_horizontal_string
-      %td= project.source
-      %td= project.begin_at and project.begin_at.strftime("%Y年%m月%d日")
-      %td= project.end_at and project.end_at.strftime("%Y年%m月%d日")
-      %td
-        - if project.status == Setting.projects.status_plan
-          = Setting.projects.status_plan_string
-        - elsif project.status == Setting.projects.status_writing
-          = Setting.projects.status_writing_string
-        - elsif project.status == Setting.projects.status_applying
-          = Setting.projects.status_applying_string
-        - elsif project.status == Setting.projects.status_reviewing
-          = Setting.projects.status_reviewing_string
-        - elsif project.status == Setting.projects.status_proceeding
-          = Setting.projects.status_proceeding_string
-        - elsif project.status == Setting.projects.status_acceptance
-          = Setting.projects.status_acceptance_string
-        - elsif project.status == Setting.projects.status_finish
-          = Setting.projects.status_finish_string
-      %td
-        = link_to '编辑', edit_project_path(project)
-        = link_to '删除', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%br
 
-= link_to '新建项目', new_project_path, :class=>"btn btn-default"
+%h4 正在进行的项目
+
+%br
+
+- @projects.each_slice(3) do |slice|
+  .row
+    - slice.each do |project|
+      .col-md-3
+        %a{:href=>project_path(project), :target=>"_blank"}
+          .project-item
+            %p= project.title
+            %p= "负责人：#{project.user && project.user.name}"
 

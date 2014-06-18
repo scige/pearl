@@ -45,6 +45,8 @@ gem 'haml-rails'
 
 gem 'devise'
 
+#gem 'cancan'
+
 gem 'kaminari'
 
 gem 'annotate'

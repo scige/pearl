@@ -13,17 +13,19 @@ class HomeController < ApplicationController
       end
       @histories.sort! {|l,r| r.id<=>l.id}
 
-      #去除连续的重复动态, 以后再说
-      last_history = @histories[0] if @histories.size > 0
-      temp_histories = []
-      @histories.each do |history|
-        if history.category != last_history.category or history.detail_id != last_history.detail_id
-          temp_histories << last_history
+      #去除连续的重复动态
+      if @histories.size > 0
+        last_history = @histories[0]
+        temp_histories = []
+        @histories.each do |history|
+          if history.category != last_history.category or history.detail_id != last_history.detail_id
+            temp_histories << last_history
+          end
+          last_history = history
         end
-        last_history = history
+        temp_histories << last_history
+        @histories = temp_histories
       end
-      temp_histories << last_history
-      @histories = temp_histories
     end
 
     @all_histories = []

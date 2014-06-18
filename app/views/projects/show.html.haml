@@ -36,3 +36,8 @@
     .col-md-3
       = f.select :status, generate_all_project_status, {:selected=>@project.status}, {:disabled=>"disabled", :class=>"form-control"}
 
+  .form-group
+    .col-md-3.col-md-offset-2
+      = link_to '编辑', edit_project_path(@project), :class=>"btn btn-primary"
+      = link_to '删除', @project, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
+
