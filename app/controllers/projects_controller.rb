@@ -14,6 +14,29 @@ class ProjectsController < ApplicationController
         end
       end
     end
+    total_count = @projects.size
+    @projects = @projects.select {|p| p.status != Setting.projects.status_finish}
+    @not_finish_count = @projects.size
+    @finish_count = total_count - @projects.size
+  end
+
+  def finish
+    @projects = []
+    if current_user.group
+      root_group = get_root_group(current_user)
+      all_projects = Project.all
+      all_projects.each do |project|
+        if get_root_group(project.user) == root_group
+          @projects << project
+        end
+      end
+    end
+    total_count = @projects.size
+    @projects = @projects.select {|p| p.status == Setting.projects.status_finish}
+    @not_finish_count = total_count - @projects.size
+    @finish_count = @projects.size
+
+    render "index"
   end
 
   def show

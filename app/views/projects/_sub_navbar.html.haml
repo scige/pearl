@@ -1,7 +1,7 @@
 %h2.page-header
   .row
     .col-md-8
-      = "#{@project.title}项目"
+      = @project.title
     .col-md-4
       = link_to "主页", project_path(@project), :class=>"btn btn-default", :class=> (controller_name=="projects" ? "btn btn-primary":"btn btn-default")
       = link_to "任务", "#", :class=>"btn btn-default"

@@ -45,3 +45,18 @@
     .col-md-3.col-md-offset-2
       = f.submit '保存', :class=>"btn btn-success"
 
+<script type="text/javascript">
+$('#project_begin_at').datepicker({
+format: "yyyy-mm-dd",
+weekStart: 1,
+todayBtn: "linked",
+language: "zh-CN"
+});
+
+$('#project_end_at').datepicker({
+format: "yyyy-mm-dd",
+weekStart: 1,
+todayBtn: "linked",
+language: "zh-CN"
+});
+</script>

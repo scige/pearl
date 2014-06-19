@@ -9,6 +9,7 @@ Pearl::Application.routes.draw do
   end
 
   resources :projects do
+    get :finish, :on => :collection
     resources :documents
   end
 

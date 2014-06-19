@@ -11,7 +11,9 @@
 
 %br
 
-%h4 正在进行的项目
+%h4
+  = link_to "#{@not_finish_count}个正在进行的项目", projects_path
+  = link_to "#{@finish_count}个已完成的项目", finish_projects_path
 
 %br
 
@@ -23,4 +25,5 @@
           .project-item
             %p= project.title
             %p= "负责人：#{project.user && project.user.name}"
+            %p= "类别：#{get_project_category_string(project.category)}&nbsp;&nbsp;&nbsp;&nbsp;状态：#{get_project_status_string(project.status)}".html_safe
 
