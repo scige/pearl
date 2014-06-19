@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   has_many :histories
   has_many :comments
   has_many :plans
+  has_many :documents
   belongs_to :group
 
   # Include default devise modules. Others available are:

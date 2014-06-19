@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
       redirect_to @project
     else
       flash[:error] = "输入内容缺失或存在错误，编辑项目失败！"
-      redirect_to edit_project_path(@project)
+      redirect_to edit_project_url(@project)
     end
   end
 

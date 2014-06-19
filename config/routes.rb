@@ -8,7 +8,9 @@ Pearl::Application.routes.draw do
     get :cancel_user, :on => :collection
   end
 
-  resources :projects
+  resources :projects do
+    resources :documents
+  end
 
   resources :papers
 

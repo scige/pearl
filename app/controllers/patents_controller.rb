@@ -63,7 +63,7 @@ class PatentsController < ApplicationController
       redirect_to @patent
     else
       flash[:error] = "输入内容缺失或存在错误，编辑专利失败！"
-      redirect_to edit_patent_path(@patent)
+      redirect_to edit_patent_url(@patent)
     end
   end
 

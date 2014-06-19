@@ -1,0 +1,20 @@
+%h3
+  .row
+    .col-md-4
+      全部文档
+    .col-md-3.col-md-offset-5
+      = link_to '新建文档', new_project_document_path(@project), :class=>"btn btn-default"
+%br
+
+%table.table.table-hover
+  - @documents.each do |document|
+    %tr
+      %td
+        .row
+          .col-md-7
+            = link_to document.title, [@project, document]
+          .col-md-2
+            = document.user && document.user.name
+          .col-md-3
+            = document.created_at.strftime("%m-%d %H:%M")
+

@@ -63,7 +63,7 @@ class PapersController < ApplicationController
       redirect_to @paper
     else
       flash[:error] = "输入内容缺失或存在错误，编辑论文失败！"
-      redirect_to edit_paper_path(@paper)
+      redirect_to edit_paper_url(@paper)
     end
   end
 

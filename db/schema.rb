@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140612142111) do
+ActiveRecord::Schema.define(:version => 20140619115525) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(:version => 20140612142111) do
   end
 
   add_index "dailies", ["user_id"], :name => "index_dailies_on_user_id"
+
+  create_table "documents", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "documents", ["project_id"], :name => "index_documents_on_project_id"
+  add_index "documents", ["user_id"], :name => "index_documents_on_user_id"
 
   create_table "groups", :force => true do |t|
     t.string   "name"
