@@ -17,12 +17,14 @@
 
     .container-fluid
       .row
-        .col-md-1.sidebar
-          = render "layouts/navbar_left"
+        .col-md-1
+          .sidebar
+            = render "layouts/navbar_left"
 
-        .col-md-11.col-md-offset-1.main
-          = render "layouts/flash_messages"
-          = yield
+        .col-md-11
+          .main
+            = render "layouts/flash_messages"
+            = yield
 
     .footer
       .container

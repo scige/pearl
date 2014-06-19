@@ -1,4 +1,14 @@
-%h1.page-header 查看项目
+%h2.page-header
+  .row
+    .col-md-2
+      查看项目
+    .col-md-5.col-md-offset-5
+      = link_to "主页", "#", :class=>"btn btn-default"
+      = link_to "任务", "#", :class=>"btn btn-default"
+      = link_to "文档", "#", :class=>"btn btn-default"
+      = link_to "文件", "#", :class=>"btn btn-default"
+      = link_to "回顾", "#", :class=>"btn btn-default"
+      = link_to "统计", "#", :class=>"btn btn-default"
 
 = form_for @project, :html=>{:class=>"form-horizontal"} do |f|
   .form-group
