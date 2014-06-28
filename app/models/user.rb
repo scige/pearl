@@ -19,6 +19,7 @@
 #  name                   :string(255)
 #  identity               :integer
 #  phone                  :string(255)
+#  grade                  :integer
 #
 
 class User < ActiveRecord::Base
@@ -39,7 +40,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
-  attr_accessible :name, :identity, :phone
+  attr_accessible :name, :identity, :phone, :grade
 
   validates :name,      :presence => true,
                         :uniqueness => {:case_sensitive => false}

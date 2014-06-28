@@ -6,4 +6,12 @@ module UsersHelper
       [Setting.users.identity_student_string, Setting.users.identity_student]
     ]
   end
+
+  def generate_all_user_grades
+    [
+      [Setting.users.grade_master_one_string, Setting.users.grade_master_one],
+      [Setting.users.grade_master_two_string, Setting.users.grade_master_two],
+      [Setting.users.grade_master_three_string, Setting.users.grade_master_three]
+    ]
+  end
 end

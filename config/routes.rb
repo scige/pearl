@@ -2,9 +2,9 @@ Pearl::Application.routes.draw do
   devise_for :users
 
   resources :users, :only => [:index, :show] do
-    get :edit_group, :on => :collection
     post :select_group, :on => :collection
-    post :update_group, :on => :collection
+    get :edit_profile, :on => :collection
+    post :update_profile, :on => :collection
     get :cancel_user, :on => :collection
   end
 

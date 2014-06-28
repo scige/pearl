@@ -1,0 +1,29 @@
+%h1.page-header 修改小组
+
+= form_for @user, :url=>update_profile_users_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
+  .form-group
+    = f.label "姓名", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.text_field :name, :class=>"form-control"
+
+  .form-group
+    = f.label "电话", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.text_field :phone, :class=>"form-control"
+
+  - if @user.identity == Setting.users.identity_student
+    .form-group
+      = f.label "年级", :class=>"col-md-2 control-label"
+      .col-md-3
+        = f.select :grade, generate_all_user_grades, {:selected=>@user.grade}, {:class=>"form-control"}
+
+  .form-group
+    = f.label "选择小组", :class=>"col-md-2 control-label"
+    .col-md-3
+      = f.select :group_id, @groups.map{|g| [g.name, g.id]}, {:selected=>@user.group.id}, {:class=>"form-control"}
+      = f.hidden_field :user_id, :value=>@user.id
+
+  .form-group
+    .col-md-3.col-md-offset-2
+      = f.submit '确定', :class=>"btn btn-default"
+

@@ -7,6 +7,7 @@
     %th 姓名
     %th 身份
     %th 团队
+    %th 年级
     %th 邮箱
     %th 电话
     %th 操作
@@ -22,9 +23,16 @@
         - elsif user.identity == Setting.users.identity_student
           = Setting.users.identity_student_string
       %td= user.group.name
+      %td
+        - if user.grade == Setting.users.grade_master_one
+          = Setting.users.grade_master_one_string
+        - elsif user.grade == Setting.users.grade_master_two
+          = Setting.users.grade_master_two_string
+        - elsif user.grade == Setting.users.grade_master_three
+          = Setting.users.grade_master_three_string
       %td= user.email
       %td= user.phone
       %td
-        = link_to '分组', edit_group_users_path(:id=>user.id)
+        = link_to '编辑', edit_profile_users_path(:id=>user.id)
         = link_to '删除', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

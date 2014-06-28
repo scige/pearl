@@ -9,11 +9,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def edit_group
-    @user = User.find(params[:id])
-    @groups = get_my_group_groups
-  end
-
   def select_group
     group = Group.find(params[:user][:group_id])
     current_user.group = group
@@ -25,12 +20,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def update_group
-    group = Group.find(params[:user][:group_id])
-    user = User.find(params[:user][:user_id])
+  def edit_profile
+    @user = User.find(params[:id])
+    @groups = get_my_group_groups
+  end
+
+  def update_profile
+    group_id = params[:user].delete(:group_id)
+    group = Group.find(group_id)
+    user_id = params[:user].delete(:user_id)
+    user = User.find(user_id)
     user.group = group
 
-    if user.save
+    if user.update_attributes(params[:user])
       redirect_to users_url
     else
       render action: "edit"

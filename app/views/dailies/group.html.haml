@@ -22,20 +22,30 @@
 %table.table.table-striped
   - @users_dailies.each do |item|
     %tr
-      - if item[:daily]
-        %td= link_to item[:user].name, daily_path(item[:daily]), :target=>"_blank"
-      - else
-        %td= item[:user].name
-      - if item[:status] == Setting.dailies.send_not
-        %td
-          %span.glyphicon.glyphicon-remove
-      - else
-        %td
-          %span.glyphicon.glyphicon-ok
-      - if item[:status] == Setting.dailies.send_not
-        %td 未提交
-      - elsif item[:status] == Setting.dailies.send_overdate
-        %td 逾期提交
-      - else
-        %td 按时提交
+      %td
+        .row
+          .col-md-3
+            - if item[:daily]
+              = link_to item[:user].name, daily_path(item[:daily]), :target=>"_blank"
+            - else
+              = item[:user].name
+          .col-md-2
+            - if item[:user].grade == Setting.users.grade_master_one
+              = Setting.users.grade_master_one_string
+            - elsif item[:user].grade == Setting.users.grade_master_two
+              = Setting.users.grade_master_two_string
+            - elsif item[:user].grade == Setting.users.grade_master_three
+              = Setting.users.grade_master_three_string
+          .col-md-2
+            - if item[:status] == Setting.dailies.send_not
+              %span.glyphicon.glyphicon-remove
+            - else
+              %span.glyphicon.glyphicon-ok
+          .col-md-2
+            - if item[:status] == Setting.dailies.send_not
+              未提交
+            - elsif item[:status] == Setting.dailies.send_overdate
+              逾期提交
+            - else
+              按时提交
 

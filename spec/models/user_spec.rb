@@ -19,6 +19,7 @@
 #  name                   :string(255)
 #  identity               :integer
 #  phone                  :string(255)
+#  grade                  :integer
 #
 
 require 'spec_helper'
