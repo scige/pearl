@@ -26,7 +26,7 @@
         .row
           .col-md-3
             - if item[:daily]
-              = link_to item[:user].name, daily_path(item[:daily]), :target=>"_blank"
+              = link_to item[:user].name, daily_path(item[:daily])
             - else
               = item[:user].name
           .col-md-2
