@@ -52,14 +52,18 @@ class HomeController < ApplicationController
         @all_histories << temp_hash
       elsif history.category == Setting.histories.category_daily
         object = Daily.find(history.detail_id)
-        temp_hash = {:history=>history, :title=>"#{object.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>false}
-        @dailies << temp_hash
-        @all_histories << temp_hash
+        if current_user.identity == Setting.users.identity_admin or object.user == current_user or (current_user.identity == Setting.users.identity_teacher and object.user.group == current_user.group)
+          temp_hash = {:history=>history, :title=>"#{object.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_action_string(history.action), :object=>object, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>false}
+          @dailies << temp_hash
+          @all_histories << temp_hash
+        end
       elsif history.category == Setting.histories.category_daily_comment
         object = Comment.find(history.detail_id)
-        temp_hash = {:history=>history, :title=>"#{object.daily.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_comment_action_string(history.action), :object=>object.daily, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>true}
-        @comments << temp_hash
-        @all_histories << temp_hash
+        if current_user.identity == Setting.users.identity_admin or object.user == current_user or (current_user.identity == Setting.users.identity_teacher and object.daily.user.group == current_user.group) or (current_user.identity == Setting.users.identity_student and object.daily.user == current_user)
+          temp_hash = {:history=>history, :title=>"#{object.daily.date.strftime('%Y年%m月%d日')}日报", :operator=>history.user, :action=>get_comment_action_string(history.action), :object=>object.daily, :panel_style=>"panel-danger", :panel_head_title=>"日报动态", :is_show_author=>true}
+          @comments << temp_hash
+          @all_histories << temp_hash
+        end
       end
     end
   end
