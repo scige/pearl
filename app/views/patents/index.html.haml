@@ -2,34 +2,29 @@
 
 %h1.page-header 专利管理
 
-%table.table.table-striped
-  %tr
-    %th 名称
-    %th 负责人
-    %th 代理公司
-    %th 状态
-    %th 操作
+.row
+  .col-md-9
+    .well
+      .row
+        .col-md-3.col-md-offset-5
+          = link_to '新建专利', new_patent_path, :class=>"btn btn-lg btn-success"
 
-  - @patents.each do |patent|
-    %tr
-      %td= link_to patent.title, patent
-      %td= patent.user && patent.user.name
-      %td= patent.agency
-      %td
-        - if patent.status == Setting.patents.status_plan
-          = Setting.patents.status_plan_string
-        - elsif patent.status == Setting.patents.status_writing
-          = Setting.patents.status_writing_string
-        - elsif patent.status == Setting.patents.status_processing
-          = Setting.patents.status_processing_string
-        - elsif patent.status == Setting.patents.status_publication
-          = Setting.patents.status_publication_string
-        - elsif patent.status == Setting.patents.status_reality
-          = Setting.patents.status_reality_string
-        - elsif patent.status == Setting.patents.status_authorization
-          = Setting.patents.status_authorization_string
-      %td
-        = link_to '编辑', edit_patent_path(patent)
-        = link_to '删除', patent, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%br
 
-= link_to '新建专利', new_patent_path, :class=>"btn btn-default"
+- @patents.each_slice(3) do |slice|
+  .row
+    - slice.each do |patent|
+      .col-md-3.black-link
+        %a{:href=>patent_path(patent)}
+          .offer.offer-danger
+            .shape
+              .shape-text hot
+            .offer-content
+              %h4.lead= patent.title
+              %p
+                = "负责人：#{patent.user && patent.user.name}"
+                %br
+                = "代理公司：#{patent.agency}"
+                %br
+                = "状态：#{get_patent_status_string(patent.status)}"
+

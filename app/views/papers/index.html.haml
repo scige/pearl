@@ -2,28 +2,29 @@
 
 %h1.page-header 论文管理
 
-%table.table.table-striped
-  %tr
-    %th 题目
-    %th 作者
-    %th 期刊
-    %th 状态
-    %th 操作
+.row
+  .col-md-9
+    .well
+      .row
+        .col-md-3.col-md-offset-5
+          = link_to '新建论文', new_paper_path, :class=>"btn btn-lg btn-success"
 
-  - @papers.each do |paper|
-    %tr
-      %td= link_to paper.title, paper
-      %td= paper.user && paper.user.name
-      %td= paper.magazine
-      %td
-        - if paper.status == Setting.papers.status_submit
-          = Setting.papers.status_submit_string
-        - elsif paper.status == Setting.papers.status_accept
-          = Setting.papers.status_accept_string
-        - elsif paper.status == Setting.papers.status_publish
-          = Setting.papers.status_publish_string
-      %td
-        = link_to '编辑', edit_paper_path(paper)
-        = link_to '删除', paper, :method => :delete, :data => { :confirm => 'Are you sure?' }
+%br
 
-= link_to '新建论文', new_paper_path, :class=>"btn btn-default"
+- @papers.each_slice(3) do |slice|
+  .row
+    - slice.each do |paper|
+      .col-md-3.black-link
+        %a{:href=>paper_path(paper)}
+          .offer.offer-danger
+            .shape
+              .shape-text hot
+            .offer-content
+              %h4.lead= paper.title
+              %p
+                = "作者：#{paper.user && paper.user.name}"
+                %br
+                = "期刊：#{paper.magazine}"
+                %br
+                = "状态：#{get_paper_status_string(paper.status)}"
+

@@ -88,35 +88,3 @@
   outline: 0;
 }
 
-
-.card {
-  position: relative;
-  margin-bottom: 20px;
-}
-.card {
-  border: 0 none;
-  background-color: #eee;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  -webkit-box-shadow: rgba(0,0,0,0.0470588) 0 2px 3px 0;
-  box-shadow: rgba(0,0,0,0.0470588) 0 2px 3px 0;
-}
-
-.card .card-header {
-  color: #808080;
-  font-size: 18px;
-  margin: 0 15px;
-}
-.card .card-header {
-  margin-left: 10px;
-  padding: 10px 15px 10px 5px;
-  font-size: 20px;
-  line-height: 30px;
-  border-bottom: 1px solid rgba(0,0,0,0.12);
-}
-
-.card-content {
-  margin: 0 15px;
-  padding: 0;
-}

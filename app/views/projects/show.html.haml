@@ -30,9 +30,10 @@
         = link_to '删除', @project, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
 
   .col-md-7
-    .card
-      .card-header 项目动态
-      .card-content
+    .panel.panel-danger
+      .panel-heading
+        %h3.panel-title 项目动态
+      .panel-body
         %table.table.table-hover
           - @documents.each do |document|
             %tr
