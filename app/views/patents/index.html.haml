@@ -12,7 +12,7 @@
 
   - @patents.each do |patent|
     %tr
-      %td= link_to patent.title, patent, :target=>"_blank"
+      %td= link_to patent.title, patent
       %td= patent.user && patent.user.name
       %td= patent.agency
       %td

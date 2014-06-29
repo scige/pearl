@@ -12,7 +12,7 @@
 
   - @papers.each do |paper|
     %tr
-      %td= link_to paper.title, paper, :target=>"_blank"
+      %td= link_to paper.title, paper
       %td= paper.user && paper.user.name
       %td= paper.magazine
       %td

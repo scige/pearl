@@ -1,43 +1,49 @@
 = render "sub_navbar"
 
-= form_for @project, :html=>{:class=>"form-horizontal"} do |f|
-  .form-group
-    = f.label "名称: ", :class=>"col-md-2 control-label"
-    .col-md-3
-      %p.form-control-static= @project.title
+.row
+  .col-md-5
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title 项目信息
+      .panel-body
+        %table.table.table-bordered
+          %tr
+            %th.active 负责人
+            %td= @project.user ? @project.user.name : nil
+          %tr
+            %th.active 类别
+            %td= get_project_category_string(@project.category)
+          %tr
+            %th.active 来源
+            %td= @project.source
+          %tr
+            %th.active 开始时间
+            %td= @project.begin_at and @project.begin_at.strftime("%Y年%m月%d日")
+          %tr
+            %th.active 结束时间
+            %td= @project.end_at and @project.end_at.strftime("%Y年%m月%d日")
+          %tr
+            %th.active 状态
+            %td= get_project_status_string(@project.status)
 
-  .form-group
-    = f.label "负责人: ", :class=>"col-md-2 control-label"
-    .col-md-3
-      %p.form-control-static= @project.user ? @project.user.name : nil
+        = link_to '编辑', edit_project_path(@project), :class=>"btn btn-primary"
+        = link_to '删除', @project, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
 
-  .form-group
-    = f.label "类别", :class=>"col-md-2 control-label"
-    .col-md-3
-      = f.select :category, generate_all_project_categories, {:selected=>@project.category}, {:disabled=>"disabled", :class=>"form-control"}
+  .col-md-7
+    .card
+      .card-header 项目动态
+      .card-content
+        %table.table.table-hover
+          - @documents.each do |document|
+            %tr
+              %td
+                .row
+                  .col-md-7
+                    = link_to document.title, [@project, document]
+                  .col-md-2
+                    = document.user && document.user.name
+                  .col-md-3
+                    = document.created_at.strftime("%m-%d %H:%M")
 
-  .form-group
-    = f.label "来源", :class=>"col-md-2 control-label"
-    .col-md-3
-      %p.form-control-static= @project.source
-
-  .form-group
-    = f.label "开始时间", :class=>"col-md-2 control-label"
-    .col-md-3
-      %p.form-control-static= @project.begin_at and @project.begin_at.strftime("%Y年%m月%d日")
-
-  .form-group
-    = f.label "结束时间", :class=>"col-md-2 control-label"
-    .col-md-3
-      %p.form-control-static= @project.end_at and @project.end_at.strftime("%Y年%m月%d日")
-
-  .form-group
-    = f.label "状态: ", :class=>"col-md-2 control-label"
-    .col-md-3
-      = f.select :status, generate_all_project_status, {:selected=>@project.status}, {:disabled=>"disabled", :class=>"form-control"}
-
-  .form-group
-    .col-md-3.col-md-offset-2
-      = link_to '编辑', edit_project_path(@project), :class=>"btn btn-primary"
-      = link_to '删除', @project, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
+        = link_to '新建文档', new_project_document_path(@project), :class=>"btn btn-default"
 

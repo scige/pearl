@@ -14,7 +14,7 @@
 
   - @users.each do |user|
     %tr
-      %td= link_to user.name, user_path(user), :target=>"_blank"
+      %td= link_to user.name, user_path(user)
       %td
         - if user.identity == Setting.users.identity_admin
           = Setting.users.identity_admin_string

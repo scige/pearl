@@ -31,36 +31,34 @@
     .row
       .col-md-9
         - @all_histories.each do |item|
-          .panel
-            %div{:class=>item[:panel_style]}
-              .panel-heading
-                %h3.panel-title= item[:panel_head_title]
-              .panel-body
-                = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
-                - if params[:all]
-                  = "在#{item[:history].created_at.strftime("%Y-%m-%d %H:%M")}"
-                - else
-                  - if item[:history].created_at.strftime('%Y年%m月%d日') == Time.now.strftime('%Y年%m月%d日')
-                    = "在#{item[:history].created_at.strftime("%H:%M")}"
-                  - else
-                    = "在昨天#{item[:history].created_at.strftime("%H:%M")}"
-                = item[:action]
-                = "#{item[:object].user.name}的" if item[:is_show_author]
-                = link_to item[:title], item[:object], :target=>"_blank"
-      .col-md-3
-        .panel
-          %div.panel-primary
+          %div{:class=>"panel #{item[:panel_style]}"}
             .panel-heading
-              %h3.panel-title 公告
+              %h3.panel-title= item[:panel_head_title]
             .panel-body
-              %p   2014年6月25日
-              %p   1.只显示与自己相关的动态
-              %br
-              %p   2014年6月13日
-              %p   1.新增计划功能
-              %p   2.修正分组Bug
-              %br
-              %p   2014年6月12日
-              %p   1.新增日报评论功能
-              %p
+              = link_to item[:operator].name, item[:operator], :target=>"_blank" if item[:operator]
+              - if params[:all]
+                = "在#{item[:history].created_at.strftime("%Y-%m-%d %H:%M")}"
+              - else
+                - if item[:history].created_at.strftime('%Y年%m月%d日') == Time.now.strftime('%Y年%m月%d日')
+                  = "在#{item[:history].created_at.strftime("%H:%M")}"
+                - else
+                  = "在昨天#{item[:history].created_at.strftime("%H:%M")}"
+              = item[:action]
+              = "#{item[:object].user.name}的" if item[:is_show_author]
+              = link_to item[:title], item[:object], :target=>"_blank"
+      .col-md-3
+        .panel.panel-primary
+          .panel-heading
+            %h3.panel-title 公告
+          .panel-body
+            %p   2014年6月25日
+            %p   1.只显示与自己相关的动态
+            %br
+            %p   2014年6月13日
+            %p   1.新增计划功能
+            %p   2.修正分组Bug
+            %br
+            %p   2014年6月12日
+            %p   1.新增日报评论功能
+            %p
 
