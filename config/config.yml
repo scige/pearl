@@ -11,12 +11,6 @@ defaults: &defaults
     identity_admin_string: 管理员
     identity_teacher_string: 教师
     identity_student_string: 学生
-    grade_master_one: 11
-    grade_master_two: 12
-    grade_master_three: 13
-    grade_master_one_string: 研一
-    grade_master_two_string: 研二
-    grade_master_three_string: 研三
 
   papers:
     status_submit: 1

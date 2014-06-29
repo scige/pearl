@@ -23,13 +23,7 @@
         - elsif user.identity == Setting.users.identity_student
           = Setting.users.identity_student_string
       %td= user.group.name
-      %td
-        - if user.grade == Setting.users.grade_master_one
-          = Setting.users.grade_master_one_string
-        - elsif user.grade == Setting.users.grade_master_two
-          = Setting.users.grade_master_two_string
-        - elsif user.grade == Setting.users.grade_master_three
-          = Setting.users.grade_master_three_string
+      %td= "#{user.grade}级" if user.grade
       %td= user.email
       %td= user.phone
       %td

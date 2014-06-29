@@ -30,12 +30,7 @@
             - else
               = item[:user].name
           .col-md-2
-            - if item[:user].grade == Setting.users.grade_master_one
-              = Setting.users.grade_master_one_string
-            - elsif item[:user].grade == Setting.users.grade_master_two
-              = Setting.users.grade_master_two_string
-            - elsif item[:user].grade == Setting.users.grade_master_three
-              = Setting.users.grade_master_three_string
+            = "#{item[:user].grade}级" if item[:user].grade
           .col-md-2
             - if item[:status] == Setting.dailies.send_not
               %span.glyphicon.glyphicon-remove

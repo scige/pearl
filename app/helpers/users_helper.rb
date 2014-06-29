@@ -9,9 +9,11 @@ module UsersHelper
 
   def generate_all_user_grades
     [
-      [Setting.users.grade_master_one_string, Setting.users.grade_master_one],
-      [Setting.users.grade_master_two_string, Setting.users.grade_master_two],
-      [Setting.users.grade_master_three_string, Setting.users.grade_master_three]
+      [2010, 2010],
+      [2011, 2011],
+      [2012, 2012],
+      [2013, 2013],
+      [2014, 2014]
     ]
   end
 end
