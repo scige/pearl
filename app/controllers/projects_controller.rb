@@ -40,9 +40,9 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.find(params[:id])
+    @object = Project.find(params[:id])
     @users = get_my_group_users
-    @documents = @project.documents
+    @documents = @object.documents
   end
 
   def new

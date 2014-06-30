@@ -12,6 +12,7 @@
 #
 
 class Paper < ActiveRecord::Base
+  has_many :documents
   belongs_to :user
 
   attr_accessible :title, :magazine, :status

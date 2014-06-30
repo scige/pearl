@@ -12,6 +12,7 @@
 #
 
 class Patent < ActiveRecord::Base
+  has_many :documents
   belongs_to :user
 
   attr_accessible :title, :agency, :status

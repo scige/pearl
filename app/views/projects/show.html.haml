@@ -9,25 +9,25 @@
         %table.table.table-bordered
           %tr
             %th.active 负责人
-            %td= @project.user ? @project.user.name : nil
+            %td= @object.user ? @object.user.name : nil
           %tr
             %th.active 类别
-            %td= get_project_category_string(@project.category)
+            %td= get_project_category_string(@object.category)
           %tr
             %th.active 来源
-            %td= @project.source
+            %td= @object.source
           %tr
             %th.active 开始时间
-            %td= @project.begin_at and @project.begin_at.strftime("%Y年%m月%d日")
+            %td= @object.begin_at and @object.begin_at.strftime("%Y年%m月%d日")
           %tr
             %th.active 结束时间
-            %td= @project.end_at and @project.end_at.strftime("%Y年%m月%d日")
+            %td= @object.end_at and @object.end_at.strftime("%Y年%m月%d日")
           %tr
             %th.active 状态
-            %td= get_project_status_string(@project.status)
+            %td= get_project_status_string(@object.status)
 
-        = link_to '编辑', edit_project_path(@project), :class=>"btn btn-primary"
-        = link_to '删除', @project, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
+        = link_to '编辑', edit_project_path(@object), :class=>"btn btn-primary"
+        = link_to '删除', @object, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
 
   .col-md-7
     .panel.panel-danger
@@ -40,11 +40,11 @@
               %td
                 .row
                   .col-md-7
-                    = link_to document.title, [@project, document]
+                    = link_to document.title, [@object, document]
                   .col-md-2
                     = document.user && document.user.name
                   .col-md-3
                     = document.created_at.strftime("%m-%d %H:%M")
 
-        = link_to '新建文档', new_project_document_path(@project), :class=>"btn btn-default"
+        = link_to '新建文档', new_project_document_path(@object), :class=>"btn btn-default"
 

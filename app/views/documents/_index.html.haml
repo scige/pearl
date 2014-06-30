@@ -4,7 +4,12 @@
       .col-md-4
         全部文档
       .col-md-3.col-md-offset-5
-        = link_to '新建文档', new_project_document_path(@project), :class=>"btn btn-default"
+        - if @category == Setting.documents.category_project
+          = link_to '新建文档', new_project_document_path(@object), :class=>"btn btn-default"
+        - elsif @category == Setting.documents.category_paper
+          = link_to '新建文档', new_paper_document_path(@object), :class=>"btn btn-default"
+        - elsif @category == Setting.documents.category_patent
+          = link_to '新建文档', new_patent_document_path(@object), :class=>"btn btn-default"
 %br
 
 %table.table.table-hover
@@ -13,7 +18,7 @@
       %td
         .row
           .col-md-7
-            = link_to document.title, [@project, document]
+            = link_to document.title, [@object, document]
           .col-md-2
             = document.user && document.user.name
           .col-md-3

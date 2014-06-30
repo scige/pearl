@@ -9,16 +9,23 @@
 #  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  category   :integer
+#  paper_id   :integer
+#  patent_id  :integer
 #
 
 class Document < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
+  belongs_to :paper
+  belongs_to :patent
 
-  attr_accessible :title, :content
+  attr_accessible :title, :content, :category
 
   validates :title,       :presence => true
 
   validates :user_id,     :presence => true
-  validates :project_id,  :presence => true
+
+  validates :category,    :presence => true,
+                          :numericality => {:only_integer => true}
 end

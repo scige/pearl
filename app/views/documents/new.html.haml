@@ -1,4 +1,9 @@
-= render "projects/sub_navbar"
+- if @category == Setting.documents.category_project
+  = render "projects/sub_navbar"
+- elsif @category == Setting.documents.category_paper
+  = render "papers/sub_navbar"
+- elsif @category == Setting.documents.category_patent
+  = render "patents/sub_navbar"
 
 .row
   .col-md-5.wall

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140628152857) do
+ActiveRecord::Schema.define(:version => 20140630070947) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(:version => 20140628152857) do
     t.integer  "project_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "category"
+    t.integer  "paper_id"
+    t.integer  "patent_id"
   end
 
   add_index "documents", ["project_id"], :name => "index_documents_on_project_id"

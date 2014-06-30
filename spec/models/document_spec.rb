@@ -9,6 +9,9 @@
 #  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  category   :integer
+#  paper_id   :integer
+#  patent_id  :integer
 #
 
 require 'spec_helper'

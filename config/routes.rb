@@ -13,9 +13,13 @@ Pearl::Application.routes.draw do
     resources :documents
   end
 
-  resources :papers
+  resources :papers do
+    resources :documents
+  end
 
-  resources :patents
+  resources :patents do
+    resources :documents
+  end
 
   match '/dailies/my(/:date)' => 'dailies#my'
   match '/dailies/group(/:date)' => 'dailies#group'

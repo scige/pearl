@@ -1,21 +1,45 @@
-= render "projects/sub_navbar"
+- if @category == Setting.documents.category_project
+  = render "projects/sub_navbar"
+- elsif @category == Setting.documents.category_paper
+  = render "papers/sub_navbar"
+- elsif @category == Setting.documents.category_patent
+  = render "patents/sub_navbar"
 
 .row
   .col-md-5.wall
     = render "index"
 
   .col-md-7.wall
-    %h3.wall-header
-      .wall-header-content
-        .row
-          .col-md-9
-            - if @document
-              = @document.title
-          .col-md-3
-            - if @document
-              = link_to '编辑', edit_project_document_path(@project, @document), :class=>"btn btn-default"
-              = link_to '删除', [@project, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
-    %br
+    - if @documents.size > 0
+      %h3.wall-header
+        .wall-header-content
+          .row
+            .col-md-9
+              - if @document
+                = @document.title
+            .col-md-3
+              - if @document
+                - if @category == Setting.documents.category_project
+                  = link_to '编辑', edit_project_document_path(@object, @document), :class=>"btn btn-default"
+                  = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+                - elsif @category == Setting.documents.category_paper
+                  = link_to '编辑', edit_paper_document_path(@object, @document), :class=>"btn btn-default"
+                  = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+                - elsif @category == Setting.documents.category_patent
+                  = link_to '编辑', edit_patent_document_path(@object, @document), :class=>"btn btn-default"
+                  = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+      %br
 
-    = render "show"
+      = render "show"
+    - else
+      %h3.wall-header
+        .wall-header-content
+          .row
+            .col-md-9
+              新建文档
+            .col-md-3
+      %br
+
+      = render "form"
+
 

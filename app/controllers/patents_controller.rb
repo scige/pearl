@@ -17,8 +17,9 @@ class PatentsController < ApplicationController
   end
 
   def show
-    @patent = Patent.find(params[:id])
+    @object = Patent.find(params[:id])
     @users = get_my_group_users
+    @documents = @object.documents
   end
 
   def new

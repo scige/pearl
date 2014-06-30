@@ -54,6 +54,11 @@ defaults: &defaults
     status_reality_string: 实审中
     status_authorization_string: 已授权
 
+  documents:
+    category_project: 1
+    category_paper: 2
+    category_patent: 3
+
   histories:
     category_project: 1
     category_paper: 2

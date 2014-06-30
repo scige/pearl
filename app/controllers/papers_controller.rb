@@ -17,8 +17,9 @@ class PapersController < ApplicationController
   end
 
   def show
-    @paper = Paper.find(params[:id])
+    @object = Paper.find(params[:id])
     @users = get_my_group_users
+    @documents = @object.documents
   end
 
   def new
