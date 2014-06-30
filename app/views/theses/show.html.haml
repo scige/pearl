@@ -11,6 +11,9 @@
             %th.active{:width=>60} 姓名
             %td= @object.user ? @object.user.name : nil
           %tr
+            %th.active 题目
+            %td= @object.title
+          %tr
             %th.active 摘要
             %td= @object.abstract
           %tr

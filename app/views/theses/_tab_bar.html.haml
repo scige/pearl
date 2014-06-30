@@ -1,0 +1,4 @@
+%ul.nav.nav-tabs
+  %li{:class => (action_name=="my"?"active":nil)}= link_to "我的论文", theses_my_path
+  %li{:class => (action_name=="index"?"active":nil)}= link_to "团队论文", theses_path
+

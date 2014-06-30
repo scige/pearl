@@ -21,6 +21,7 @@ Pearl::Application.routes.draw do
     resources :documents
   end
 
+  match '/theses/my' => 'theses#my'
   resources :theses do
     resources :documents
   end

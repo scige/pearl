@@ -16,27 +16,26 @@ class ThesesController < ApplicationController
     end
   end
 
+  def my
+    @theses = current_user.theses
+  end
+
   def show
     @object = Thesis.find(params[:id])
-    @users = get_my_group_users
     @documents = @object.documents
   end
 
   def new
     @thesis = Thesis.new
-    @users = get_my_group_users
   end
 
   def edit
     @thesis = Thesis.find(params[:id])
-    @users = get_my_group_users
   end
 
   def create
-    user_id = params[:thesis].delete(:user_id)
-    user = User.find(user_id)
     @thesis = Thesis.new(params[:thesis])
-    @thesis.user = user
+    @thesis.user = current_user
 
     if @thesis.save
       redirect_to @thesis
@@ -47,10 +46,8 @@ class ThesesController < ApplicationController
   end
 
   def update
-    user_id = params[:thesis].delete(:user_id)
-    user = User.find(user_id)
     @thesis = Thesis.find(params[:id])
-    @thesis.user = user
+    @thesis.user = current_user
 
     if @thesis.update_attributes(params[:thesis])
       redirect_to @thesis

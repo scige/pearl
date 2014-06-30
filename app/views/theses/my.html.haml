@@ -6,6 +6,15 @@
 
 %br
 
+.row
+  .col-md-9
+    .well
+      .row
+        .col-md-3.col-md-offset-5
+          = link_to '新建论文', new_thesis_path, :class=>"btn btn-lg btn-success"
+
+%br
+
 - @theses.each_slice(3) do |slice|
   .row
     - slice.each do |thesis|
