@@ -40,7 +40,7 @@ class ThesesController < ApplicationController
     if @thesis.save
       redirect_to @thesis
     else
-      flash[:error] = "输入内容缺失或存在错误，新建论文失败！"
+      flash[:error] = "输入内容缺失或存在错误，新建学位论文失败！"
       redirect_to new_thesis_url
     end
   end
@@ -52,7 +52,7 @@ class ThesesController < ApplicationController
     if @thesis.update_attributes(params[:thesis])
       redirect_to @thesis
     else
-      flash[:error] = "输入内容缺失或存在错误，编辑论文失败！"
+      flash[:error] = "输入内容缺失或存在错误，编辑学位论文失败！"
       redirect_to edit_thesis_url(@thesis)
     end
   end

@@ -47,18 +47,5 @@
               = "#{item[:object].user.name}的" if item[:is_show_author]
               = link_to item[:title], item[:object], :target=>"_blank"
       .col-md-3
-        .panel.panel-primary
-          .panel-heading
-            %h3.panel-title 公告
-          .panel-body
-            %p   2014年6月25日
-            %p   1.只显示与自己相关的动态
-            %br
-            %p   2014年6月13日
-            %p   1.新增计划功能
-            %p   2.修正分组Bug
-            %br
-            %p   2014年6月12日
-            %p   1.新增日报评论功能
-            %p
+        = render "announcement"
 

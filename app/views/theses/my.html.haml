@@ -26,7 +26,7 @@
             .offer-content
               %h4.lead= thesis.title
               %p
-                = "作者：#{thesis.user && thesis.user.name}"
+                = "姓名：#{thesis.user && thesis.user.name}"
                 %br
                 = "状态：#{get_thesis_status_string(thesis.status)}"
 
