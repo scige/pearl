@@ -1,0 +1,44 @@
+= render "sub_navbar"
+
+.row
+  .col-md-5
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title 论文信息
+      .panel-body
+        %table.table.table-bordered
+          %tr
+            %th.active{:width=>60} 姓名
+            %td= @object.user ? @object.user.name : nil
+          %tr
+            %th.active 摘要
+            %td= @object.abstract
+          %tr
+            %th.active 关键词
+            %td= @object.keywords
+          %tr
+            %th.active 状态
+            %td= get_thesis_status_string(@object.status)
+
+        = link_to '编辑', edit_thesis_path(@object), :class=>"btn btn-primary"
+        = link_to '删除', @object, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
+
+  .col-md-7
+    .panel.panel-danger
+      .panel-heading
+        %h3.panel-title 论文动态
+      .panel-body
+        %table.table.table-hover
+          - @documents.each do |document|
+            %tr
+              %td
+                .row
+                  .col-md-7
+                    = link_to document.title, [@object, document]
+                  .col-md-2
+                    = document.user && document.user.name
+                  .col-md-3
+                    = document.created_at.strftime("%m-%d %H:%M")
+
+        = link_to '新建文档', new_thesis_document_path(@object), :class=>"btn btn-default"
+

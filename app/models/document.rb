@@ -12,6 +12,7 @@
 #  category   :integer
 #  paper_id   :integer
 #  patent_id  :integer
+#  thesis_id  :integer
 #
 
 class Document < ActiveRecord::Base
@@ -19,6 +20,7 @@ class Document < ActiveRecord::Base
   belongs_to :project
   belongs_to :paper
   belongs_to :patent
+  belongs_to :thesis
 
   attr_accessible :title, :content, :category
 

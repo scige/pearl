@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :papers
   has_many :patents
   has_many :projects
+  has_many :theses
   has_many :dailies
   has_many :histories
   has_many :comments

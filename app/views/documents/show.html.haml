@@ -4,6 +4,8 @@
   = render "papers/sub_navbar"
 - elsif @category == Setting.documents.category_patent
   = render "patents/sub_navbar"
+- elsif @category == Setting.documents.category_thesis
+  = render "theses/sub_navbar"
 
 .row
   .col-md-5.wall
@@ -26,6 +28,9 @@
                 = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
               - elsif @category == Setting.documents.category_patent
                 = link_to '编辑', edit_patent_document_path(@object, @document), :class=>"btn btn-default"
+                = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+              - elsif @category == Setting.documents.category_thesis
+                = link_to '编辑', edit_thesis_document_path(@object, @document), :class=>"btn btn-default"
                 = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
     %br
 

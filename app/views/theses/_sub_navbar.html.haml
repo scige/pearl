@@ -1,0 +1,11 @@
+%h2.page-header
+  .row
+    .col-md-8
+      = @object.title
+    .col-md-4
+      = link_to "主页", thesis_path(@object), :class=>"btn btn-default", :class=> (controller_name=="theses" ? "btn btn-primary":"btn btn-default")
+      = link_to "任务", "#", :class=>"btn btn-default"
+      = link_to "文档", thesis_documents_path(@object), :class=> (controller_name=="documents" ? "btn btn-primary":"btn btn-default")
+      = link_to "文件", "#", :class=>"btn btn-default"
+      = link_to "回顾", "#", :class=>"btn btn-default"
+

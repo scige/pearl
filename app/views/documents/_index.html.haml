@@ -10,6 +10,8 @@
           = link_to '新建文档', new_paper_document_path(@object), :class=>"btn btn-default"
         - elsif @category == Setting.documents.category_patent
           = link_to '新建文档', new_patent_document_path(@object), :class=>"btn btn-default"
+        - elsif @category == Setting.documents.category_thesis
+          = link_to '新建文档', new_thesis_document_path(@object), :class=>"btn btn-default"
 %br
 
 %table.table.table-hover

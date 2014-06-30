@@ -54,10 +54,19 @@ defaults: &defaults
     status_reality_string: 实审中
     status_authorization_string: 已授权
 
+  theses:
+    status_proposal: 1
+    status_research: 2
+    status_finish: 3
+    status_proposal_string: 开题中
+    status_research_string: 研究中
+    status_finish_string: 已完成
+
   documents:
     category_project: 1
     category_paper: 2
     category_patent: 3
+    category_thesis: 4
 
   histories:
     category_project: 1

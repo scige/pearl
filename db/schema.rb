@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140630070947) do
+ActiveRecord::Schema.define(:version => 20140630124045) do
 
   create_table "comments", :force => true do |t|
     t.string   "content"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20140630070947) do
     t.integer  "category"
     t.integer  "paper_id"
     t.integer  "patent_id"
+    t.integer  "thesis_id"
   end
 
   add_index "documents", ["project_id"], :name => "index_documents_on_project_id"
@@ -121,6 +122,18 @@ ActiveRecord::Schema.define(:version => 20140630070947) do
   end
 
   add_index "projects", ["user_id"], :name => "index_projects_on_user_id"
+
+  create_table "theses", :force => true do |t|
+    t.string   "title"
+    t.text     "abstract"
+    t.string   "keywords"
+    t.integer  "status"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "theses", ["user_id"], :name => "index_theses_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

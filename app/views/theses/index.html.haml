@@ -1,0 +1,28 @@
+- provide(:title, "论文管理")
+
+%h1.page-header 论文管理
+
+.row
+  .col-md-9
+    .well
+      .row
+        .col-md-3.col-md-offset-5
+          = link_to '新建论文', new_thesis_path, :class=>"btn btn-lg btn-success"
+
+%br
+
+- @theses.each_slice(3) do |slice|
+  .row
+    - slice.each do |thesis|
+      .col-md-3.black-link
+        %a{:href=>thesis_path(thesis)}
+          .offer.offer-danger
+            .shape
+              .shape-text hot
+            .offer-content
+              %h4.lead= thesis.title
+              %p
+                = "作者：#{thesis.user && thesis.user.name}"
+                %br
+                = "状态：#{get_thesis_status_string(thesis.status)}"
+

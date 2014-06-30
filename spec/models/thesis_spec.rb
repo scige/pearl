@@ -1,22 +1,19 @@
 # == Schema Information
 #
-# Table name: documents
+# Table name: theses
 #
 #  id         :integer          not null, primary key
 #  title      :string(255)
-#  content    :text
+#  abstract   :text
+#  keywords   :string(255)
+#  status     :integer
 #  user_id    :integer
-#  project_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  category   :integer
-#  paper_id   :integer
-#  patent_id  :integer
-#  thesis_id  :integer
 #
 
 require 'spec_helper'
 
-describe Document do
+describe Thesis do
   pending "add some examples to (or delete) #{__FILE__}"
 end

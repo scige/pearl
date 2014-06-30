@@ -43,6 +43,10 @@ class DocumentsController < ApplicationController
       @category = Setting.documents.category_patent
       @object = Patent.find(params[:patent_id])
       @document.patent = @object
+    elsif params[:thesis_id]
+      @category = Setting.documents.category_thesis
+      @object = Thesis.find(params[:thesis_id])
+      @document.thesis = @object
     end
     @document.category = @category
     @document.user = current_user
@@ -54,6 +58,8 @@ class DocumentsController < ApplicationController
         redirect_to paper_document_url(@object, @document)
       elsif @category == Setting.documents.category_patent
         redirect_to patent_document_url(@object, @document)
+      elsif @category == Setting.documents.category_thesis
+        redirect_to thesis_document_url(@object, @document)
       end
     else
       flash[:error] = "输入内容缺失或存在错误，新建文档失败！"
@@ -63,6 +69,8 @@ class DocumentsController < ApplicationController
         redirect_to new_paper_document_url(@object)
       elsif @category == Setting.documents.category_patent
         redirect_to new_patent_document_url(@object)
+      elsif @category == Setting.documents.category_thesis
+        redirect_to new_thesis_document_url(@object)
       end
     end
   end
@@ -80,6 +88,9 @@ class DocumentsController < ApplicationController
     elsif params[:patent_id]
       @category = Setting.documents.category_patent
       @object = Patent.find(params[:patent_id])
+    elsif params[:thesis_id]
+      @category = Setting.documents.category_thesis
+      @object = Thesis.find(params[:thesis_id])
     end
 
     if @document.update_attributes(params[:document])
@@ -89,6 +100,8 @@ class DocumentsController < ApplicationController
         redirect_to paper_document_url(@object, @document)
       elsif @category == Setting.documents.category_patent
         redirect_to patent_document_url(@object, @document)
+      elsif @category == Setting.documents.category_thesis
+        redirect_to thesis_document_url(@object, @document)
       end
     else
       flash[:error] = "输入内容缺失或存在错误，编辑文档失败！"
@@ -98,6 +111,8 @@ class DocumentsController < ApplicationController
         redirect_to edit_paper_document_url(@object, @document)
       elsif @category == Setting.documents.category_patent
         redirect_to edit_patent_document_url(@object, @document)
+      elsif @category == Setting.documents.category_thesis
+        redirect_to edit_thesis_document_url(@object, @document)
       end
     end
   end
@@ -115,6 +130,9 @@ class DocumentsController < ApplicationController
     elsif params[:patent_id]
       @object = Patent.find(params[:patent_id])
       redirect_to patent_documents_url(@object)
+    elsif params[:thesis_id]
+      @object = Thesis.find(params[:thesis_id])
+      redirect_to thesis_documents_url(@object)
     end
   end
 
@@ -133,6 +151,9 @@ class DocumentsController < ApplicationController
     elsif params[:patent_id]
       @category = Setting.documents.category_patent
       @object = Patent.find(params[:patent_id])
+    elsif params[:thesis_id]
+      @category = Setting.documents.category_thesis
+      @object = Thesis.find(params[:thesis_id])
     end
     @documents = @object.documents
   end
