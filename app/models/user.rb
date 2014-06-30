@@ -42,8 +42,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   attr_accessible :name, :identity, :phone, :grade
 
-  validates :name,      :presence => true,
-                        :uniqueness => {:case_sensitive => false}
+  validates :name,      :presence => true
   validates :identity,  :presence => true,
                         :numericality => {:only_integer => true}
 end
