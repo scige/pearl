@@ -1,19 +1,20 @@
 = render "projects/sub_navbar"
 
 .row
-  .col-md-5
+  .col-md-5.wall
     = render "index"
 
-  .col-md-7
-    %h3
-      .row
-        .col-md-9
-          - if @document
-            = @document.title
-        .col-md-3
-          - if @document
-            = link_to '编辑', edit_project_document_path(@project, @document), :class=>"btn btn-default"
-            = link_to '删除', [@project, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+  .col-md-7.wall
+    %h3.wall-header
+      .wall-header-content
+        .row
+          .col-md-9
+            - if @document
+              = @document.title
+          .col-md-3
+            - if @document
+              = link_to '编辑', edit_project_document_path(@project, @document), :class=>"btn btn-default"
+              = link_to '删除', [@project, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
     %br
 
     = render "show"

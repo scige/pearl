@@ -1,16 +1,17 @@
 = render "projects/sub_navbar"
 
 .row
-  .col-md-5
+  .col-md-5.wall
     = render "index"
 
-  .col-md-7
-    %h3
-      .row
-        .col-md-9
-          - if @document
-            = "正在编辑：#{@document.title}"
-        .col-md-3
+  .col-md-7.wall
+    %h3.wall-header
+      .wall-header-content
+        .row
+          .col-md-9
+            - if @document
+              = "正在编辑：#{@document.title}"
+          .col-md-3
     %br
 
     = render "form"
