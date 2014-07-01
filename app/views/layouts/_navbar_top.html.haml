@@ -9,6 +9,9 @@
 .navbar-collapse.collapse
   %ul.nav.navbar-nav.navbar-right
     - if user_signed_in?
+      %li= link_to "日报", "/dailies/my/#{Time.now.strftime("%Y-%m-%d")}"
+      %li= link_to "计划", plans_path
+      %li= link_to "科研", theses_my_path
       %li.dropdown
         %a{"data-toggle"=>"dropdown", :href=>"#"}
           = "欢迎您，#{current_user.name}"
