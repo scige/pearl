@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :plans
   has_many :documents
+  has_many :reviews
   belongs_to :group
 
   # Include default devise modules. Others available are:

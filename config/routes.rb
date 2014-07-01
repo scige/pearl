@@ -26,6 +26,8 @@ Pearl::Application.routes.draw do
     resources :documents
   end
 
+  resources :reviews, :only => [:create, :destory]
+
   match '/dailies/my(/:date)' => 'dailies#my'
   match '/dailies/group(/:date)' => 'dailies#group'
   match '/dailies/subgroup(/:date)' => 'dailies#subgroup'
