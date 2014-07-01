@@ -59,3 +59,5 @@ gem 'awesome_nested_set'
 
 gem 'bootstrap-datepicker-rails'
 
+gem 'rails_kindeditor'
+

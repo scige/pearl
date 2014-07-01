@@ -10,7 +10,7 @@
     = f.text_field :title, :placeholder=>"输入文档标题", :class=>"form-control"
 
   .form-group
-    = f.text_area :content, :rows=>12, :placeholder=>"编写文档内容", :class=>"form-control"
+    = f.kindeditor :content, :height=>300, :simple_mode => true, :class=>"form-control"
 
   .form-group
     = f.submit '保存', :class=>"btn btn-default"

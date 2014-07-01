@@ -1,6 +1,5 @@
 - if @document
-  - @document.content.split("\n").each do |line|
-    %p= line
+  = @document.content.html_safe
 
 %hr
 - @reviews.each do |review|
