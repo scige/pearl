@@ -2,7 +2,7 @@
 
 class CommentsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :only => [:destroy]
 
   def create
     daily_id = params[:comment].delete(:daily_id)
@@ -22,14 +22,11 @@ class CommentsController < ApplicationController
     end
   end
 
-  #def destroy
-  #  @comment = Comment.find(params[:id])
-  #  history = History.new(:category=>Setting.histories.category_daily_comment, :detail_id=>@comment.id, :action=>Setting.histories.action_destroy)
-  #  history.user = current_user    #当前正在操作的user，而不是负责人
-  #  history.group = get_root_group(current_user)
-  #  history.save
-  #  @comment.destroy
+  def destroy
+    @comment = Comment.find(params[:id])
+    @daily = @comment.daily
+    @comment.destroy
 
-  #  redirect_to comments_url
-  #end
+    redirect_to @daily
+  end
 end

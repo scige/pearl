@@ -2,7 +2,7 @@
 
 class ReviewsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :only => [:destroy]
 
   def create
     document_id = params[:review].delete(:document_id)
@@ -28,10 +28,21 @@ class ReviewsController < ApplicationController
     end
   end
 
-  #def destroy
-  #  @review = Review.find(params[:id])
-  #  @review.destroy
+  def destroy
+    @review = Review.find(params[:id])
+    @document = @review.document
+    @review.destroy
 
-  #  redirect_to reviews_url
-  #end
+    if @document.category == Setting.documents.category_project
+      redirect_to [@document.project, @document]
+    elsif @document.category == Setting.documents.category_paper
+      redirect_to [@document.paper, @document]
+    elsif @document.category == Setting.documents.category_patent
+      redirect_to [@document.patent, @document]
+    elsif @document.category == Setting.documents.category_thesis
+      redirect_to [@document.thesis, @document]
+    else
+      redirect_to root_url
+    end
+  end
 end
