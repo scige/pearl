@@ -24,22 +24,22 @@
                 - if @category == Setting.documents.category_project
                   - if can? :update, @document
                     = link_to '编辑', edit_project_document_path(@object, @document), :class=>"btn btn-default"
-                  - if can? :destory, @document
+                  - if can? :destroy, @document
                     = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
                 - elsif @category == Setting.documents.category_paper
                   - if can? :update, @document
                     = link_to '编辑', edit_paper_document_path(@object, @document), :class=>"btn btn-default"
-                  - if can? :destory, @document
+                  - if can? :destroy, @document
                     = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
                 - elsif @category == Setting.documents.category_patent
                   - if can? :update, @document
                     = link_to '编辑', edit_patent_document_path(@object, @document), :class=>"btn btn-default"
-                  - if can? :destory, @document
+                  - if can? :destroy, @document
                     = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
                 - elsif @category == Setting.documents.category_thesis
                   - if can? :update, @document
                     = link_to '编辑', edit_thesis_document_path(@object, @document), :class=>"btn btn-default"
-                  - if can? :destory, @document
+                  - if can? :destroy, @document
                     = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
       %br
 

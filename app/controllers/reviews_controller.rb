@@ -28,10 +28,10 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def destroy
-    @review = Review.find(params[:id])
-    @review.destroy
+  #def destroy
+  #  @review = Review.find(params[:id])
+  #  @review.destroy
 
-    redirect_to reviews_url
-  end
+  #  redirect_to reviews_url
+  #end
 end

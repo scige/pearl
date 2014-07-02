@@ -50,6 +50,7 @@ class Ability
       can :edit_profile, User
       can :update_profile, User
       can :cancel_user, User
+      can :destroy, User
 
       #Group
       can :read, Group do |group|
@@ -68,33 +69,33 @@ class Ability
       can :read, Project
       can :create, Project
       can :update, Project
-      can :destory, Project
+      can :destroy, Project
       can :finish, Project
 
       #Paper
       can :read, Paper
       can :create, Paper
       can :update, Paper
-      can :destory, Paper
+      can :destroy, Paper
 
       #Patent
       can :read, Patent
       can :create, Patent
       can :update, Patent
-      can :destory, Patent
+      can :destroy, Patent
 
       #Thesis
       can :read, Thesis
       can :create, Thesis
       can :update, Thesis
-      can :destory, Thesis
+      can :destroy, Thesis
       can :my, Thesis
 
       #Document
       can :read, Document
       can :create, Document
       can :update, Document
-      can :destory, Document
+      can :destroy, Document
 
       #Review
       can :create, Review
@@ -155,7 +156,7 @@ class Ability
       can :update, Project do |project|
         project.user_id == user.id
       end
-      can :destory, Project do |project|
+      can :destroy, Project do |project|
         project.user_id == user.id
       end
       can :finish, Project
@@ -166,7 +167,7 @@ class Ability
       can :update, Paper do |paper|
         paper.user_id == user.id
       end
-      can :destory, Paper do |paper|
+      can :destroy, Paper do |paper|
         paper.user_id == user.id
       end
 
@@ -176,7 +177,7 @@ class Ability
       can :update, Patent do |patent|
         patent.user_id == user.id
       end
-      can :destory, Patent do |patent|
+      can :destroy, Patent do |patent|
         patent.user_id == user.id
       end
 
@@ -186,7 +187,7 @@ class Ability
       can :update, Thesis do |thesis|
         thesis.user_id == user.id
       end
-      can :destory, Thesis do |thesis|
+      can :destroy, Thesis do |thesis|
         thesis.user_id == user.id
       end
       can :my, Thesis
@@ -197,7 +198,7 @@ class Ability
       can :update, Document do |document|
         document.user_id == user.id
       end
-      can :destory, Document do |document|
+      can :destroy, Document do |document|
         document.user_id == user.id
       end
 

@@ -4,12 +4,6 @@ class DailiesController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
 
-  #def index
-  #  @dailies = Daily.all
-  #  @daily = Daily.new
-  #  @query_date = Time.now.strftime("%Y-%m-%d")
-  #end
-
   def my
     @query_date = params[:date]
     @query_date = Time.now.strftime("%Y-%m-%d") unless @query_date
@@ -32,15 +26,6 @@ class DailiesController < ApplicationController
     @comments = @daily.comments
     @comment = Comment.new
     @floor = 0
-  end
-
-  def new
-    @daily = Daily.new
-  end
-
-  def edit
-    @daily = Daily.find(params[:id])
-    @query_date = @daily.date.strftime("%Y-%m-%d") if @daily
   end
 
   def create
@@ -87,16 +72,16 @@ class DailiesController < ApplicationController
     end
   end
 
-  def destroy
-    @daily = Daily.find(params[:id])
-    history = History.new(:category=>Setting.histories.category_daily, :detail_id=>@daily.id, :action=>Setting.histories.action_destroy)
-    history.user = current_user    #当前正在操作的user，而不是负责人
-    history.group = get_root_group(current_user)
-    history.save
-    @daily.destroy
+  #def destroy
+  #  @daily = Daily.find(params[:id])
+  #  history = History.new(:category=>Setting.histories.category_daily, :detail_id=>@daily.id, :action=>Setting.histories.action_destroy)
+  #  history.user = current_user    #当前正在操作的user，而不是负责人
+  #  history.group = get_root_group(current_user)
+  #  history.save
+  #  @daily.destroy
 
-    redirect_to dailies_url
-  end
+  #  redirect_to dailies_url
+  #end
 
   private
 

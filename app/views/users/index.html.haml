@@ -10,7 +10,7 @@
     %th 年级
     %th 邮箱
     %th 电话
-    - if can? :update, User or can? :destory, User
+    - if can? :update, User or can? :destroy, User
       %th 操作
 
   - @users.each do |user|
@@ -30,6 +30,6 @@
       %td
         - if can? :update, user
           = link_to '编辑', edit_profile_users_path(:id=>user.id)
-        - if can? :destory, user
+        - if can? :destroy, user
           = link_to '删除', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

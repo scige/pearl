@@ -42,7 +42,7 @@
     %th 名词
     %th 学校
     %th 院系
-    - if can? :update, Group or can? :destory, Group
+    - if can? :update, Group or can? :destroy, Group
       %th 操作
 
   - @child_groups.each do |group|
@@ -53,10 +53,11 @@
       %td
         - if can? :update, group
           = link_to '编辑', edit_group_path(group)
-        - if can? :destory, group
+        - if can? :destroy, group
           = link_to '删除', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-= link_to '新建小组', new_group_path, :class=>"btn btn-default"
+- if can? :create, Group
+  = link_to '新建小组', new_group_path, :class=>"btn btn-default"
 
 %ul#org{:style=>"display:none"}
   %li

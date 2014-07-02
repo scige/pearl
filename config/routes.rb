@@ -1,7 +1,7 @@
 Pearl::Application.routes.draw do
   devise_for :users
 
-  resources :users, :only => [:index, :show] do
+  resources :users, :only => [:index, :show, :destroy] do
     post :select_group, :on => :collection
     get :edit_profile, :on => :collection
     post :update_profile, :on => :collection
@@ -26,14 +26,14 @@ Pearl::Application.routes.draw do
     resources :documents
   end
 
-  resources :reviews, :only => [:create, :destory]
+  resources :reviews, :only => [:create, :destroy]
 
   match '/dailies/my(/:date)' => 'dailies#my'
   match '/dailies/group(/:date)' => 'dailies#group'
   match '/dailies/subgroup(/:date)' => 'dailies#subgroup'
   resources :dailies, :only => [:index, :show, :edit, :create, :update]
 
-  resources :comments, :only => [:create, :destory]
+  resources :comments, :only => [:create, :destroy]
 
   match '/plans/user(/:id)' => 'plans#user'
   resources :plans do
