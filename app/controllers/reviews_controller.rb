@@ -2,6 +2,7 @@
 
 class ReviewsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
   def create
     document_id = params[:review].delete(:document_id)

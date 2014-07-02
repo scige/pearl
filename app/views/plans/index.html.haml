@@ -2,7 +2,7 @@
 
 %h1.page-header 我的计划
 
-- if current_user.identity == Setting.users.identity_admin or current_user.identity == Setting.users.identity_teacher
+- if can? :user, Plan
   = render "tab_bar"
 
 %br

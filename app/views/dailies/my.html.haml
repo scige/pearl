@@ -2,7 +2,8 @@
 
 %h1.page-header 我的日报
 
-= render "tab_bar"
+- if can? :group, Daily
+  = render "tab_bar"
 
 %br
 

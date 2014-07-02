@@ -2,6 +2,7 @@
 
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
   def index
     common_vars
@@ -10,6 +11,9 @@ class DocumentsController < ApplicationController
     else
       @document = Document.new
     end
+    @reviews = @document.reviews
+    @review = Review.new
+    @floor = 0
   end
 
   def show

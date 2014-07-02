@@ -2,12 +2,13 @@
 
 class DailiesController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource
 
-  def index
-    @dailies = Daily.all
-    @daily = Daily.new
-    @query_date = Time.now.strftime("%Y-%m-%d")
-  end
+  #def index
+  #  @dailies = Daily.all
+  #  @daily = Daily.new
+  #  @query_date = Time.now.strftime("%Y-%m-%d")
+  #end
 
   def my
     @query_date = params[:date]

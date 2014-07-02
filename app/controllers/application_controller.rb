@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :user_access_log
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to :back, :alert => exception.message
+  end
+
   def user_access_log
     session_id = session[:session_id] || ""
     user_id = (current_user && current_user.id) || ""

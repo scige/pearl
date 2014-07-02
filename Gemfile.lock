@@ -45,6 +45,7 @@ GEM
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.0.4)
+    cancan (1.6.10)
     capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -213,6 +214,7 @@ DEPENDENCIES
   better_errors
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.1.1)
+  cancan
   capybara
   client_side_validations
   coffee-rails (~> 3.2.1)

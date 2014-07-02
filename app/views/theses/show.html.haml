@@ -23,8 +23,10 @@
             %th.active 状态
             %td= get_thesis_status_string(@object.status)
 
-        = link_to '编辑', edit_thesis_path(@object), :class=>"btn btn-primary"
-        = link_to '删除', @object, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
+        - if can? :update, @object
+          = link_to '编辑', edit_thesis_path(@object), :class=>"btn btn-primary"
+        - if can? :destory, @object
+          = link_to '删除', @object, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-danger"
 
   .col-md-7
     .panel.panel-danger

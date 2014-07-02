@@ -22,17 +22,25 @@
             .col-md-3
               - if @document
                 - if @category == Setting.documents.category_project
-                  = link_to '编辑', edit_project_document_path(@object, @document), :class=>"btn btn-default"
-                  = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+                  - if can? :update, @document
+                    = link_to '编辑', edit_project_document_path(@object, @document), :class=>"btn btn-default"
+                  - if can? :destory, @document
+                    = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
                 - elsif @category == Setting.documents.category_paper
-                  = link_to '编辑', edit_paper_document_path(@object, @document), :class=>"btn btn-default"
-                  = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+                  - if can? :update, @document
+                    = link_to '编辑', edit_paper_document_path(@object, @document), :class=>"btn btn-default"
+                  - if can? :destory, @document
+                    = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
                 - elsif @category == Setting.documents.category_patent
-                  = link_to '编辑', edit_patent_document_path(@object, @document), :class=>"btn btn-default"
-                  = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+                  - if can? :update, @document
+                    = link_to '编辑', edit_patent_document_path(@object, @document), :class=>"btn btn-default"
+                  - if can? :destory, @document
+                    = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
                 - elsif @category == Setting.documents.category_thesis
-                  = link_to '编辑', edit_thesis_document_path(@object, @document), :class=>"btn btn-default"
-                  = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
+                  - if can? :update, @document
+                    = link_to '编辑', edit_thesis_document_path(@object, @document), :class=>"btn btn-default"
+                  - if can? :destory, @document
+                    = link_to '删除', [@object, @document], :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-default"
       %br
 
       = render "show"

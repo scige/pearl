@@ -47,4 +47,16 @@ class User < ActiveRecord::Base
   validates :name,      :presence => true
   validates :identity,  :presence => true,
                         :numericality => {:only_integer => true}
+
+  def admin?
+    self.identity == Setting.users.identity_admin
+  end
+
+  def teacher?
+    self.identity == Setting.users.identity_teacher
+  end
+
+  def student?
+    self.identity == Setting.users.identity_student
+  end
 end

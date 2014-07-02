@@ -18,9 +18,10 @@
     .col-md-3
       %p.form-control-static= @root_group.school
 
-  .form-group
-    .col-md-3.col-md-offset-1
-      = link_to '编辑', edit_group_path(@root_group), :class=>"btn btn-default"
+  - if can? :update, @root_group
+    .form-group
+      .col-md-3.col-md-offset-1
+        = link_to '编辑', edit_group_path(@root_group), :class=>"btn btn-default"
 
 %br
 %br
@@ -41,7 +42,8 @@
     %th 名词
     %th 学校
     %th 院系
-    %th 操作
+    - if can? :update, Group or can? :destory, Group
+      %th 操作
 
   - @child_groups.each do |group|
     %tr
@@ -49,8 +51,10 @@
       %td= group.university
       %td= group.school
       %td
-        = link_to '编辑', edit_group_path(group)
-        = link_to '删除', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - if can? :update, group
+          = link_to '编辑', edit_group_path(group)
+        - if can? :destory, group
+          = link_to '删除', group, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 = link_to '新建小组', new_group_path, :class=>"btn btn-default"
 
