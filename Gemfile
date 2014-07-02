@@ -61,3 +61,5 @@ gem 'bootstrap-datepicker-rails'
 
 gem 'rails_kindeditor'
 
+gem 'client_side_validations'
+
