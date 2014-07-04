@@ -17,5 +17,19 @@
 require 'spec_helper'
 
 describe Group do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is valid with name" do
+    group = build(:group)
+    expect(group).to be_valid
+  end
+
+  it "is invalid without name" do
+    group = build(:group, name: nil)
+    expect(group).to have(1).errors_on(:name)
+  end
+
+  it "is invalid with a duplicate name" do
+    create(:group, name: "aliyun")
+    group = build(:group, name: "aliyun")
+    expect(group).to have(1).errors_on(:name)
+  end
 end

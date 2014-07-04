@@ -7,11 +7,14 @@ gem 'rails', '3.2.18'
 
 group :development, :test do
   gem 'sqlite3'
+
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'faker'
   gem 'capybara'
-  #gem 'database_cleaner'
-  #gem 'factory_girl_rails'
-  #gem 'faker'
+  gem 'database_cleaner'
+  #gem 'launchy'
+  #gem 'selenium-webdriver'
   #gem 'simplecov'
 
   gem 'pry-rails'

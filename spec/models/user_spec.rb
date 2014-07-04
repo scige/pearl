@@ -25,5 +25,64 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is valid with email, password, name and identity" do
+    user = build(:user_student)
+    expect(user).to be_valid
+  end
+
+  it "is invalid without email" do
+    user = build(:user_student, email: nil)
+    expect(user).to have(1).errors_on(:email)
+  end
+
+  it "is invalid without password" do
+    user = build(:user_student, password: nil)
+    expect(user).to have(1).errors_on(:password)
+  end
+
+  it "is invalid without name" do
+    user = build(:user_student, name: nil)
+    expect(user).to have(1).errors_on(:name)
+  end
+
+  it "is invalid without identity" do
+    user = build(:user_student, identity: nil)
+    expect(user).to have(2).errors_on(:identity)
+  end
+
+  it "is invalid with a duplicate email" do
+    group = create(:group)
+    create(:user_student, email: "mayun@163.com", group: group)
+    user = build(:user_student, email: "mayun@163.com", group: group)
+    expect(user).to have(1).errors_on(:email)
+  end
+
+  it "is valid with a duplicate name" do
+    group = create(:group)
+    create(:user_student, email: "mayun@163.com", name: "mayun", group: group)
+    user = build(:user_student, email: "mayun@sohu.com", name: "mayun", group: group)
+    expect(user).to be_valid
+  end
+
+  it "is invalid when the identity is not integer" do
+    user = build(:user_student, identity: "student")
+    expect(user).to have(1).errors_on(:identity)
+  end
+
+  describe "check admin role" do
+    it "is admin when the identity is admin" do
+      user = build(:user_admin)
+      expect(user.admin?).to eq(true)
+    end
+
+    it "is not admin when the identity is teacher" do
+      user = build(:user_teacher)
+      expect(user.admin?).to eq(false)
+    end
+
+    it "is not admin when the identity is student" do
+      user = build(:user_student)
+      expect(user.admin?).to eq(false)
+    end
+  end
 end
