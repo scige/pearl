@@ -1,5 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
+
+require 'simplecov'      #add by scige
+SimpleCov.start 'rails'  #add by scige
+
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
@@ -39,4 +43,7 @@ RSpec.configure do |config|
 
   # Include Factory Girl syntax to simplify calls to factories, add by scige
   config.include FactoryGirl::Syntax::Methods
+
+  # for devise authenticate, add by scige
+  config.include Devise::TestHelpers, :type => :controller
 end

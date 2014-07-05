@@ -16,8 +16,7 @@ require 'spec_helper'
 
 describe Comment do
   before :each do
-    group = create(:group)
-    @user = create(:user_student, group: group)
+    @user = create(:user_student)
     @daily = create(:daily, user: @user)
   end
 

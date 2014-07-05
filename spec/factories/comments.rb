@@ -11,8 +11,14 @@
 #
 
 FactoryGirl.define do
-  factory :comment do
+  factory :comment, class: Comment do
     content       "ding"
+    association   :daily
+    association   :user, factory: :user_student
+  end
+
+  factory :comment_teacher, class: Comment do
+    content       "good"
     association   :daily
     association   :user, factory: :user_student
   end

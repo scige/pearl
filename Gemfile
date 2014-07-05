@@ -13,9 +13,9 @@ group :development, :test do
   gem 'faker'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'simplecov'
   #gem 'launchy'
   #gem 'selenium-webdriver'
-  #gem 'simplecov'
 
   gem 'pry-rails'
   gem 'pry-debugger'

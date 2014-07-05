@@ -50,4 +50,14 @@ FactoryGirl.define do
     grade         2013
     association   :group
   end
+
+  factory :user_student_2, class: User do
+    email         "wang@163.com"
+    password      "123ert678"
+    name          "wang"
+    identity      Setting.users.identity_student
+    phone         13777777777
+    grade         2012
+    association   :group
+  end
 end

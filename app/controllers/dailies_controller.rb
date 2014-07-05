@@ -54,7 +54,7 @@ class DailiesController < ApplicationController
       history.save
       redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     else
-      render action: "new"
+      redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     end
   end
 
@@ -68,7 +68,9 @@ class DailiesController < ApplicationController
       history.save
       redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     else
-      render action: "edit"
+      #如果update_attributes失败，@daily的内容也已经被修改了，只是存入数据时会失败  [important!]
+      @daily.reload    #重新载入数据库的原始数据
+      redirect_to "/dailies/my/#{@daily.date.strftime("%Y-%m-%d")}"
     end
   end
 
