@@ -165,4 +165,12 @@ describe DailiesController do
     end
   end
 
+  describe "Get #group" do
+    pending "add some examples to (or delete) #{__FILE__}"
+  end
+
+  describe "Get #subgroup" do
+    pending "add some examples to (or delete) #{__FILE__}"
+  end
+
 end

@@ -26,7 +26,7 @@ FactoryGirl.define do
   factory :user_admin, class: User do
     email         "pan@163.com"
     password      "123ert678"
-    name          ""
+    name          "pan"
     identity      Setting.users.identity_admin
     phone         13888888888
     association   :group

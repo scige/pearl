@@ -44,6 +44,9 @@ RSpec.configure do |config|
   # Include Factory Girl syntax to simplify calls to factories, add by scige
   config.include FactoryGirl::Syntax::Methods
 
-  # for devise authenticate, add by scige
+  # For devise authenticate, add by scige
   config.include Devise::TestHelpers, :type => :controller
+
+  # Include macros, add by scige
+  config.include LoginMacros
 end
