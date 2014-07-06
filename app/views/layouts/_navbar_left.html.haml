@@ -1,14 +1,44 @@
 %ul.nav.nav-sidebar
-  %li{:class => (controller_name=="home"?"active":nil)}= link_to "动态", root_path
-  %li{:class => (controller_name=="dailies"?"active":nil)}= link_to "日报", "/dailies/my/#{Time.now.strftime("%Y-%m-%d")}"
-  %li{:class => (controller_name=="plans"?"active":nil)}= link_to "计划", plans_path
-  %li{:class => (controller_name=="theses"?"active":nil)}= link_to "科研", theses_my_path
+  %li{:class => (controller_name=="home"?"active":nil)}
+    %a{:href=>root_path}
+      %span.glyphicon.glyphicon-comment
+      动态
+  %li{:class => (controller_name=="dailies"?"active":nil)}
+    %a{:href=>"/dailies/my/#{Time.now.strftime("%Y-%m-%d")}"}
+      %span.glyphicon.glyphicon-pencil
+      日报
+  %li{:class => (controller_name=="plans"?"active":nil)}
+    %a{:href=>plans_path}
+      %span.glyphicon.glyphicon-tasks
+      计划
+  %li{:class => (controller_name=="theses"?"active":nil)}
+    %a{:href=>theses_my_path}
+      %span.glyphicon.glyphicon-book
+      科研
 %ul.nav.nav-sidebar
-  %li{:class => (controller_name=="projects"?"active":nil)}= link_to "项目", projects_path
-  %li{:class => (controller_name=="papers"?"active":nil)}= link_to "论文", papers_path
-  %li{:class => (controller_name=="patents"?"active":nil)}= link_to "专利", patents_path
+  %li{:class => (controller_name=="projects"?"active":nil)}
+    %a{:href=>projects_path}
+      %span.glyphicon.glyphicon-calendar
+      项目
+  %li{:class => (controller_name=="papers"?"active":nil)}
+    %a{:href=>papers_path}
+      %span.glyphicon.glyphicon-list-alt
+      论文
+  %li{:class => (controller_name=="patents"?"active":nil)}
+    %a{:href=>patents_path}
+      %span.glyphicon.glyphicon-star
+      专利
 %ul.nav.nav-sidebar
-  %li{:class => (controller_name=="users"?"active":nil)}= link_to "成员", users_path
-  %li{:class => (controller_name=="groups"?"active":nil)}= link_to "团队", groups_path
-  %li= link_to "资源", "#"
+  %li{:class => (controller_name=="users"?"active":nil)}
+    %a{:href=>users_path}
+      %span.glyphicon.glyphicon-user
+      成员
+  %li{:class => (controller_name=="groups"?"active":nil)}
+    %a{:href=>groups_path}
+      %span.glyphicon.glyphicon-thumbs-up
+      团队
+  %li
+    %a{:href=>"#"}
+      %span.glyphicon.glyphicon-file
+      资源
 

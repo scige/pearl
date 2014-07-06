@@ -65,7 +65,7 @@ body {
   background-color: #428bca;
 }
 .sidebar > .nav > li > a {
-  padding: 10px 30px !important;
+  padding: 10px 25px !important;
 }
 
 
@@ -131,5 +131,16 @@ body {
 }
 .footer-links li:first-child {
   padding-left: 0;
+}
+
+
+/*
+ * Logo
+ */
+#logo {
+  padding-top: 15px;
+  color: #eee;
+  font-size: 1.7em;
+  font-weight: bold;
 }
 
