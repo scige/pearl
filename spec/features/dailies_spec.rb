@@ -53,20 +53,24 @@ feature "Write Dailies" do
       user = create(:user_student)
       login(user)
 
-      visit root_path
-      within ".sidebar" do
-        click_link '日报'
-      end
+      expect{
+        visit root_path
+        within ".sidebar" do
+          click_link '日报'
+        end
 
-      fill_in 'daily_content', :with=>"holiday!"
-      click_button '发布'
+        fill_in 'daily_content', :with=>"holiday!"
+        click_button '发布'
+      }.to change(Daily, :count).by(1)
 
       expect(page).to have_content("按时提交")
       expect(page).to have_content("holiday!")
       expect(page).to have_button("修改")
 
-      fill_in 'daily_content', :with=>"work day"
-      click_button '修改'
+      expect{
+        fill_in 'daily_content', :with=>"work day"
+        click_button '修改'
+      }.not_to change(Daily, :count)
 
       expect(page).to have_content("work day")
     end
@@ -77,10 +81,12 @@ feature "Write Dailies" do
       user = create(:user_student)
       login(user)
 
-      visit "/dailies/my/2014-07-05"
+      expect{
+        visit "/dailies/my/2014-07-05"
 
-      fill_in 'daily_content', :with=>"holiday!"
-      click_button '发布'
+        fill_in 'daily_content', :with=>"holiday!"
+        click_button '发布'
+      }.to change(Daily, :count).by(1)
 
       expect(page).to have_content("逾期提交")
       expect(page).to have_content("holiday!")
@@ -93,10 +99,12 @@ feature "Write Dailies" do
       user = create(:user_student)
       login(user)
 
-      visit "/dailies/my/#{(Time.now+1.day).strftime("%Y-%m-%d")}"
+      expect{
+        visit "/dailies/my/#{(Time.now+1.day).strftime("%Y-%m-%d")}"
 
-      fill_in 'daily_content', :with=>"holiday!"
-      click_button '发布'
+        fill_in 'daily_content', :with=>"holiday!"
+        click_button '发布'
+      }.not_to change(Daily, :count)
 
       expect(page).to have_content("未提交")
       expect(page).not_to have_content("holiday!")

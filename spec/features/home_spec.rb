@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-feature "Visit homepage" do
+feature "Visit Homepage" do
 
   feature "normal elements in view" do
     scenario "user not sign_in" do
