@@ -42,7 +42,6 @@ class ProjectsController < ApplicationController
 
   def show
     @object = Project.find(params[:id])
-    @users = get_my_group_users
     @documents = @object.documents
   end
 

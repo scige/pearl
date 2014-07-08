@@ -156,10 +156,8 @@ describe DailiesController do
       end
 
       it "redirects to dailies/my/#{Time.now.strftime("%Y-%m-%d")}" do
-        puts @daily.date
         put :update, :id=>@daily, :daily=>attributes_for(:daily, :content=>nil, :date=>"2014-07-01".to_time)
         @daily.reload
-        puts @daily.date
         expect(response).to redirect_to "/dailies/my/#{Time.now.strftime("%Y-%m-%d")}"
       end
     end

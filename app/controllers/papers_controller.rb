@@ -19,7 +19,6 @@ class PapersController < ApplicationController
 
   def show
     @object = Paper.find(params[:id])
-    @users = get_my_group_users
     @documents = @object.documents
   end
 
