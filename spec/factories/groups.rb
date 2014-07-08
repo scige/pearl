@@ -18,9 +18,15 @@
 
 
 FactoryGirl.define do
-  factory :group do
+  factory :group, class: Group do
     name          "图形所"
     university    "清华大学"
     school        "软件学院"
+  end
+
+  factory :group_2, class: Group do
+    name          "人工智能组"
+    university    "清华大学"
+    school        "自动化系"
   end
 end

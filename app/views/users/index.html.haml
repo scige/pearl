@@ -28,7 +28,7 @@
       %td= user.email
       %td= user.phone
       %td
-        - if can? :update, user
+        - if can? :edit_profile, user
           = link_to '编辑', edit_profile_users_path(:id=>user.id)
         - if can? :destroy, user
           = link_to '删除', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
