@@ -2,45 +2,43 @@
 
 require 'spec_helper'
 
-feature "Theses Management" do
+feature "Projects Management" do
 
-  feature "show all theses in my group" do
+  feature "show all projects in my group" do
     scenario "student login" do
       user = create(:user_student)
       login(user)
 
-      thesis = create(:thesis, :user=>user)
-      thesis2 = create(:thesis_2, :user=>user)
-      thesis3 = create(:thesis_3, :user=>user)
+      project = create(:project, :user=>user)
+      project2 = create(:project_2, :user=>user)
+      project3 = create(:project_3, :user=>user, :status=>Setting.projects.status_finish)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '项目'
       end
 
-      click_link '团队论文'
-
       within ".main" do
-        expect(page).to have_link(thesis.title)
-        expect(page).to have_link(thesis2.title)
-        expect(page).to have_link(thesis3.title)
+        expect(page).to have_link(project.title)
+        expect(page).to have_link(project2.title)
+        expect(page).not_to have_link(project3.title)
       end
     end
   end
 
-  feature "visit a thesis's page" do
+  feature "visit a project's page" do
     scenario "student login" do
       user = create(:user_student)
       login(user)
 
-      thesis = create(:thesis, :user=>user)
+      project = create(:project, :user=>user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '项目'
       end
 
-      click_link thesis.title
+      click_link project.title
 
       within ".main" do
         expect(page).to have_link("主页")
@@ -49,65 +47,65 @@ feature "Theses Management" do
         expect(page).to have_link("任务")
         expect(page).to have_link("回顾")
 
-        expect(page).to have_content(user.name)
-        expect(page).to have_content(thesis.title)
-        expect(page).to have_content(thesis.abstract)
-        expect(page).to have_content(thesis.keywords)
+        expect(page).to have_content(project.user.name)
+        expect(page).to have_content(project.title)
+        expect(page).to have_content(project.source)
 
         expect(page).to have_link("新建文档")
       end
     end
   end
 
-  feature "create a new thesis" do
+  feature "create a new project" do
     scenario "student login" do
       user = create(:user_student)
       login(user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '项目'
       end
 
-      expect(page).to have_content('学位论文管理')
-      expect(page).to have_link('我的论文')
-      expect(page).to have_link('团队论文')
-      expect(page).to have_link('新建论文')
+      expect(page).to have_content('项目管理')
+      expect(page).to have_link('新建项目')
 
-      thesis = build(:thesis, :user=>user)
+      project = build(:project, :user=>user)
       expect{
-        click_link '新建论文'
-        fill_in 'thesis_title', :with=>thesis.title
-        fill_in 'thesis_abstract', :with=>thesis.abstract
-        fill_in 'thesis_keywords', :with=>thesis.keywords
-        select  '开题中', :from=>'thesis_status'
+        click_link '新建项目'
+        fill_in 'project_title', :with=>project.title
+        select  user.name, :from=>'project_user_id'
+        select  '纵向', :from=>'project_category'
+        fill_in 'project_source', :with=>project.source
+        fill_in 'project_begin_at', :with=>project.begin_at
+        fill_in 'project_end_at', :with=>project.end_at
+        select  '申报中', :from=>'project_status'
         click_button '保存'
-      }.to change(Thesis, :count).by(1)
+      }.to change(Project, :count).by(1)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '项目'
       end
 
       within ".main" do
-        expect(page).to have_link(thesis.title)
-        expect(page).to have_link(user.name)
+        expect(page).to have_link(project.title)
+        expect(page).to have_link(project.user.name)
       end
     end
   end
 
-  feature "edit and delete a thesis" do
+  feature "edit and delete a project" do
     scenario "teachers have ability" do
       user = create(:user_teacher)
-      thesis = create(:thesis, :user=>user)
+      project = create(:project, :user=>user)
       login(user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '项目'
       end
 
-      click_link thesis.title
+      click_link project.title
 
       within ".main" do
         expect(page).to have_link("编辑")
@@ -117,15 +115,15 @@ feature "Theses Management" do
 
     scenario "author student has ability" do
       user = create(:user_student)
-      thesis = create(:thesis, :user=>user)
+      project = create(:project, :user=>user)
       login(user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '项目'
       end
 
-      click_link thesis.title
+      click_link project.title
 
       within ".main" do
         expect(page).to have_link("编辑")
@@ -136,22 +134,17 @@ feature "Theses Management" do
     scenario "other students have no ability" do
       group = create(:group)
       user = create(:user_student, :group=>group)
-      thesis = create(:thesis, :user=>user)
+      project = create(:project, :user=>user)
 
       user2 = create(:user_student_2, :group=>group)
       login(user2)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '项目'
       end
 
-      within ".main" do
-        expect(page).not_to have_link(thesis.title)
-      end
-
-      click_link '团队论文'
-      click_link thesis.title
+      click_link project.title
 
       within ".main" do
         expect(page).not_to have_link("编辑")

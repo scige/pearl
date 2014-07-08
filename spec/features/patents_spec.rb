@@ -2,45 +2,43 @@
 
 require 'spec_helper'
 
-feature "Theses Management" do
+feature "Patents Management" do
 
-  feature "show all theses in my group" do
+  feature "show all patents in my group" do
     scenario "student login" do
       user = create(:user_student)
       login(user)
 
-      thesis = create(:thesis, :user=>user)
-      thesis2 = create(:thesis_2, :user=>user)
-      thesis3 = create(:thesis_3, :user=>user)
+      patent = create(:patent, :user=>user)
+      patent2 = create(:patent_2, :user=>user)
+      patent3 = create(:patent_3, :user=>user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '专利'
       end
 
-      click_link '团队论文'
-
       within ".main" do
-        expect(page).to have_link(thesis.title)
-        expect(page).to have_link(thesis2.title)
-        expect(page).to have_link(thesis3.title)
+        expect(page).to have_link(patent.title)
+        expect(page).to have_link(patent2.title)
+        expect(page).to have_link(patent3.title)
       end
     end
   end
 
-  feature "visit a thesis's page" do
+  feature "visit a patent's page" do
     scenario "student login" do
       user = create(:user_student)
       login(user)
 
-      thesis = create(:thesis, :user=>user)
+      patent = create(:patent, :user=>user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '专利'
       end
 
-      click_link thesis.title
+      click_link patent.title
 
       within ".main" do
         expect(page).to have_link("主页")
@@ -49,65 +47,62 @@ feature "Theses Management" do
         expect(page).to have_link("任务")
         expect(page).to have_link("回顾")
 
-        expect(page).to have_content(user.name)
-        expect(page).to have_content(thesis.title)
-        expect(page).to have_content(thesis.abstract)
-        expect(page).to have_content(thesis.keywords)
+        expect(page).to have_content(patent.user.name)
+        expect(page).to have_content(patent.title)
+        expect(page).to have_content(patent.agency)
 
         expect(page).to have_link("新建文档")
       end
     end
   end
 
-  feature "create a new thesis" do
+  feature "create a new patent" do
     scenario "student login" do
       user = create(:user_student)
       login(user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '专利'
       end
 
-      expect(page).to have_content('学位论文管理')
-      expect(page).to have_link('我的论文')
-      expect(page).to have_link('团队论文')
-      expect(page).to have_link('新建论文')
+      expect(page).to have_content('专利管理')
+      expect(page).to have_link('新建专利')
 
-      thesis = build(:thesis, :user=>user)
+      patent = build(:patent, :user=>user)
       expect{
-        click_link '新建论文'
-        fill_in 'thesis_title', :with=>thesis.title
-        fill_in 'thesis_abstract', :with=>thesis.abstract
-        fill_in 'thesis_keywords', :with=>thesis.keywords
-        select  '开题中', :from=>'thesis_status'
+        click_link '新建专利'
+        fill_in 'patent_title', :with=>patent.title
+        select  user.name, :from=>'patent_user_id'
+        fill_in 'patent_agency', :with=>patent.agency
+        select  '撰写中', :from=>'patent_status'
         click_button '保存'
-      }.to change(Thesis, :count).by(1)
+      }.to change(Patent, :count).by(1)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '专利'
       end
 
       within ".main" do
-        expect(page).to have_link(thesis.title)
-        expect(page).to have_link(user.name)
+        expect(page).to have_link(patent.title)
+        expect(page).to have_link(patent.user.name)
       end
     end
   end
 
-  feature "edit and delete a thesis" do
+  feature "edit and delete a patent" do
     scenario "teachers have ability" do
       user = create(:user_teacher)
-      thesis = create(:thesis, :user=>user)
+      patent = create(:patent, :user=>user)
       login(user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '专利'
       end
 
-      click_link thesis.title
+      click_link patent.title
 
       within ".main" do
         expect(page).to have_link("编辑")
@@ -117,15 +112,15 @@ feature "Theses Management" do
 
     scenario "author student has ability" do
       user = create(:user_student)
-      thesis = create(:thesis, :user=>user)
+      patent = create(:patent, :user=>user)
       login(user)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '专利'
       end
 
-      click_link thesis.title
+      click_link patent.title
 
       within ".main" do
         expect(page).to have_link("编辑")
@@ -136,22 +131,17 @@ feature "Theses Management" do
     scenario "other students have no ability" do
       group = create(:group)
       user = create(:user_student, :group=>group)
-      thesis = create(:thesis, :user=>user)
+      patent = create(:patent, :user=>user)
 
       user2 = create(:user_student_2, :group=>group)
       login(user2)
 
       visit root_path
       within ".sidebar" do
-        click_link '科研'
+        click_link '专利'
       end
 
-      within ".main" do
-        expect(page).not_to have_link(thesis.title)
-      end
-
-      click_link '团队论文'
-      click_link thesis.title
+      click_link patent.title
 
       within ".main" do
         expect(page).not_to have_link("编辑")

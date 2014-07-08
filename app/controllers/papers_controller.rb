@@ -2,7 +2,7 @@
 
 class PapersController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:create]
 
   def index
     @papers = []
@@ -33,6 +33,8 @@ class PapersController < ApplicationController
     @users = get_my_group_users
   end
 
+  #load_and_authorize_resource会先构造一个paper对象，因为user_id不可以直接赋值，
+  #在构造paper对象时就会出错，解决方案是对create单独做处理
   def create
     user_id = params[:paper].delete(:user_id)
     user = User.find(user_id)
@@ -49,6 +51,8 @@ class PapersController < ApplicationController
       flash[:error] = "输入内容缺失或存在错误，新建论文失败！"
       redirect_to new_paper_url
     end
+
+    authorize! :create, @paper
   end
 
   def update

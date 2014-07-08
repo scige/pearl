@@ -2,7 +2,7 @@
 
 class PatentsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:create]
 
   def index
     @patents = []
@@ -49,6 +49,8 @@ class PatentsController < ApplicationController
       flash[:error] = "输入内容缺失或存在错误，新建专利失败！"
       redirect_to new_patent_url
     end
+
+    authorize! :create, @patent
   end
 
   def update
