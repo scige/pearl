@@ -10,7 +10,7 @@ class ThesesController < ApplicationController
       root_group = get_root_group(current_user)
       all_theses = Thesis.all
       all_theses.each do |thesis|
-        if get_root_group(thesis.user) == root_group
+        if thesis.user and get_root_group(thesis.user) == root_group
           @theses << thesis
         end
       end

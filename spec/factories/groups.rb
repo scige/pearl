@@ -24,6 +24,12 @@ FactoryGirl.define do
     school        "软件学院"
   end
 
+  factory :group_search, class: Group do
+    name          "信息检索组"
+    university    "清华大学"
+    school        "软件学院"
+  end
+
   factory :group_2, class: Group do
     name          "人工智能组"
     university    "清华大学"

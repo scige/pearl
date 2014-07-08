@@ -10,7 +10,7 @@ class PatentsController < ApplicationController
       root_group = get_root_group(current_user)
       all_patents = Patent.all
       all_patents.each do |patent|
-        if get_root_group(patent.user) == root_group
+        if patent.user and get_root_group(patent.user) == root_group
           @patents << patent
         end
       end

@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
       root_group = get_root_group(current_user)
       all_projects = Project.all
       all_projects.each do |project|
-        if get_root_group(project.user) == root_group
+        if project.user and get_root_group(project.user) == root_group
           @projects << project
         end
       end

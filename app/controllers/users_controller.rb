@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if current_user.save
       redirect_to root_url
     else
-      render action: "edit"
+      redirect_to root_url
     end
   end
 
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     if user.update_attributes(params[:user])
       redirect_to users_url
     else
-      render action: "edit"
+      redirect_to users_url
     end
   end
 

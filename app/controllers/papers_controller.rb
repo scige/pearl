@@ -10,7 +10,7 @@ class PapersController < ApplicationController
       root_group = get_root_group(current_user)
       all_papers = Paper.all
       all_papers.each do |paper|
-        if get_root_group(paper.user) == root_group
+        if paper.user and get_root_group(paper.user) == root_group
           @papers << paper
         end
       end
