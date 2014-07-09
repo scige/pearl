@@ -8,7 +8,7 @@ feature "Visit Homepage" do
     scenario "user not sign_in" do
       visit root_path
       within ".navbar" do
-        expect(page).to have_content('科研圈')
+        expect(page).to have_content('知蛛网')
         expect(page).to have_link('注册')
         expect(page).to have_link('登录')
       end
@@ -30,7 +30,7 @@ feature "Visit Homepage" do
 
       #登录后会自动跳转到root_page
       within ".navbar" do
-        expect(page).to have_content('科研圈')
+        expect(page).to have_content('知蛛网')
         expect(page).to have_content('欢迎您')
         expect(page).not_to have_link('注册')
         #expect(page).not_to have_link('登录')
