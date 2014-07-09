@@ -2,22 +2,23 @@
   = @document.content.html_safe
 
 %hr
-- @reviews.each do |review|
-  .row
-    .col-md-12
-      .panel.panel-default
-        .panel-heading
-          .row
-            .col-md-10
-              - @floor += 1
-              = "#{@floor} 楼"
-              = link_to review.user.name, review.user
-              = "#{review.created_at.strftime("%Y-%m-%d %H:%M")} 发表"
-            .col-md-2
-              - if can? :destroy, review
-                = link_to '删除', review, :method => :delete, :data => { :confirm => 'Are you sure?' }
-        .panel-body
-          = review.content
+.comments
+  - @reviews.each do |review|
+    .row
+      .col-md-12
+        .panel.panel-default
+          .panel-heading
+            .row
+              .col-md-10
+                - @floor += 1
+                = "#{@floor} 楼"
+                = link_to review.user.name, review.user
+                = "#{review.created_at.strftime("%Y-%m-%d %H:%M")} 发表"
+              .col-md-2
+                - if can? :destroy, review
+                  = link_to '删除', review, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          .panel-body
+            = review.content
 
 %h5 发表评论
 = form_for @review, :html=>{:class=>"form-horizontal"} do |f|

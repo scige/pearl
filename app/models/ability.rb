@@ -25,7 +25,7 @@ class Ability
       can :subgroup, Daily
 
       #Comment
-      #can :create, Comment    #conflict with f.hidden_field :daily_id
+      can :create, Comment
       can :destroy, Comment
 
       #Plan
@@ -99,7 +99,7 @@ class Ability
       can :destroy, Document
 
       #Review
-      can :create, Review    #conflict with f.hidden_field :document_id
+      can :create, Review
       can :destroy, Review
     end
 
@@ -115,7 +115,7 @@ class Ability
       can :my, Daily
 
       #Comment
-      #can :create, Comment    #conflict with f.hidden_field :daily_id
+      can :create, Comment
       can :destroy, Comment do |comment|
         comment.user_id == user.id
       end
@@ -208,7 +208,7 @@ class Ability
       end
 
       #Review
-      can :create, Review    #conflict with f.hidden_field :document_id
+      can :create, Review
       can :destroy, Review do |review|
         review.user_id == user.id
       end
