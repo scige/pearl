@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
       history.save
       redirect_to @daily
     else
-      render action: "new"
+      redirect_to @daily
     end
   end
 

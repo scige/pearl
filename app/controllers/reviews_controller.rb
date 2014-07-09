@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
         redirect_to root_url
       end
     else
-      render action: "new"
+      redirect_to root_url
     end
   end
 
