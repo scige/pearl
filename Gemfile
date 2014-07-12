@@ -17,6 +17,7 @@ group :development, :test do
   gem 'launchy'
   #gem 'selenium-webdriver'
   gem 'guard-rspec'
+  gem 'guard-spork'
 
   gem 'pry-rails'
   gem 'pry-debugger'
