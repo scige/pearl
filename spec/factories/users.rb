@@ -46,7 +46,7 @@ FactoryGirl.define do
     password      "123ert678"
     name          "zhang"
     identity      Setting.users.identity_student
-    phone         13999999999
+    phone         13666666666
     grade         2013
     association   :group
   end
@@ -56,7 +56,7 @@ FactoryGirl.define do
     password      "123ert678"
     name          "wang"
     identity      Setting.users.identity_student
-    phone         13777777777
+    phone         13666666666
     grade         2012
     association   :group
   end
@@ -66,8 +66,26 @@ FactoryGirl.define do
     password      "123ert678"
     name          "sun"
     identity      Setting.users.identity_student
-    phone         13555555555
+    phone         13666666666
     grade         2013
+    association   :group
+  end
+
+  factory :user_teacher_2, class: User do
+    email         "ding@163.com"
+    password      "123ert678"
+    name          "ding"
+    identity      Setting.users.identity_teacher
+    phone         13666666666
+    association   :group
+  end
+
+  factory :user_teacher_3, class: User do
+    email         "chen@163.com"
+    password      "123ert678"
+    name          "chen"
+    identity      Setting.users.identity_teacher
+    phone         13666666666
     association   :group
   end
 end

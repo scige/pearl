@@ -29,7 +29,33 @@ describe UsersController do
   end
 
   describe "Get #edit_profile" do
-    pending "add some examples to (or delete) #{__FILE__}"
+    context "user belongs to root group" do
+      it "has root group and subgroup" do
+        @group = create(:group)
+        @group_search = create(:group_search, :parent_id=>@group.id)
+        @group_mining = create(:group_mining, :parent_id=>@group.id)
+        @user = create(:user_admin, :group=>@group)
+        sign_in :user, @user
+
+        get :edit_profile, :id=>@user.id
+
+        expect(assigns(:groups)).to match_array([@group, @group_search, @group_mining])
+      end
+    end
+
+    context "user belongs to subgroup" do
+      it "has root group and subgroup" do
+        @group = create(:group)
+        @group_search = create(:group_search, :parent_id=>@group.id)
+        @group_mining = create(:group_mining, :parent_id=>@group.id)
+        @user = create(:user_admin, :group=>@group_search)
+        sign_in :user, @user
+
+        get :edit_profile, :id=>@user.id
+
+        expect(assigns(:groups)).to match_array([@group, @group_search, @group_mining])
+      end
+    end
   end
 
   describe "Post #update_profile" do

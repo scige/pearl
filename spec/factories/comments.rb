@@ -20,6 +20,6 @@ FactoryGirl.define do
   factory :comment_teacher, class: Comment do
     content       "good"
     association   :daily
-    association   :user, factory: :user_student
+    association   :user, factory: :user_teacher
   end
 end

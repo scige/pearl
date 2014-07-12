@@ -117,13 +117,4 @@ feature "Visit Homepage" do
     end
   end
 
-  feature "trends display" do
-    scenario "user not sign_in" do
-      pending "add some examples to (or delete) #{__FILE__}"
-    end
-
-    scenario "user sign_in" do
-      pending "add some examples to (or delete) #{__FILE__}"
-    end
-  end
 end
